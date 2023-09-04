@@ -56,10 +56,11 @@ def createApplication():
     spawnTerminal.write(createBinary())
     spawnTerminal.close()
 
-    os.system("chmod +x ./spawnTerminal.sh; mv ./spawnTerminal.sh /usr/bin/spawnTerminal")
+    os.system("chmod +x ./spawnTerminal.sh; mv ./spawnTerminal.sh ./spawnTerminal")
 
     print("\n[+] ./spawnTerminal has been Created Successfully!")
-    print("\n[*] Run [spawnTerminal help] to see the help menu!\nHave a Good Day! :3")
+    print("\n[*] Run sudo mv to move ./spawnTerminal to /usr/bin or /usr/local/bin\nTo allow access to this binary from anywhere!")
+    print("\n[*] Run [spawnTerminal help] or [./spawnTerminal help] to see the help menu!\nHave a Good Day! :3")
 
 def main():
     print("[*] Building spawnTerminal Binary\n")
