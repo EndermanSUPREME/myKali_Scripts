@@ -28,17 +28,17 @@ function showUsage {
 }
 
 if [ "$#" -lt 1 ]; then
-    exec qterminal & #the & allows the app to open as its own process
+    exec qterminal 2>/dev/null & #the & allows the app to open as its own process
     exit
 elif [ "$#" == 1 ]; then
     if [ "$1" == "help" ]; then
         showUsage
     elif [ "$1" == "shell" ]; then
-        exec qterminal -w {0} &
+        exec qterminal -w {0} 2>/dev/null &
     elif [ "$1" == "priv" ]; then
-        exec qterminal -w {1} &
+        exec qterminal -w {1} 2>/dev/null &
     elif [ "$1" == "chisel" ]; then
-        exec qterminal -w {2} &
+        exec qterminal -w {2} 2>/dev/null &
     else
         echo "Invalid Type!"
         showUsage
