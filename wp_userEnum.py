@@ -2,6 +2,8 @@
 # Written 9/28/2023
 # Built for attempting the HTB Fortress Akerva
 
+# WARNING :: This is not a super-effecient script!!!
+
 import os, sys, requests, threading, time
 
 try:
