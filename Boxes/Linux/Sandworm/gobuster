@@ -1,0 +1,9 @@
+/about               [32m (Status: 200)[0m [Size: 5584]
+/admin               [36m (Status: 302)[0m [Size: 227][34m [--> /login?next=%2Fadmin][0m
+/contact             [32m (Status: 200)[0m [Size: 3543]
+/guide               [32m (Status: 200)[0m [Size: 9043]
+/login               [32m (Status: 200)[0m [Size: 4392]
+/logout              [36m (Status: 302)[0m [Size: 229][34m [--> /login?next=%2Flogout][0m
+/pgp                 [32m (Status: 200)[0m [Size: 3187]
+/process             [33m (Status: 405)[0m [Size: 153]
+/view                [36m (Status: 302)[0m [Size: 225][34m [--> /login?next=%2Fview][0m

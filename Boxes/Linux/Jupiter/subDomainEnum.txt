@@ -1,0 +1,11 @@
+Target: http://jupiter.htb/
+Total requests: 114441
+==================================================================
+ID    Response   Lines      Word         Chars          Request    
+==================================================================
+01955:  C=200    211 L	     798 W	  34390 Ch	  "kiosk"
+
+Total time: 0
+Processed Requests: 114441
+Filtered Requests: 114440
+Requests/sec.: 0

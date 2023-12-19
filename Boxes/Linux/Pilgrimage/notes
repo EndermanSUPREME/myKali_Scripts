@@ -1,0 +1,45 @@
+nmap shows just ports 22 & 80
+
+gobuster showed a .git directory -> dump using ` git-dumper "http://pilgrimage.htb/.git/" ./website `
+
+Looking at the source code, there is a vulnerabilty within the magick program.
+┌──(ender㉿UnDefineCS)-[~/Documents/LinuxMachines/Pilgrimage/website]
+└─$ ./magick -version
+Version: ImageMagick 7.1.0-49 -> https://github.com/voidz0r/CVE-2022-44268
+
+Since we have a file read ability, we can gather a list of areas to try enumerating from the source code:
+	cat *.php | grep -i "/var" -> /var/db/pilgrimage the file type is unknown, but it never hurts to try
+	
+the python script we made if we use any byte decoding to try outputting readable text, the string becomes
+corrupted
+
+To get an accurate reading, we need to use cyber chefs FromHex module [REMOVE A LOT OF THE 0's BEFORE CYBER_CHEF]
+
+emilyabigchonkyboi123 { -> variation
+emily:abigchonkyboi123 =====> SSH Cred
+}
+
+======================================================
+
+pspy64 shows root running : /bin/bash /usr/sbin/malwarescan.sh {
+
+#!/bin/bash
+
+blacklist=("Executable script" "Microsoft executable")
+
+/usr/bin/inotifywait -m -e create /var/www/pilgrimage.htb/shrunk/ | while read FILE; do
+        filename="/var/www/pilgrimage.htb/shrunk/$(/usr/bin/echo "$FILE" | /usr/bin/tail -n 1 | /usr/bin/sed -n -e 's/^.*CREATE //p')"
+        binout="$(/usr/local/bin/binwalk -e "$filename")"
+        for banned in "${blacklist[@]}"; do
+                if [[ "$binout" == *"$banned"* ]]; then
+                        /usr/bin/rm "$filename"
+                        break
+                fi
+        done
+done
+
+}
+
+binwalk has a python cve for rigging a png to act as a exec point to get us a root shell
+
+root:4c1695294e5f5850e272335fe24bb59e

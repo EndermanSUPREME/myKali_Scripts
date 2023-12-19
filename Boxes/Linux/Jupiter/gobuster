@@ -1,0 +1,6 @@
+/.htpasswd           [33m (Status: 403)[0m [Size: 162]
+/.htaccess           [33m (Status: 403)[0m [Size: 162]
+/css                 [36m (Status: 301)[0m [Size: 178][34m [--> http://jupiter.htb/css/][0m
+/fonts               [36m (Status: 301)[0m [Size: 178][34m [--> http://jupiter.htb/fonts/][0m
+/img                 [36m (Status: 301)[0m [Size: 178][34m [--> http://jupiter.htb/img/][0m
+/js                  [36m (Status: 301)[0m [Size: 178][34m [--> http://jupiter.htb/js/][0m

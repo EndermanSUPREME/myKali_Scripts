@@ -1,0 +1,18 @@
+/.htaccess           [33m (Status: 403)[0m [Size: 280]
+/.htpasswd           [33m (Status: 403)[0m [Size: 280]
+/.htpasswd.php       [33m (Status: 403)[0m [Size: 280]
+/.htaccess.php       [33m (Status: 403)[0m [Size: 280]
+/activate.php        [32m (Status: 200)[0m [Size: 1256]
+/comment.php         [36m (Status: 302)[0m [Size: 13][34m [--> /login.php][0m
+/exercise.php        [32m (Status: 200)[0m [Size: 1322]
+/images              [36m (Status: 301)[0m [Size: 319][34m [--> https://broscience.htb/images/][0m
+/includes            [36m (Status: 301)[0m [Size: 321][34m [--> https://broscience.htb/includes/][0m
+/index.php           [32m (Status: 200)[0m [Size: 9308]
+/javascript          [36m (Status: 301)[0m [Size: 323][34m [--> https://broscience.htb/javascript/][0m
+/login.php           [32m (Status: 200)[0m [Size: 1936]
+/logout.php          [36m (Status: 302)[0m [Size: 0][34m [--> /index.php][0m
+/manual              [36m (Status: 301)[0m [Size: 319][34m [--> https://broscience.htb/manual/][0m
+/register.php        [32m (Status: 200)[0m [Size: 2161]
+/server-status       [33m (Status: 403)[0m [Size: 280]
+/styles              [36m (Status: 301)[0m [Size: 319][34m [--> https://broscience.htb/styles/][0m
+/user.php            [32m (Status: 200)[0m [Size: 1309]

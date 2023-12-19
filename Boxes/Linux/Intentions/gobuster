@@ -1,0 +1,27 @@
+/.web                [33m (Status: 403)[0m [Size: 162]
+/.bash_history       [33m (Status: 403)[0m [Size: 162]
+/.bashrc             [33m (Status: 403)[0m [Size: 162]
+/.cvs                [33m (Status: 403)[0m [Size: 162]
+/.cvsignore          [33m (Status: 403)[0m [Size: 162]
+/.perf               [33m (Status: 403)[0m [Size: 162]
+/.htaccess           [33m (Status: 403)[0m [Size: 162]
+/.profile            [33m (Status: 403)[0m [Size: 162]
+/.history            [33m (Status: 403)[0m [Size: 162]
+/.git                [33m (Status: 403)[0m [Size: 162]
+/.forward            [33m (Status: 403)[0m [Size: 162]
+/.ssh                [33m (Status: 403)[0m [Size: 162]
+/.svn                [33m (Status: 403)[0m [Size: 162]
+/.rhosts             [33m (Status: 403)[0m [Size: 162]
+/.listing            [33m (Status: 403)[0m [Size: 162]
+/.passwd             [33m (Status: 403)[0m [Size: 162]
+/.htpasswd           [33m (Status: 403)[0m [Size: 162]
+/.subversion         [33m (Status: 403)[0m [Size: 162]
+/admin               [36m (Status: 302)[0m [Size: 322][34m [--> http://10.10.11.220][0m
+/css                 [36m (Status: 301)[0m [Size: 178][34m [--> http://10.10.11.220/css/][0m
+/favicon.ico         [32m (Status: 200)[0m [Size: 0]
+/fonts               [36m (Status: 301)[0m [Size: 178][34m [--> http://10.10.11.220/fonts/][0m
+/gallery             [36m (Status: 302)[0m [Size: 322][34m [--> http://10.10.11.220][0m
+/js                  [36m (Status: 301)[0m [Size: 178][34m [--> http://10.10.11.220/js/][0m
+/logout              [36m (Status: 302)[0m [Size: 322][34m [--> http://10.10.11.220][0m
+/robots.txt          [32m (Status: 200)[0m [Size: 24]
+/storage             [36m (Status: 301)[0m [Size: 178][34m [--> http://10.10.11.220/storage/][0m

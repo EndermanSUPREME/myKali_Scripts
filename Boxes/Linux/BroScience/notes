@@ -1,0 +1,84 @@
+The /user.php?id=* is injectable from 1-5
+The /exercise.php?id=* is injectable
+
+/includes/
+
+Error: error on running gobuster: unable to connect to https://broscience.htb/: invalid certificate: x509: certificate relies on legacy Common Name field, use SANs instead
+
+use the -k to disable that certificate req
+
+https://broscience.htb/login.php
+username, password
+
+Inside the index.php they output the images on the site using a php script
+
+https://broscience.htb/includes/img.php?path=*
+inside the path we can inject LFI to get files
+
+Error: Attack detected. -> was outputted on the LFI attempt
+this is an indication of a PHP Filter
+
+If urlencode doesnt work try to encode once more!
+
+The image “https://broscience.htb/includes/img.php?path=..%252F..%252F..%252F..%252Fetc%252Fpasswd” cannot be displayed because it contains errors.
+
+This means the LFI was a success, so we just need to perform a curl to get the etc/passwd file
+
+curl https://broscience.htb/includes/img.php?path=..%252F..%252F..%252F..%252Fetc%252Fpasswd -k => this is to get a curl req of said file without dealing with whacky errors
+
+bill is a user on the box, yet hes not admin of the website; very ODD
+
+bill:RangeOfMotion%777 [Maybe SSH] -> FALSE
+
+====================================
+Doing a bunch of curls we can see one of the php files
+shows how they produce the activation code to login as a new user
+
+todo:make an account -> get timestamp of the postreq -> convert timestamp into string of numbers -> modify own instance of the utils.php to output the cookie onto the screen -> /activate.php?code=<output> -> LOGIN!!!
+
+================
+Inside the same php file, they talk about an avatar php object,
+there is a section where it says a file can be made and the contents of said file can be set -> meaning we can attempt something called PHP_Object_Injection
+
+Basically we get the avatar to build possibly after being logged in,
+and route the contents to the fileContents of a php_reverse_shell script on
+our box using a python3 http:server
+=========
+Once the rev script is on the site, we can simply trigger it and gain a
+shell against the machine
+
+==================================
+php -f file.php
+02:28:30 GMT -> 1674545310 (unix time for php)
+
+=============== PHP Object Injection =================
+PHP Object Injection can be done when PHP code uses __wakeup() or other php magic methods : In this boxes case the cookie on the user is unserialized and decoded from b64 -> meaning we can build our own avatarInterface that when the cookie is called, will create a shell script on the target that we can access!
+
+
+============= AFTER SHELL ================
+We have DB Creds, somewhere on the machine theres a sql service or server
+We need to find the server and use the creds in the dbConnect.php file to
+possibly locate SSH Creds to gain user on the box
+
+NOTE => TCP port 5432 is used by the PostgreSQL Database Server (pSQL)
+
+psql -h localhost -d broscience -U dbuser -W
+RangeOfMotion%777
+
+\q to quit
+
+/dt shows a users table
+to see contents in psql -> select * from users;
+
+bill:13edad4932da9dbb57d9cd15b66ed104 -> $POST
+
+in register.php the passwords are MD5 hashed so we need to crack this
+md5($db_salt . $_POST['password']
+
+Special MD5 Method using salt
+hashcat 20 md5($salt.$pass) -> 13edad4932da9dbb57d9cd15b66ed104:NaCl
+
+hashcat -m 20 -a 0 '13edad4932da9dbb57d9cd15b66ed104:NaCl' /usr/share/wordlists/rockyou.txt.gz --show
+outputs the cracked hash password & uses a regular attack method
+
+bill:iluvhorsesandgym -> ssh creds

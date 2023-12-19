@@ -1,0 +1,10 @@
+# Nmap 7.93 scan initiated Tue May 16 21:33:04 2023 as: nmap -sS -p- -oN allPorts 10.129.225.59
+Nmap scan report for app.microblog.htb (10.129.225.59)
+Host is up (0.045s latency).
+Not shown: 65532 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+3000/tcp open  ppp
+
+# Nmap done at Tue May 16 21:33:34 2023 -- 1 IP address (1 host up) scanned in 29.38 seconds

@@ -1,0 +1,19 @@
+
+; <<>> DiG 9.18.16-1-Debian <<>> axfr snoopy.htb @10.10.11.212
+;; global options: +cmd
+snoopy.htb.		86400	IN	SOA	ns1.snoopy.htb. ns2.snoopy.htb. 2022032612 3600 1800 604800 86400
+snoopy.htb.		86400	IN	NS	ns1.snoopy.htb.
+snoopy.htb.		86400	IN	NS	ns2.snoopy.htb.
+mattermost.snoopy.htb.	86400	IN	A	172.18.0.3
+mm.snoopy.htb.		86400	IN	A	127.0.0.1
+ns1.snoopy.htb.		86400	IN	A	10.0.50.10
+ns2.snoopy.htb.		86400	IN	A	10.0.51.10
+postgres.snoopy.htb.	86400	IN	A	172.18.0.2
+provisions.snoopy.htb.	86400	IN	A	172.18.0.4
+www.snoopy.htb.		86400	IN	A	127.0.0.1
+snoopy.htb.		86400	IN	SOA	ns1.snoopy.htb. ns2.snoopy.htb. 2022032612 3600 1800 604800 86400
+;; Query time: 35 msec
+;; SERVER: 10.10.11.212#53(10.10.11.212) (TCP)
+;; WHEN: Sun Jul 16 14:40:52 EDT 2023
+;; XFR size: 11 records (messages 1, bytes 325)
+

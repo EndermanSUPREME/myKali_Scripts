@@ -1,0 +1,12 @@
+# Nmap 7.94 scan initiated Sat Aug 12 00:44:24 2023 as: nmap -sS -p- -oN allPorts gofer.htb
+Nmap scan report for gofer.htb (10.10.11.225)
+Host is up (0.051s latency).
+Not shown: 65530 closed tcp ports (reset)
+PORT    STATE    SERVICE
+22/tcp  open     ssh
+25/tcp  filtered smtp
+80/tcp  open     http
+139/tcp open     netbios-ssn
+445/tcp open     microsoft-ds
+
+# Nmap done at Sat Aug 12 00:44:51 2023 -- 1 IP address (1 host up) scanned in 27.13 seconds

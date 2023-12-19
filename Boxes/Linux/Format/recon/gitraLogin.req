@@ -1,0 +1,14 @@
+POST /user/login HTTP/1.1
+Host: microblog.htb:3000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 91
+Origin: null
+Connection: close
+Cookie: username=kv5tamkvbeiop2hn0nnm49tqll; i_like_gitea=19ef1276414b38c3; _csrf=CvSKyzzCQpNftzKELFqEj1uBK1Y6MTY4NDEwOTUxNjExMzI0MjgwNQ; redirect_to=%2Fcooper%2Fmicroblog%2Fsrc%2Fbranch%2Fmain%2Fmicroblog%2Fapp%2Flogin%2Findex.php
+Upgrade-Insecure-Requests: 1
+
+_csrf=CvSKyzzCQpNftzKELFqEj1uBK1Y6MTY4NDEwOTUxNjExMzI0MjgwNQ&user_name=cooper&password=admin

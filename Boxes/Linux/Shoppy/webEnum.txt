@@ -1,0 +1,11 @@
+Target: http://shoppy.htb/
+Total requests: 1
+==================================================================
+ID    Response   Lines      Word         Chars          Request    
+==================================================================
+00001:  C=200      0 L	     141 W	   3122 Ch	  "mattermost"
+
+Total time: 0
+Processed Requests: 1
+Filtered Requests: 0
+Requests/sec.: 0

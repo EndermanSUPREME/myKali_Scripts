@@ -1,0 +1,16 @@
+POST /invoke/SimpleApp.getInfo HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+x-grpcui-csrf-token: jTMMflez57AvPdkK36h6j4G2hWH3oDVhnDKAArg9ZPI
+X-Requested-With: XMLHttpRequest
+Content-Length: 193
+Origin: http://localhost
+Connection: close
+Referer: http://localhost/
+Cookie: lang=en-US; _grpcui_csrf_token=jTMMflez57AvPdkK36h6j4G2hWH3oDVhnDKAArg9ZPI
+
+{"metadata":[{"name":"token","value":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYWRtaW4iLCJleHAiOjE2ODY1NDc1NTR9.nQHTRqC3_9lEi_FyuGRStkXum96a5GbCTn0RTab4Q3s"}],"data":[{"id":"1"}]}

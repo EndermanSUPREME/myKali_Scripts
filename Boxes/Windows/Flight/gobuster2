@@ -1,0 +1,22 @@
+/.htaccess           [33m (Status: 403)[0m [Size: 306]
+/.htpasswd           [33m (Status: 403)[0m [Size: 306]
+/Images              [36m (Status: 301)[0m [Size: 347][34m [--> http://school.flight.htb/Images/][0m
+/aux                 [33m (Status: 403)[0m [Size: 306]
+/cgi-bin/            [33m (Status: 403)[0m [Size: 306]
+/com1                [33m (Status: 403)[0m [Size: 306]
+/com2                [33m (Status: 403)[0m [Size: 306]
+/com3                [33m (Status: 403)[0m [Size: 306]
+/com4                [33m (Status: 403)[0m [Size: 306]
+/con                 [33m (Status: 403)[0m [Size: 306]
+/examples            [31m (Status: 503)[0m [Size: 406]
+/images              [36m (Status: 301)[0m [Size: 347][34m [--> http://school.flight.htb/images/][0m
+/licenses            [33m (Status: 403)[0m [Size: 425]
+/lpt1                [33m (Status: 403)[0m [Size: 306]
+/lpt2                [33m (Status: 403)[0m [Size: 306]
+/nul                 [33m (Status: 403)[0m [Size: 306]
+/phpmyadmin          [33m (Status: 403)[0m [Size: 425]
+/prn                 [33m (Status: 403)[0m [Size: 306]
+/server-info         [33m (Status: 403)[0m [Size: 425]
+/server-status       [33m (Status: 403)[0m [Size: 425]
+/styles              [36m (Status: 301)[0m [Size: 347][34m [--> http://school.flight.htb/styles/][0m
+/webalizer           [33m (Status: 403)[0m [Size: 425]

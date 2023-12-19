@@ -1,0 +1,6 @@
+/.git                [36m (Status: 301)[0m [Size: 169][34m [--> http://pilgrimage.htb/.git/][0m
+/.htpasswd           [33m (Status: 403)[0m [Size: 153]
+/.htaccess           [33m (Status: 403)[0m [Size: 153]
+/assets              [36m (Status: 301)[0m [Size: 169][34m [--> http://pilgrimage.htb/assets/][0m
+/tmp                 [36m (Status: 301)[0m [Size: 169][34m [--> http://pilgrimage.htb/tmp/][0m
+/vendor              [36m (Status: 301)[0m [Size: 169][34m [--> http://pilgrimage.htb/vendor/][0m

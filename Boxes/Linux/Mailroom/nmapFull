@@ -1,0 +1,37 @@
+# Nmap 7.94 scan initiated Fri Jul 14 21:33:14 2023 as: nmap -sS -sC -sV -A -oN nmapFull 10.10.11.209
+Nmap scan report for mailroom.htb (10.10.11.209)
+Host is up (0.042s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 94:bb:2f:fc:ae:b9:b1:82:af:d7:89:81:1a:a7:6c:e5 (RSA)
+|   256 82:1b:eb:75:8b:96:30:cf:94:6e:79:57:d9:dd:ec:a7 (ECDSA)
+|_  256 19:fb:45:fe:b9:e4:27:5d:e5:bb:f3:54:97:dd:68:cf (ED25519)
+80/tcp open  http    Apache httpd 2.4.54 ((Debian))
+|_http-title: The Mail Room
+|_http-server-header: Apache/2.4.54 (Debian)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94%E=4%D=7/14%OT=22%CT=1%CU=30332%PV=Y%DS=2%DC=T%G=Y%TM=64B1F76
+OS:F%P=x86_64-pc-linux-gnu)SEQ(SP=101%GCD=1%ISR=102%TI=Z%CI=Z%II=I%TS=A)SEQ
+OS:(SP=101%GCD=1%ISR=103%TI=Z%CI=Z%II=I%TS=A)SEQ(SP=102%GCD=1%ISR=102%TI=Z%
+OS:CI=Z%II=I%TS=A)SEQ(SP=FF%GCD=1%ISR=101%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M53CST
+OS:11NW7%O2=M53CST11NW7%O3=M53CNNT11NW7%O4=M53CST11NW7%O5=M53CST11NW7%O6=M5
+OS:3CST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6=FE88)ECN(R=Y%DF=Y%
+OS:T=40%W=FAF0%O=M53CNNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+OS:T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=
+OS:40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0
+OS:%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=1
+OS:64%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 587/tcp)
+HOP RTT      ADDRESS
+1   46.36 ms 10.10.14.1
+2   39.93 ms mailroom.htb (10.10.11.209)
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri Jul 14 21:33:35 2023 -- 1 IP address (1 host up) scanned in 21.40 seconds

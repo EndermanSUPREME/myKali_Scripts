@@ -1,0 +1,11 @@
+Target: http://only4you.htb/
+Total requests: 114441
+==================================================================
+ID    Response   Lines      Word         Chars          Request    
+==================================================================
+00033:  C=200     51 L	     145 W	   2190 Ch	  "beta"
+
+Total time: 0
+Processed Requests: 102848
+Filtered Requests: 102847
+Requests/sec.: 0

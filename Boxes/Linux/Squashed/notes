@@ -1,0 +1,24 @@
+Port scan showed an SSH, HTTP, RPC, and NFS
+
+enum on NFS showed we could pull
+{
+	Export list for 10.10.11.191:
+	/home/ross    *
+	/var/www/html *
+
+}
+
+using sudo mkdir /mnt/dirName we can add a new area for a mount point
+
+using sudo mount /dev/sda1 <mnt folder location> we set the mount
+
+using umount /dev/sda1 we unset it after each use
+
+
+We cannot access the /var/www/html cause it can only be accessed via www-data
+/home/ross can be searched but all we find is a .kdbx file that's version 4 -
+	-> meaning keepass2john cannot be used because it doesnt support v4 cracking
+
+gobuster didn't result in anything
+
+https://www.computersecuritystudent.com/SECURITY_TOOLS/METASPLOITABLE/EXPLOIT/lesson4/index.html -> Shows mount tricks we can use

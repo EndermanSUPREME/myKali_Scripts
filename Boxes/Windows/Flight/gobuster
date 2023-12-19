@@ -1,0 +1,23 @@
+/.htaccess           [33m (Status: 403)[0m [Size: 301]
+/.htpasswd           [33m (Status: 403)[0m [Size: 301]
+/Images              [36m (Status: 301)[0m [Size: 337][34m [--> http://10.10.11.187/Images/][0m
+/aux                 [33m (Status: 403)[0m [Size: 301]
+/cgi-bin/            [33m (Status: 403)[0m [Size: 301]
+/com1                [33m (Status: 403)[0m [Size: 301]
+/com2                [33m (Status: 403)[0m [Size: 301]
+/com3                [33m (Status: 403)[0m [Size: 301]
+/com4                [33m (Status: 403)[0m [Size: 301]
+/con                 [33m (Status: 403)[0m [Size: 301]
+/css                 [36m (Status: 301)[0m [Size: 334][34m [--> http://10.10.11.187/css/][0m
+/examples            [31m (Status: 503)[0m [Size: 401]
+/images              [36m (Status: 301)[0m [Size: 337][34m [--> http://10.10.11.187/images/][0m
+/js                  [36m (Status: 301)[0m [Size: 333][34m [--> http://10.10.11.187/js/][0m
+/licenses            [33m (Status: 403)[0m [Size: 420]
+/lpt1                [33m (Status: 403)[0m [Size: 301]
+/lpt2                [33m (Status: 403)[0m [Size: 301]
+/nul                 [33m (Status: 403)[0m [Size: 301]
+/phpmyadmin          [33m (Status: 403)[0m [Size: 420]
+/prn                 [33m (Status: 403)[0m [Size: 301]
+/server-info         [33m (Status: 403)[0m [Size: 420]
+/server-status       [33m (Status: 403)[0m [Size: 420]
+/webalizer           [33m (Status: 403)[0m [Size: 420]

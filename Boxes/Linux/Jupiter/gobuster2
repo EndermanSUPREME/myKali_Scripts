@@ -1,0 +1,19 @@
+/admin               [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/logout              [36m (Status: 302)[0m [Size: 29][34m [--> /login][0m
+/plugins             [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/login               [32m (Status: 200)[0m [Size: 34390]
+/public              [36m (Status: 302)[0m [Size: 31][34m [--> /public/][0m
+/profile             [36m (Status: 302)[0m [Size: 29][34m [--> /login][0m
+/signup              [32m (Status: 200)[0m [Size: 34390]
+/live                [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/connections         [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/org                 [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/configuration       [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/monitoring          [32m (Status: 200)[0m [Size: 34390]
+/explore             [36m (Status: 302)[0m [Size: 24][34m [--> /][0m
+/verify              [32m (Status: 200)[0m [Size: 34390]
+/styleguide          [32m (Status: 200)[0m [Size: 34390]
+/metrics             [32m (Status: 200)[0m [Size: 111032]
+/playlists           [32m (Status: 200)[0m [Size: 34390]
+/dashboards          [32m (Status: 200)[0m [Size: 34390]
+/datasources         [36m (Status: 302)[0m [Size: 24][34m [--> /][0m

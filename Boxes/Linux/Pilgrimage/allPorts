@@ -1,0 +1,1 @@
+# Nmap 7.94 scan initiated Mon Jul 10 16:50:32 2023 as: nmap -sS -p- -oN allPorts 10.10.11.219

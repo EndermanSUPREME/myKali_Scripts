@@ -1,0 +1,9 @@
+# Nmap 7.92 scan initiated Sat Oct 22 01:39:10 2022 as: nmap -sS -oN nmapOne 10.10.11.182
+Nmap scan report for photobomb.htb (10.10.11.182)
+Host is up (0.23s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+# Nmap done at Sat Oct 22 01:39:13 2022 -- 1 IP address (1 host up) scanned in 3.35 seconds

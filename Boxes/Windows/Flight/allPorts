@@ -1,0 +1,26 @@
+# Nmap 7.93 scan initiated Mon Mar 27 23:32:49 2023 as: nmap -sS -p- -oN allPorts 10.10.11.187
+Nmap scan report for 10.10.11.187
+Host is up (0.043s latency).
+Not shown: 65516 filtered tcp ports (no-response)
+PORT      STATE SERVICE
+53/tcp    open  domain
+80/tcp    open  http
+88/tcp    open  kerberos-sec
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+389/tcp   open  ldap
+445/tcp   open  microsoft-ds
+464/tcp   open  kpasswd5
+593/tcp   open  http-rpc-epmap
+636/tcp   open  ldapssl
+3268/tcp  open  globalcatLDAP
+3269/tcp  open  globalcatLDAPssl
+5985/tcp  open  wsman
+9389/tcp  open  adws
+49667/tcp open  unknown
+49673/tcp open  unknown
+49674/tcp open  unknown
+49694/tcp open  unknown
+49723/tcp open  unknown
+
+# Nmap done at Mon Mar 27 23:35:47 2023 -- 1 IP address (1 host up) scanned in 177.92 seconds

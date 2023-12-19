@@ -1,0 +1,45 @@
+http://shoppy.htb/login
+
+Website uses nginx/1.23.1
+Website login uses Bootstrap v5.1.3
+
+login page is subjectable to injection attack, using admin'||' -> interworkings unknown
+
+JSON OF SHOPPY USERS
+	
+0	
+  _id	"62db0e93d6d6a999a66ee67a"
+  username	"admin"
+  password	"23c6877d9e2b564ef8b32c3a23de27b2"
+1	
+  _id	"62db0e93d6d6a999a66ee67b"
+  username	"josh"
+  password	"6ebcea65320589ca4f2f1ce039975995" -> remembermethisway
+
+using HashCat you can decrypt the password hash (MD5)
+
+You need to Web Enum the Subdomain to uncover more places to go on the system
+
+	Had git clone https://github.com/danielmiessler/SecLists.git The wordlists needed for the box
+
+wfuzz -c -f webEnum.txt -w /usr/share/wordlists/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt -u "http://shoppy.htb/" -H "Host: FUZZ.shoppy.htb"
+
+the wfuzz takes a long time to run through all the entries; but http://mattermost.shoppy.htb/ is declared as an existing subdomain
+
+http://mattermost.shoppy.htb/ -> Mattermost login page
+We can use josh:remembermethisway to login the page
+
+Upon searching, the deployMachine DM Jaeger is the boss/admin and has gifted us a login credential
+
+=====================
+Hey @josh,
+
+For the deploy machine, you can create an account with these creds :
+username: jaeger
+password: Sh0ppyBest@pp!
+And deploy on it. 
+=====================
+
+These credentials allow us to login to the machine via SSH
+
+user -> 581b63fc141f0160d8ce390b131bcb2e

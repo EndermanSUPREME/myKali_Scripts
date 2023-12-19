@@ -1,0 +1,16 @@
+/app/venv/lib/python3.10/site-packages/flask/app.py
+/app/venv/lib/python3.10/site-packages/werkzeug/debug/__init__.py
+/app/venv/lib/python3.10/site-packages/werkzeug/local.py
+/app/venv/lib/python3.10/site-packages/werkzeug/__init__.py
+/app/venv/lib/python3.10/site-packages/werkzeug/console.py
+/app/venv/lib/python3.10/site-packages/flask/templating.py
+/app/venv/lib/python3.10/site-packages/flask_login/utils.py
+/app/venv/lib/python3.10/site-packages/flask_login/login_manager.py
+#
+/etc/machine-id
+/proc/sys/kernel/random/boot_id
+/proc/self/cgroup
+/proc/net/arp
+/sys/class/net/eth0/address
+/sys/class/net/tun0/address
+/etc/environment

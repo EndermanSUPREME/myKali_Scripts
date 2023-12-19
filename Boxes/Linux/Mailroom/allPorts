@@ -1,0 +1,9 @@
+# Nmap 7.94 scan initiated Fri Jul 14 21:44:59 2023 as: nmap -sS -p- -oN allPorts 10.10.11.209
+Nmap scan report for mailroom.htb (10.10.11.209)
+Host is up (0.043s latency).
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+# Nmap done at Fri Jul 14 21:45:18 2023 -- 1 IP address (1 host up) scanned in 19.66 seconds

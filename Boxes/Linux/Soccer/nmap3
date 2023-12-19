@@ -1,0 +1,11 @@
+# Nmap 7.93 scan initiated Wed Dec 28 20:32:44 2022 as: nmap -sS -oN nmap3 soc-player.soccer.htb
+Nmap scan report for soc-player.soccer.htb (10.10.11.194)
+Host is up (0.46s latency).
+rDNS record for 10.10.11.194: soccer.htb
+Not shown: 997 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+9091/tcp open  xmltec-xmlmail
+
+# Nmap done at Wed Dec 28 20:33:03 2022 -- 1 IP address (1 host up) scanned in 19.68 seconds

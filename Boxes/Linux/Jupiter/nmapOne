@@ -1,0 +1,9 @@
+# Nmap 7.93 scan initiated Sun Jun 18 22:03:21 2023 as: nmap -sS -oN nmapOne 10.10.11.216
+Nmap scan report for jupiter.htb (10.10.11.216)
+Host is up (0.39s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+# Nmap done at Sun Jun 18 22:03:24 2023 -- 1 IP address (1 host up) scanned in 2.70 seconds

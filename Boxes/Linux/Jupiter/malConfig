@@ -1,0 +1,34 @@
+{
+        "tleroot": "/root",
+        "tlefile": "root.txt",
+        "mapfile": "/usr/local/share/sattrack/map.json",
+        "texturefile": "/usr/local/share/sattrack/earth.png",
+
+        "tlesources": [
+                "http://celestrak.org/NORAD/elements/weather.txt",
+                "http://celestrak.org/NORAD/elements/noaa.txt",
+                "http://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
+        ],
+
+        "updatePerdiod": 1000,
+
+        "station": {
+                "name": "LORCA",
+                "lat": 37.6725,
+                "lon": -1.5863,
+                "hgt": 335.0
+        },
+
+        "show": [
+        ],
+
+        "columns": [
+                "name",
+                "azel",
+                "dis",
+                "geo",
+                "tab",
+                "pos",
+                "vel"
+        ]
+}

