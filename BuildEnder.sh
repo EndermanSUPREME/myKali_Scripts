@@ -40,11 +40,14 @@ apt install ncurses-hexedit
 wget 'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage' -O Obsidian; chmod +x Obsidian; mv ./Obsidian -t /usr/local/bin
 
 # Install my local bins
-wget https://github.com/EndermanSUPREME/myKali_Scripts/blob/main/setup.py
-python3 setup.py
-mv ./spawnTerminal -t /usr/local/bin/
+wget https://raw.githubusercontent.com/EndermanSUPREME/myKali_Scripts/main/setup.py -O buildSpawnTerminal.py
 
-wget https://github.com/EndermanSUPREME/myKali_Scripts/blob/main/clocksync.sh; chmod +x clocksync.sh; mv ./clocksync.sh /usr/local/bin/clocksync
+wget https://raw.githubusercontent.com/EndermanSUPREME/myKali_Scripts/main/clocksync.sh; chmod +x clocksync.sh; mv ./clocksync.sh /usr/local/bin/clocksync
 
 # Final Updates / Upgrades
 apt update; apt full-upgrade -y
+
+# Final Notes
+clear
+echo '[*] python3 buildSpawnTerminal.py : will need to be Manually ran!'
+echo '[+] VM Established!'
