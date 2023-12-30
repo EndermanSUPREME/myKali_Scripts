@@ -6,8 +6,13 @@ exists()
 }
 
 if [ ! exists ]; then
-  echo "[-] ntpdate not installed on your machine!"
-  sudo apt install ntpdate
+  clear
+  echo "[-] ntpdate not installed on your machine!";
+  sudo apt install ntpdate;
+  sudo apt install hwclock;
+  echo "[+] ntpdate has been installed on your machine!";
+  echo;
+  continue
 fi
 
 # Unsync clock
