@@ -12,26 +12,16 @@ apt update
 
 apt install python3-impacket
 apt install impacket-scripts
-
-# special fork of impacket
-git clone https://github.com/ShutdownRepo/impacket/
-cd impacket
-git checkout getuserspns-nopreauth
-# take new impacket scripts and relocate them
-cp ./examples /usr/share/doc/python3-impacket/examples
-cd ../
-rm -r ./impacket
-
-# normal installs
 apt install crackmapexec
+
+apt install ntpdate
+apt install hwclock
 
 apt install seclists
 mv /usr/share/seclists/ /usr/share/wordlists/Seclists
 
 apt install neo4j
-
 apt update && apt install -y bloodhound
-
 pip install bloodhound impacket ldap3 dnspython
 
 apt install ncurses-hexedit
