@@ -13,6 +13,8 @@ apt update
 apt install python3-impacket
 apt install impacket-scripts
 apt install crackmapexec
+apt install gobuster
+apt install nodejs
 
 apt install ntpdate
 apt install hwclock
