@@ -28,6 +28,9 @@ pip install bloodhound impacket ldap3 dnspython
 
 apt install ncurses-hexedit
 
+apt install ghidra
+apt install gdb
+
 # Install Obsidian
 wget 'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage' -O Obsidian; chmod +x Obsidian; mv ./Obsidian -t /usr/local/bin
 
