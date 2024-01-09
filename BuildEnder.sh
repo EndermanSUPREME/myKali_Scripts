@@ -31,8 +31,12 @@ apt install ncurses-hexedit
 apt install ghidra
 apt install gdb
 
+apt install jq
+
 # Install Obsidian
-wget 'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage' -O Obsidian; chmod +x Obsidian; mv ./Obsidian -t /usr/local/bin
+wget 'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage' -O Obsidian;
+chmod +x Obsidian;
+mv ./Obsidian -t /usr/local/bin
 
 # Install my local bins
 wget https://raw.githubusercontent.com/EndermanSUPREME/myKali_Scripts/main/setup.py -O buildSpawnTerminal.py
