@@ -5,6 +5,15 @@ if [ "$(id -u)" -ne 0 ]; then
         echo "Please run as root." >&2; exit 1;
 fi
 
+# run an input test so if the user wishes for pure automation
+# they can have it set up
+echo "Did you run '#0 < yes'?"
+read yesTest
+
+if [ yesTest != "y" ]; then
+        exit 0;
+fi
+
 # Fresh Install Update
 apt update
 
