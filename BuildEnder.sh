@@ -17,7 +17,8 @@ apt install gobuster
 apt install nodejs
 
 apt install ntpdate
-apt install hwclock
+# Installs hwclock
+apt-get install util-linux
 
 apt install seclists
 mv /usr/share/seclists/ /usr/share/wordlists/Seclists
