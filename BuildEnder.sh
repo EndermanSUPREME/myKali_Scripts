@@ -38,6 +38,9 @@ pip install bloodhound impacket ldap3 dnspython
 
 apt install ncurses-hexedit
 
+// make sure msf console & vemon are updated and ready
+apt install metasploit-framework
+
 apt install ghidra
 apt install gdb
 
