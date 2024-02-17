@@ -28,6 +28,7 @@ apt install nodejs
 apt install ntpdate
 # Installs hwclock
 apt-get install util-linux
+apt install util-linux-extra
 
 apt install seclists
 mv /usr/share/seclists/ /usr/share/wordlists/Seclists
