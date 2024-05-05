@@ -1,0 +1,4 @@
+===showmount -e clicker.htb===
+
+Export list for clicker.htb:
+/mnt/backups *

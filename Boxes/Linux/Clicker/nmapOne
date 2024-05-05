@@ -1,0 +1,11 @@
+# Nmap 7.94 scan initiated Sun Sep 24 13:07:14 2023 as: nmap -sS -oN nmapOne 10.129.142.37
+Nmap scan report for clicker.htb (10.129.142.37)
+Host is up (0.048s latency).
+Not shown: 996 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+111/tcp  open  rpcbind
+2049/tcp open  nfs
+
+# Nmap done at Sun Sep 24 13:07:15 2023 -- 1 IP address (1 host up) scanned in 1.04 seconds

@@ -1,0 +1,44 @@
+contact@devvortex.htb
+info@devvortex.htb
+
+There is a subdom at dev.devvortex.htb
+
+On the subdom there is a login at /administrator
+some kind of Joomla login page --> NOT SQL INJECTABLE
+
+Inside the subdomain there is a lot of stuff to look through, gobuster returns a lot of 301 redirections
+
+Joomla is running v4.2.6 ==> Hacktricks has info on how to enumerator the service
+
+-- 4.2.6 Exploit Search --
+https://vulncheck.com/blog/joomla-for-rce ==> curl command works for leaking the password of a user
+--------------------------
+
+lewis:P4ntherg0t1n5r3c0n## ==> Joomla Credential [NOT SSH]
+
+logan@devvortex.htb
+lewis@devvortex.htb
+
+Possibly using an admin account there may be room for some kind of php rce
+
+https://github.com/p0dalirius/Joomla-webshell-plugin ==> We can download the .zip file and install this plugin inside the site
+gaining us RCE
+
+Now that we are on the box we can sniff around and REMEMBER we have a SQLDB credential!
+Using this we can find Logans hash and crack it with JohnTheRipper
+
+logan@devvortex.htb:tequieromucho [SSH]
+============================================
+Logan can run sudo command on the box, the version of the binary we can execute is `apport-cli 2.20.11`
+Kernel is not exploitable
+
+sudo apport-cli -c /bin/echo less
+We use the -c to give it a path to a binary on the box
+then we use less to allow us to read the large output
+
+Once we get through we are given choices, best thing todo is V to View
+this is because when we go to view we are in some kind of strange area, possible whats called a pager
+the terminal looks almost like VIM or VI, so there is a chance using !sh can allow us to escape and achieve a root shell
+
+This trick works and we can now read root.txt!
+============================================

