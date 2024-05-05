@@ -1,0 +1,32 @@
+Website has an uploads.php where if you give it a zip folder containing
+only 1 file ending in .pdf the site will create its own directory
+where the user can view the pdf file.
+
+In the shop the products ID when set to 0 returns a statement, possible SQLI
+
+Machine Ports 22 and 80 are the only ports open.
+
+zipping a file like shell.php.pdf will be accepted by upload.php
+
+======== LFI Exploit ========
+ln -s /etc/passwd lfi.pdf
+zip --symlinks info.zip  lfi.pdf
+=============================
+
+In the upload.php they are using pathinfo(), since we want to try
+uploading a php while its checking for a pdf file, we can try
+finding any vulns concerning this PHP Function.
+
+http://www.madirish.net/202 --> pathinfo php vuln
+"However, if we append a NULL BYTE in our URL by requesting the URL:
+'test.php?file=index.php%00.jpg' we can easily evade the filter checking."
+
+https://www.thehacker.recipes/web/inputs/null-byte-injection --> Info about Null Byte Injection
+
+We created a malzip.py script that can automate creating our malicious
+zip file, the null-byte vuln basically makes the system drop everything
+after the null-byte, so in our case it turns "shell.php .pdf" into
+shell.php thus giving us RCE on the site!
+
+====================================
+rektsu can run sudo /usr/bin/stock but it prompts for a password

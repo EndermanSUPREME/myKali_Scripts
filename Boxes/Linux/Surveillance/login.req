@@ -1,0 +1,19 @@
+POST /index.php?p=admin%2Factions%2Fusers%2Flogin&v=1702149212527 HTTP/1.1
+Host: surveillance.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
+Accept: application/json, text/plain, */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: http://surveillance.htb/admin/login
+Content-Type: application/json
+X-Requested-With: XMLHttpRequest
+X-Registered-Asset-Bundles: ,craft\web\assets\login\LoginAsset,craft\web\assets\cp\CpAsset,craft\web\assets\tailwindreset\TailwindResetAsset,craft\web\assets\axios\AxiosAsset,craft\web\assets\d3\D3Asset,craft\web\assets\elementresizedetector\ElementResizeDetectorAsset,craft\web\assets\garnish\GarnishAsset,yii\web\JqueryAsset,craft\web\assets\jquerytouchevents\JqueryTouchEventsAsset,craft\web\assets\velocity\VelocityAsset,craft\web\assets\jqueryui\JqueryUiAsset,craft\web\assets\jquerypayment\JqueryPaymentAsset,craft\web\assets\datepickeri18n\DatepickerI18nAsset,craft\web\assets\picturefill\PicturefillAsset,craft\web\assets\selectize\SelectizeAsset,craft\web\assets\fileupload\FileUploadAsset,craft\web\assets\xregexp\XregexpAsset,craft\web\assets\fabric\FabricAsset,craft\web\assets\iframeresizer\IframeResizerAsset
+X-Registered-Js-Files: ,http://surveillance.htb/cpresources/1ee84e9/tailwind_reset.js?v=1697574393,http://surveillance.htb/cpresources/36829225/axios.js?v=1697574393,http://surveillance.htb/cpresources/1086baca/d3.js?v=1697574393,http://surveillance.htb/cpresources/d1a8b721/element-resize-detector.js?v=1697574393,http://surveillance.htb/cpresources/d448a8c9/jquery.js?v=1697574393,http://surveillance.htb/cpresources/82b5dc63/jquery.mobile-events.js?v=1697574393,http://surveillance.htb/cpresources/877101b6/velocity.js?v=1697574393,http://surveillance.htb/cpresources/68d90560/garnish.js?v=1697574393,http://surveillance.htb/cpresources/deaf38df/jquery-ui.js?v=1697574393,http://surveillance.htb/cpresources/82e60301/jquery.payment.js?v=1697574393,http://surveillance.htb/cpresources/bebdd9df/picturefill.js?v=1697574393,http://surveillance.htb/cpresources/6fb3ecb/selectize.js?v=1697574393,http://surveillance.htb/cpresources/c0d4ee74/jquery.fileupload.js?v=1697574393,http://surveillance.htb/cpresources/b50564df/xregexp-all.js?v=1697574393,http://surveillance.htb/cpresources/406b3277/fabric.js?v=1697574393,http://surveillance.htb/cpresources/1be7b37d/iframeResizer.js?v=1697574393,http://surveillance.htb/cpresources/ab39c83/cp.js?v=1697574393,http://surveillance.htb/cpresources/bf6704d6/login.js?v=1697575314
+X-CSRF-Token: 7YcODnBKiQVqavAaXJj6JriGmnTnU8SE1ZWBGMzVYqE1bcX4JKgBR6_9fTZII8o8LV2RIj7w11L9t9ZApTGm8eXStiqlnyDUeF-KmW3pVTU=
+Content-Length: 63
+Origin: http://surveillance.htb
+Connection: close
+Cookie: CraftSessionId=lf8756s0tp1kj79n3mak5gkfg4; CRAFT_CSRF_TOKEN=fcb3c1fe4449c9e242bb2a4369d5dcb7af2791b917f4df5792ddf94fb39d652aa%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A40%3A%22Bzs88iC9G7a8bh-tE1L4Bbbu0G72iJBuM2OaIATr%22%3B%7D
+
+{"loginName":"admin","password":"*","rememberMe":""}
+

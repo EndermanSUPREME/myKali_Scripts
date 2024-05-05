@@ -1,0 +1,19 @@
+/ajax                [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/ajax/][0m
+/api                 [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/api/][0m
+/cgi-bin-live        [31m (Status: 502)[0m [Size: 166]
+/cgi-bin-debug       [31m (Status: 502)[0m [Size: 166]
+/cgi-bin             [31m (Status: 502)[0m [Size: 166]
+/cgi-bin-church      [31m (Status: 502)[0m [Size: 166]
+/cgi-bin2            [31m (Status: 502)[0m [Size: 166]
+/cgi-bin/            [31m (Status: 502)[0m [Size: 166]
+/cgi-bin_ssl         [31m (Status: 502)[0m [Size: 166]
+/css                 [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/css/][0m
+/fonts               [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/fonts/][0m
+/graphics            [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/graphics/][0m
+/includes            [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/includes/][0m
+/js                  [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/js/][0m
+/lang                [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/lang/][0m
+/robots.txt          [32m (Status: 200)[0m [Size: 29]
+/skins               [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/skins/][0m
+/vendor              [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/vendor/][0m
+/views               [36m (Status: 301)[0m [Size: 178][34m [--> http://localhost:8080/views/][0m

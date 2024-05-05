@@ -1,0 +1,9 @@
+# Nmap 7.92 scan initiated Mon Aug 28 13:00:52 2023 as: nmap -sS -oN nmapOne 10.129.244.122
+Nmap scan report for zipping.htb (10.129.244.122)
+Host is up (0.043s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+# Nmap done at Mon Aug 28 13:00:52 2023 -- 1 IP address (1 host up) scanned in 0.90 seconds

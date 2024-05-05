@@ -1,0 +1,34 @@
+The website has a login that didnt patch the default credential
+root:password
+
+Going onto the website logged in as admin, there is a drop down
+on Admin > Users > Select
+
+We can view the details about users such as
+lnorgaard@keeper.htb:Welcome2023! --> SSH Credential
+------------------------------------------------------------
+When we dump out contents of a zip file on the box we find a .dmp file
+and a keepass 2.x file, there is a CVE that lets us dump the masterpass
+from the dmp: https://github.com/CMEPW/keepass-dump-masterkey
+
+When we google one of the passcode possibilities we get rerouted to a danish
+dish called rødgrød med fløde
+
+rødgrød med fløde --> kdbx passcode
+Rødgrød Med Fløde
+Rødgrød med fløde
+
+rodgrod med flode
+Rodgrod Med Flode
+Rodgrod med flode
+Rodgrod med Flode
+
+Using keepassxc to open the kdbx file, we see there is a post
+showing some kind of puttykey, we need to convert this into an
+ssh-key
+
+To convert this ppk to an ssh key we need to:
+    sudo apt-get install putty-tools
+    puttygen *.ppk -O private-openssh -o [output file name]
+    
+Now we can ssh as root on the box!

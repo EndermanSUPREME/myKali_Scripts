@@ -1,0 +1,15 @@
+POST /login/ HTTP/1.1
+Host: drive.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://drive.htb/login/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 128
+Origin: http://drive.htb
+Connection: close
+Cookie: csrftoken=Ly5XYHXsAlL5uCVhYZmmEVWIOAbchf70
+Upgrade-Insecure-Requests: 1
+
+csrfmiddlewaretoken=fb7STBLXyAWDEkfrDIXVn6MwRFcDtmmCQz2FH8yfYLxyYM0yrx97RRy4v5dFArjs&username=*&password=password!12345

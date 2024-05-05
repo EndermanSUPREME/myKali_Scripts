@@ -1,0 +1,18 @@
+/.htaccess           [32m (Status: 200)[0m [Size: 304]
+/admin               [36m (Status: 302)[0m [Size: 0][34m [--> http://surveillance.htb:80/admin/login][0m
+/css                 [36m (Status: 301)[0m [Size: 178][34m [--> http://surveillance.htb/css/][0m
+/fonts               [36m (Status: 301)[0m [Size: 178][34m [--> http://surveillance.htb/fonts/][0m
+/images              [36m (Status: 301)[0m [Size: 178][34m [--> http://surveillance.htb/images/][0m
+/img                 [36m (Status: 301)[0m [Size: 178][34m [--> http://surveillance.htb/img/][0m
+/index               [32m (Status: 200)[0m [Size: 1]
+/js                  [36m (Status: 301)[0m [Size: 178][34m [--> http://surveillance.htb/js/][0m
+/logout              [36m (Status: 302)[0m [Size: 0][34m [--> http://surveillance.htb:80/][0m
+/p13                 [32m (Status: 200)[0m [Size: 16230]
+/p3                  [32m (Status: 200)[0m [Size: 16230]
+/p2                  [32m (Status: 200)[0m [Size: 16230]
+/p15                 [32m (Status: 200)[0m [Size: 16230]
+/p1                  [32m (Status: 200)[0m [Size: 16230]
+/p10                 [32m (Status: 200)[0m [Size: 16230]
+/p5                  [32m (Status: 200)[0m [Size: 16230]
+/p7                  [32m (Status: 200)[0m [Size: 16230]
+/wp-admin            [33m (Status: 418)[0m [Size: 24493]

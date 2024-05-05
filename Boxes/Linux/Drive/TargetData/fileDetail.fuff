@@ -1,0 +1,7 @@
+FUZZ,url,redirectlocation,position,status_code,content_length,content_words,content_lines,content_type,duration,resultfile
+099,706f164,http://drive.htb/099/getFileDetail/,,100,401,26,2,1,application/json,77.51031ms,
+098,706f163,http://drive.htb/098/getFileDetail/,,99,401,26,2,1,application/json,383.29067ms,
+079,706f150,http://drive.htb/079/getFileDetail/,,80,401,26,2,1,application/json,436.000194ms,
+101,706f166,http://drive.htb/101/getFileDetail/,,102,401,26,2,1,application/json,401.154498ms,
+706f165,100,http://drive.htb/100/getFileDetail/,,101,200,5079,1147,172,text/html; charset=utf-8,403.556976ms,
+115,706f174,http://drive.htb/115/getFileDetail/,,116,200,5070,1062,167,text/html; charset=utf-8,387.056005ms,
