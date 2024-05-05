@@ -1,0 +1,35 @@
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[34m[*][0m Windows 10.0 Build 17763 x64 (name:DC01) (domain:manager.htb) (signing:True) (SMBv1:False)
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[32m[+][0m manager.htb\guest: [1m[33m[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[32m[+][0m Brute forcing RIDs
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m498: MANAGER\Enterprise Read-only Domain Controllers (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m500: MANAGER\Administrator (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m501: MANAGER\Guest (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m502: MANAGER\krbtgt (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m512: MANAGER\Domain Admins (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m513: MANAGER\Domain Users (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m514: MANAGER\Domain Guests (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m515: MANAGER\Domain Computers (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m516: MANAGER\Domain Controllers (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m517: MANAGER\Cert Publishers (SidTypeAlias)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m518: MANAGER\Schema Admins (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m519: MANAGER\Enterprise Admins (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m520: MANAGER\Group Policy Creator Owners (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m521: MANAGER\Read-only Domain Controllers (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m522: MANAGER\Cloneable Domain Controllers (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m525: MANAGER\Protected Users (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m526: MANAGER\Key Admins (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m527: MANAGER\Enterprise Key Admins (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m553: MANAGER\RAS and IAS Servers (SidTypeAlias)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m571: MANAGER\Allowed RODC Password Replication Group (SidTypeAlias)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m572: MANAGER\Denied RODC Password Replication Group (SidTypeAlias)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1000: MANAGER\DC01$ (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1101: MANAGER\DnsAdmins (SidTypeAlias)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1102: MANAGER\DnsUpdateProxy (SidTypeGroup)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1103: MANAGER\SQLServer2005SQLBrowserUser$DC01 (SidTypeAlias)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1113: MANAGER\Zhong (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1114: MANAGER\Cheng (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1115: MANAGER\Ryan (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1116: MANAGER\Raven (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1117: MANAGER\JinWoo (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1118: MANAGER\ChinHae (SidTypeUser)[0m
+[1m[34mSMB[0m         10.129.152.42   445    DC01             [1m[33m1119: MANAGER\Operator (SidTypeUser)[0m

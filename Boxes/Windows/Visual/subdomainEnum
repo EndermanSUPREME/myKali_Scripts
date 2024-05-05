@@ -1,0 +1,14 @@
+Target: http://visual.htb/
+Total requests: 114441
+==================================================================
+ID    Response   Lines      Word         Chars          Request    
+==================================================================
+09532:  C=400     10 L	      37 W	    326 Ch	  "#www"
+10581:  C=400     10 L	      37 W	    326 Ch	  "#mail"
+47706:  C=400     10 L	      37 W	    326 Ch	  "#smtp"
+103135:  C=400     10 L	      37 W	    326 Ch	  "#pop3"
+
+Total time: 0
+Processed Requests: 114441
+Filtered Requests: 114437
+Requests/sec.: 0

@@ -1,0 +1,8 @@
+# Nmap 7.94 scan initiated Mon Oct  2 13:05:16 2023 as: nmap -sS -oN nmapOne 10.129.145.158
+Nmap scan report for 10.129.145.158
+Host is up (0.036s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT   STATE SERVICE
+80/tcp open  http
+
+# Nmap done at Mon Oct  2 13:05:20 2023 -- 1 IP address (1 host up) scanned in 4.90 seconds

@@ -1,0 +1,12 @@
+2023/10/22 01:25:04 >  Using KDC(s):
+2023/10/22 01:25:04 >  	manager.htb:88
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Raven@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Administrator@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Operator@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Zhong@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Ryan@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Cheng@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 ChinHae@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 JinWoo@manager.htb
+2023/10/22 01:25:04 >  [+] VALID USERNAME:	 Guest@manager.htb
+2023/10/22 01:25:04 >  Done! Tested 9 usernames (9 valid) in 0.052 seconds

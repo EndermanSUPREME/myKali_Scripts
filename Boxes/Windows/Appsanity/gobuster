@@ -1,0 +1,7 @@
+/Home                [32m (Status: 200)[0m [Size: 32809]
+/error               [32m (Status: 200)[0m [Size: 194]
+/favicon.ico         [32m (Status: 200)[0m [Size: 5430]
+/home                [32m (Status: 200)[0m [Size: 32809]
+/profile             [36m (Status: 302)[0m [Size: 0][34m [--> /Home][0m
+/signin              [32m (Status: 200)[0m [Size: 3792]
+/signup              [32m (Status: 200)[0m [Size: 7847]

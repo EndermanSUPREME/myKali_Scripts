@@ -1,0 +1,421 @@
+
+Description                                                 AppName AppID                                  CommandLine
+-----------                                                 ------- -----                                  -----------
+                                                                    {00021401-0000-0000-C000-000000000046}            
+                                                                    {000C101C-0000-0000-C000-000000000046}            
+User Notification                                                   {0010890e-8789-413c-adbc-48f5b511b3af}            
+PhotoAcquire                                                        {00f22b16-589e-4982-a172-a51d9dcceb68}            
+PhotoAcqHWEventHandler                                              {00f2b433-44e4-4d88-b2b0-2698a0a91dba}            
+TabTip                                                              {01419581-4d63-4d43-ac26-6e2fc976c1f3}            
+                                                                    {01A39A4B-90E2-4EDF-8A1C-DD9E5F526568}            
+lfsvc                                                               {020FB939-2C8B-4DB7-9E90-9527966E38E5}            
+PLA                                                                 {03837503-098b-11d8-9414-505054503030}            
+CTapiLuaLib Class                                                   {03e15b2e-cca6-451c-8fb0-1e2ee37a27dd}            
+InstallServiceUserBroker                                            {0450178e-e3ee-46d8-9130-c0b84f169f53}            
+DevicesFlowExperienceFlow                                           {046AEAD9-5A27-4D3C-8A67-F82552E0A91B}            
+COpenControlPanel                                                   {06622D85-6856-4460-8DE1-A81921B41C4B}            
+%systemroot%\System32\UserAccountControlSettings.dll                {06C792F8-6212-4F39-BF70-E8C0AC965C23}            
+OOBE Bio Enrollment                                                 {0771f7af-8de6-4bce-9528-2d4a12cb8168}            
+sppui                                                               {0868DC9B-D9A2-4f64-9362-133CEA201299}            
+WIA Extension Host for 64 bit extensions                            {08F646B3-5E7F-4B7A-A5CB-F95445F9F67A}            
+PersistentZoneIdentifier                                            {0968e258-16c7-4dba-aa86-462dd61e31a3}            
+Windows Media Player Rich Preview Handler                           {09C5C2B5-1D32-4598-B87E-203F32BB08E3}            
+                                                                    {0A886F29-465A-4aea-8B8E-BE926BFAE83E}            
+AxInstSv                                                            {0B15AFD8-3A99-4A6E-9975-30D66F70BD94}            
+MainController App ID                                               {0B789C73-D8DA-416D-B665-C1603676CEB1}            
+RASDLGLUA                                                           {0C3B05FB-3498-40C3-9C03-4B22D735550C}            
+                                                                    {0CA545C6-37AD-4A6C-BF92-9F7610067EF5}            
+%SystemRoot%\system32\appwiz.cpl                                    {0da7bfdf-c0a0-44eb-be82-b7a82c4721de}            
+MpUx Agent Host                                                     {1111A26D-EF95-4A45-9F55-21E52ADF9887}            
+Sync Center Client                                                  {1202DB60-1DAC-42C5-AED5-1ABDD432248E}            
+Virtual Factory for DiagCpl                                         {12C21EA7-2EB8-4B55-9249-AC243DA8C666}            
+VCBSnapshotProvider                                                 {13390438-AA43-44B5-AEF0-DA857DD05B00}            
+Shell Create Object Task Server                                     {133eac4f-5891-4d04-bada-d84870380a80}            
+Shell Create Object Handler                                         {135fd325-45b7-4c30-89f8-4386961669f0}            
+                                                                    {136A0DC7-DF5C-4271-A2AC-15DF1A1323F2}            
+                                                                    {145B4335-FE2A-4927-A040-7C35AD3180EF}            
+TPM Virtual Smart Card VCard Module Manager                         {150F28F1-49A5-4C28-BE1A-CFA854A1D04B}            
+Remote TPM Virtual Smart Card Manager                               {152EA2A8-70DC-4C59-8B2A-32AA3CA0DCAC}            
+                                                                    {15533488-4A86-4DDA-B82C-DF60F640ADF4}            
+RuntimeBroker                                                       {15c20b67-12e7-4bb6-92bb-7aff07997402}            
+                                                                    {15c653f2-77f1-4cac-9644-656982d12f12}            
+TPM Virtual Smart Card Manager                                      {16A18E86-7F6E-4C20-AD89-4FFC0DB7A96A}            
+Speech Runtime COM                                                  {1725704B-A716-4E04-8EF6-87ED4F0A180A}            
+Immersive TPM Virtual Smart Card Manager                            {19833350-BF9B-42A1-BDF0-BD1FCBE1FD31}            
+                                                                    {19BCA967-D266-436f-B2D4-CBE4D4B42F96}            
+                                                                    {19DF338E-D89E-4894-80D0-9FD4AEDC21A8}            
+Sync Center Control                                                 {1A1F4206-0688-4E7F-BE03-D82EC69DF9A5}            
+GIDS Smart Card Simulator Manager                                   {1AC32B1A-E379-4CAD-B655-F978A30856EC}            
+DebugTargetAdapters Class                                           {1b7778f3-fe54-443c-8729-1e78b0715299}            
+                                                                    {1BA783C1-2A30-4ad3-B928-A9A46C604C28}            
+                                                                    {1BE1F766-5536-11D1-B726-00C04FB926AF}            
+%systemroot%\system32\lpksetup.exe                                  {1C749B87-568C-4865-8E73-6413F8372CE6}            
+rshx32.dll                                                          {1f2e5c40-9550-11ce-99d2-00aa006e086c}            
+ThirdPartyEapDispatcherPeerConfig                                   {1F7D1BE9-7A50-40B6-A605-C4F3696F49C0}            
+Microsoft WMI Provider Subsystem Secured Host                       {1F87137D-0E7C-44d5-8C73-4EFFB68962F2}            
+                                                                    {1fb2a002-4c6c-4de7-85c2-cb8db9a4f728}            
+DetectionAndSharing                                                 {1fda955b-61ff-11da-978c-0008744faab7}            
+ThirdPartyEapDispatcherAuthenticatorConfig                          {1FF84C3B-1140-4EB6-BE38-4BE618D2E7D6}            
+Microsoft Software Protection Platform Admin Object (Inner)         {205609B7-5E08-443E-B0A7-A7AED3F3A717}            
+Microsoft Windows WSMan Provider Host With User Settings            {209444d2-2540-495e-962c-a61ad3243526}            
+MSDAINITIALIZE                                                      {2206CDB0-19C1-11D1-89E0-00C04FD7A829}            
+CortanaExperienceFlow                                               {24AC8F2B-4D4A-4C17-9607-6A4B14068F97}            
+Experimentation Broker                                              {2568BFC5-CDBE-4585-B8AE-C403A2A5B84A}            
+Update Notification Component Com Handler                           {25d6d937-1fa3-4a22-8875-8680943b3f29}            
+Microsoft WBEM Active Scripting Event Consumer Provider             {266C72E7-62E8-11D1-AD89-00C04FD8FDFF}            
+                                                                    {27170d71-7a40-4c8b-a3d1-64f7cbe81c66}            
+IMAPI2                                                              {273541FF-7F64-5B0F-8F00-5D77AFBE261E}            
+WInRTDesktopBroker                                                  {27550CA0-E9DE-4186-A566-37A59BB6CA69}            
+                                                                    {2781761E-28E2-4109-99FE-B9D127C57AFE}            
+netman                                                              {27AF75ED-20D9-11D1-B1CE-00805FC1270E}            
+WalletService                                                       {27D6B72D-094D-445A-9ACE-8298CBA0611A}            
+RasMobilityManager                                                  {292bed96-e9ce-40f8-b71b-c313defa3a78}            
+                                                                    {2A81FE91-95D7-487E-BBF8-B03308E54207}            
+faultrep.dll                                                        {2C256447-3F0D-4CBB-9D12-575BB20CDA0A}            
+                                                                    {2C5BC43E-3369-4C33-AB0C-BE9469677AF4}            
+FileSystemImage                                                     {2C941FD1-975B-59BE-A960-9A2A262853A5}            
+WalletService                                                       {2EA38040-0B9C-4379-87FD-4D38BB892F37}            
+Windows Security Health Service                                     {2EB6D15C-5239-41CF-82FB-353D20B816CF}            
+WaaSMedicSvc                                                        {2ED83BAA-B2FD-43B1-99BF-E6149C622692}            
+DevicesFlow                                                         {2F93C02D-77F9-46B4-95FB-8CBB81EEB62C}            
+ImmersiveShellBrokers                                               {2FD08A73-D1F1-43EB-B888-24C2496F95FD}            
+                                                                    {304CE942-6E39-40D8-943A-B913C40C9CD4}            
+ShellServiceHostBrokerProvider                                      {30AD8C8E-AE85-42FA-B9E8-7E99E3DFBFC5}            
+Identity Store                                                      {30d49246-d217-465f-b00b-ac9ddd652eb7}            
+AuthHost                                                            {31337EC7-5767-11CF-BEAB-00AA006C3606}            
+Immersive Shell                                                     {316CDED5-E4AE-4B15-9113-7055D84DCC97}            
+UiaManagerCrossMachineProxyAppId                                    {31b965c2-d4a3-4d8e-ac40-a76d466cd0b7}            
+Delivery Optimization User                                          {338B40F9-9D68-4B53-A793-6B9AA0C5F63B}            
+Language Components Installer Com Handler                           {33ADC7D5-BAF1-4661-9822-1FD23E63B39F}            
+wpnservice                                                          {34E76A18-223B-4E23-BEAD-F59358CC0A90}            
+                                                                    {354ff91b-5e49-4bdc-a8e6-1cb6c6877182}            
+                                                                    {35b1d3bb-2d4e-4a7c-9af0-f2f677af7c30}            
+TrayAppIdentityResolver                                             {35BC523D-8BE9-496E-8257-026E8B4750FC}            
+CoreDpusSvr                                                         {36234D6F-D9B8-404B-91C9-736BD2EE3040}            
+Windows Push Notification Platform                                  {362cc086-4d81-4824-bbb5-666d34b3197d}            
+TabTip                                                              {36938566-B1AA-4E77-9B3F-730CF4E996AB}            
+Security Health Agent Activate As Activator Host                    {37096FBE-2F09-4FF6-8507-C6E4E1179893}            
+                                                                    {375ff002-dd27-11d9-8f9c-0002b3988e81}            
+Delivery Optimization                                               {379001DE-7108-4A45-8A74-6CD0A9FBEF2C}            
+Microsoft Portable Workspace Launcher                               {37B73D7B-A976-43AE-97E4-BD4977B241F2}            
+                                                                    {38E441FB-3D16-422F-8750-B2DACEC5CEFC}            
+MiracastTestRemoteCommandSender                                     {39214908-5362-44b4-97f4-1aa724d3e0da}            
+                                                                    {3AAE9875-AF81-4221-9B60-8656412C7812}            
+                                                                    {3ad05575-8857-4850-9277-11b85bdb8e09}            
+CortanaMapiHelper                                                   {3BFADDE5-09ED-42AE-8190-2E68B650CFE6}            
+WorkspacePolicyProcessor                                            {3C3F40BC-60EB-4567-B90C-480C87C21AC1}            
+CMLUAUTIL                                                           {3E000D72-A845-4CD9-BD83-80C07C3B881F}            
+Microsoft Windows Remote Shell Host                                 {3e5ca495-8d6a-4d1f-ad99-177b426c8b8e}            
+CMSTPLUA                                                            {3E5FC7F9-9A51-4367-9063-A120244FBEC7}            
+WinInetCacheServer                                                  {3eb3c877-1f16-487c-9050-104dbcd66683}            
+                                                                    {3eef301f-b596-4c0b-bd92-013beafce793}            
+                                                                    {3F4D7BB8-4F38-4526-8CD3-C44D68689C5F}            
+Out Of Proc Mapi Handler                                            {3F5E4B87-C907-4f76-82E4-6FDF0CE90E25}            
+Microsoft Windows WSMan Provider Host                               {3feb2f63-0eec-4b96-84ab-da1307e0117c}            
+HTML Application                                                    {40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}            
+Connected User Store                                                {40AFA0B6-3B2F-4654-8C3F-161DE85CF80E}            
+Core Shell Broker Provider                                          {41928E27-7275-491C-A5A1-4FDC791BF609}            
+EntAppSvc                                                           {42C21DF5-FB58-4102-90E9-96A213DC7CE8}            
+                                                                    {42CBFAA7-A4A7-47BB-B422-BD10E9D02700}            
+AccessibilityCplAdmin                                               {434A6274-C539-4E99-88FC-44206D942775}            
+SPP External COM Object                                             {44831FEC-DC51-4716-A7E1-E898FDF83C85}            
+Thumbnail Extraction Host Class                                     {4545dea0-2dfc-4906-a728-6d986ba399a9}            
+Add to Windows Media Player list                                    {45597c98-80f6-4549-84ff-752cf55e2d29}            
+Application Activation Manager                                      {45BA127D-10A8-46EA-8AB7-56EA9078943C}            
+Set Network Location Elevated Virtual Factory                       {46B988E8-BEC2-401F-A1C5-16C694F26D3E}            
+                                                                    {46C166AA-3108-11D4-9348-00C04F8EEB71}            
+Radio Management Service                                            {478B41E6-3257-4519-BDA8-E971F9843849}            
+ShellServiceHost                                                    {4839DDB7-58C2-48F5-8283-E1D1807D0D7D}            
+IASDataStoreComServer                                               {48da6741-1bf0-4a44-8325-293086c79077}            
+                                                                    {4963f89b-261e-4ffa-ac2e-71a7d5a17071}            
+Microsoft WBEM Unsecured Apartment                                  {49BD2028-1523-11D1-AD79-00C04FD8FDFF}            
+Telephony App Launcher                                              {49EBD8BE-1A92-4A86-A651-70AC565E0FEB}            
+UIAutomationCrossBitnessHook64 Class                                {49f171dd-b51a-40d3-9a6c-52d674cc729d}            
+                                                                    {4A0F9AA8-A71E-4CC3-891B-76CAC67E67C0}            
+RASGCWLUA                                                           {4A6B8BAD-9872-4525-A812-71A52367DC17}            
+VSPerfControl                                                       {4BB62B0D-E403-497E-A99C-207A76E039AA}            
+wercplsupport.dll                                                   {4BC67F23-D805-4384-BCA3-6F1EDFF50E2C}            
+Shell Security Editor                                               {4D111E08-CBF7-4f12-A926-2C7920AF52FC}            
+Microsoft Volume Shadow Copy Service software provider              {4db9c793-c48d-449c-9754-46027ee45c94}            
+COM+ Event System                                                   {4E14FBA2-2E22-11D1-9964-00C04FBBB345}            
+upnpcont.exe                                                        {4F0AC159-5804-4aa7-AE91-117D6E67BB9B}            
+Shell Computer Accounts                                             {4f6bcd94-c2a5-42ce-8dbc-31e794be4630}            
+WkspRT.exe                                                          {4FCDA643-B15B-41C6-84F8-5E447F6F6D25}            
+Security Health Agent Interactive User Host for WDSP only           {4FE95D37-3459-4ECC-AC3E-F7ABBE4E8AED}            
+HomeGroup CPL Advanced Settings Writer                              {50a9ab2a-20f8-4d71-9f32-9fd305b49601}            
+Microsoft Windows Font Folder                                       {50d69d24-961d-4828-9d1c-5f4717f226d1}            
+wuapihost                                                           {50E1C3FD-EC35-490E-9CCF-C68F9AE91919}            
+acppage.dll                                                         {513D916F-2A8E-4F51-AEAB-0CBC76FB1AF8}            
+%systemroot%\system32\intl.cpl                                      {514B5E31-5596-422F-BE58-D804464683B5}            
+                                                                    {515980c3-57fe-4c1e-a561-730dd256ab98}            
+                                                                    {51a1467f-96a2-4b1c-9632-4b4d950fe216}            
+Offline Files Service                                               {52551A19-B337-498d-AE75-2283E29902DE}            
+FsrmPropertiesPropSheet                                             {52FC5917-F4E4-4C78-B469-20E722379F6C}            
+RemoteProxyFactory32 Class                                          {53362C32-A296-4F2D-A2F8-FD984D08340B}            
+RemoteProxyFactory32 Class                                          {53362C64-A296-4F2D-A2F8-FD984D08340B}            
+32-bit Preview Handler Surrogate Host                               {534A1E02-D58F-44f0-B58B-36CBED287C7C}            
+Visual Studio Just-In-Time Debugger (Internal)                      {534E4CF4-3249-4842-8D65-A9BEAE0BBEAC}            
+Virtual Disk Service Loader                                         {5364ED0E-493F-4B16-9DBF-AE486CF22660}            
+LockScreenContentServer Out of Proc Helper for LockScree...         {536AACFB-5238-4314-B4D4-5B0A2E8B968E}            
+ShareFlow                                                           {549e57e9-b362-49d1-b679-b64d510efe4b}            
+ShapeCollector                                                      {56676660-4A4D-45B0-B24E-9CF6B35E9ABF}            
+Volume Shadow Copy Service                                          {56BE716B-2F76-4dfa-8702-67AE10044F0B}            
+Elevated System Settings COM Host                                   {57360832-5F9B-4190-8467-000D2D510212}            
+                                                                    {577289b6-6e75-11df-86f8-18a905160fe0}            
+PrintNotify                                                         {588E10FA-0618-48A1-BE2F-0AD93E899FCC}            
+Authentication UI Terminal Services Bump Dialog                     {59c7f6ec-7d18-412f-a68e-877982768e61}            
+WalletService                                                       {5BC7A3A1-E905-414B-9790-E511346F5CA6}            
+Microsoft Maps Background Transfer Service                          {5C03E1B1-EB13-4DF1-8943-2FE8E7D5F309}            
+PrintBrmEngine                                                      {5C797117-3B23-4549-A6D8-475AB3B62228}            
+WiaWow64                                                            {5E1395B2-B685-44e3-8AED-E2304D85ACD1}            
+                                                                    {5E176815-9A63-4A69-810F-62E90D36612A}            
+Splash screen                                                       {5EAD00DC-0E8B-497C-BDE8-B9153058CBEF}            
+User OOBE Create User Object Server                                 {5f7f3f7b-1177-4d4b-b1db-bc6f671b8f25}            
+                                                                    {60173D16-A550-47f0-A14B-C6F9E4DA0831}            
+UIAutomationCrossBitnessHook32 Class                                {60a90a2f-858d-42af-8929-82be9d99e8a1}            
+wlidcli                                                             {623D5F5E-2F09-427d-8BD7-64495CD9835D}            
+Sync Center (Private)                                               {6295DF2D-35EE-11D1-8707-00C04FD93327}            
+                                                                    {63766597-1825-407D-8752-098F33846F46}            
+                                                                    {63A53A38-004F-489B-BD61-96B5EEFADC04}            
+                                                                    {642ef9d6-48a5-476b-919a-a507cfd02c0f}            
+                                                                    {64bb4bed-73f6-4d74-a048-035b4f63ec98}            
+CoreShellHost                                                       {64D4882D-CB4E-4ea2-95B5-CD77F8ED8AB2}            
+Windows Update Agent                                                {653C5148-4DCE-4905-9CFD-1B23662D3D9E}            
+FwCplLUA                                                            {6571503D-D0FB-4D98-BBC3-1FBB2B3F344E}            
+                                                                    {66eea0f5-001a-4073-a496-783f86fcf4c0}            
+Background Intelligent Transfer Service                             {69AD4AEE-51BE-439b-A92C-86AE490E8B30}            
+Sync Center Isolation Collection (Private)                          {69F9CB25-25E2-4BE1-AB8F-07AA7CB535E8}            
+MsRdpSessionManager                                                 {6B1DE8B3-DFB1-4C0E-9D9A-89CA730DE93F}            
+                                                                    {6CA12EBE-CC14-44E9-A588-565C3F88F3BB}            
+Preview Handler Surrogate Host                                      {6d2b5079-2f0b-48dd-ab7f-97cec514d30b}            
+UPnPContainer                                                       {6d8ff8e0-730d-11d4-bf42-00b0d0118b56}            
+UPnPContainer64                                                     {6d8ff8e8-730d-11d4-bf42-00b0d0118b56}            
+SPPComApi                                                           {6D9A7A40-DDCA-414E-B48E-DFB032C03C1B}            
+TieringEngineService                                                {6DF5BCF4-22E9-446D-8763-A2C7677ECF7D}            
+RSoPProv                                                            {6EBBFC6C-B721-4D10-9371-5D8E8C76D315}            
+HomeGroup UI Status                                                 {6f33340d-8a01-473a-b75f-ded88c8360ce}            
+SEMgrSvc                                                            {6F4B8D94-91FE-4665-B1E7-A34AE3F299F6}            
+IEWindows                                                           {6f5bad87-9d5e-459f-bd03-3957407051ca}            
+EditionUpgradeHelper                                                {6F65B602-F798-4094-8A41-A2A61961E5E8}            
+Windows Insider Service                                             {7006698d-2974-4091-a424-85dd0b909e23}            
+                                                                    {7007ACC5-3202-11D1-AAD2-00805FC1270E}            
+                                                                    {7007ACD1-3202-11D1-AAD2-00805FC1270E}            
+                                                                    {722b3793-5367-4446-b6bb-db89b05c1f24}            
+Sharing Elevated Virtual Factory                                    {72A7994A-3092-4054-B6BE-08FF81AEEFFC}            
+User Profile Service DCOM server                                    {72E3272B-4EEA-4104-B358-1A282E4FC1AD}            
+                                                                    {730BFCEC-E4BF-4D3A-9FBB-01DD132467A4}            
+Microsoft WMI Provider Subsystem Host                               {73E709EA-5D93-4B2E-BBB0-99B7938DA9E4}            
+Trusted Installer Service                                           {752073A2-23F2-4396-85F0-8FDB879ED0ED}            
+                                                                    {7578dea3-a321-4d03-8b60-fc6749ae7385}            
+                                                                    {76be8257-c4c0-4d37-90c0-a23372254d27}            
+                                                                    {76D0CB12-7604-4048-B83C-1005C7DDC503}            
+PrintFilterPipelineSvc                                              {76db1bf3-e820-4765-a1b2-0b16a86b1950}            
+XWizard Virtual Factory                                             {777BA81A-2498-4875-933A-3067DE883070}            
+WebPlatStorageBrokerServer                                          {7966b4d8-4fdc-4126-a10b-39a3209ad251}            
+Network and Sharing Center Cpl Elevated Virtual Factory             {7A076CE1-4B31-452a-A4F1-0304C8738100}            
+Shell FMIFS Wrapper                                                 {7aa7790d-75d7-484b-98a1-3913d022091d}            
+EapThirdPartyDllHost                                                {7B130458-E09C-4823-A8AF-2583DCD9AEC7}            
+Internet Explorer Add-on Installer                                  {7B29F495-0F55-49F7-8885-9E8A22CE3829}            
+Shell Create Object Local Server                                    {7B6EA1D5-03C2-4AE4-B21C-8D0515CC91B7}            
+Microsoft Windows Remote Shell Host With User Settings              {7d378de6-ed8d-426d-91df-0273d07cd7f6}            
+MMC Application Class                                               {7e0423cd-1119-0928-900c-e6d4a52a0715}            
+Security Health Agent Interactive User Host                         {7E55A26D-EF95-4A45-9F55-21E52ADF9887}            
+wisptis                                                             {7F429620-16D1-471E-A81A-114992148034}            
+GPMC Reporting                                                      {7f9bbc82-ba5f-4448-8622-ef76b8d007e6}            
+Authentication UI CredUI Out of Proc Helper for AppConta...         {7FC12E96-4CB7-4ABD-ADAA-EF7845B10629}            
+CFmIfsEngine host                                                   {82D94FB3-7FE6-4797-BB72-9A886C66073B}            
+CustReg Class                                                       {84D586C4-A423-11D2-B943-00C04F79D22F}            
+Virtual Factory for Usercpl                                         {86d5eb8a-859f-4c7b-a76b-2bd819b7a850}            
+                                                                    {86EA8210-D213-4437-A7C8-ADF1188BA1CD}            
+ThirdPartyEapDispatcherPeerRuntime                                  {87BB326B-E4A0-4DE1-94F0-B9F41D0C6059}            
+                                                                    {87df41c9-cb91-4709-849c-f8f3c7058b50}            
+AppReadiness Service                                                {88283d7c-46f4-47d5-8fc2-db0b5cf0cb54}            
+Microsoft Visual Studio 17                                          {884F1404-DFE9-426F-8BCE-3CF851B81436}            
+Activation Manager Shim                                             {8A9AE632-CB07-4A11-8872-358A2A271A24}            
+Desktop Wallpaper Factory                                           {8B30085D-A3E3-44e3-AE7F-B03A1340EBED}            
+                                                                    {8B4B437E-4CAB-4e83-89F6-7F9F7DF414EA}            
+Windows Management and Instrumentation                              {8BC3F05E-D86B-11D0-A075-00C04FB68820}            
+TSTheme                                                             {8be0366c-8522-40be-8b08-cb26557f2854}            
+IASExtensionHost                                                    {8C334A55-DDB9-491C-817E-35A6B85D2ECB}            
+                                                                    {8C482DCE-2644-4419-AEFF-189219F916B9}            
+Microsoft Visual Studio                                             {8CD2DD97-4EC1-4bc4-9359-89A3EEDD57A6}            
+AP Client HxHelpPaneServer Class                                    {8cec58ae-07a1-11d9-b15e-000d56bfe6ee}            
+TiWorker                                                            {8D15A4F3-1BE5-4120-8A4D-2EF92A5DD58D}            
+AppVClient                                                          {8D315960-32C4-4235-8369-901DF222816F}            
+Sync Center Schedule Wizard                                         {8D8B8E30-C451-421B-8553-D2976AFA648C}            
+                                                                    {8DF61FB6-3223-4E2D-8A92-D937DDB0DF4C}            
+WalletService                                                       {8E44A57C-5638-44D3-9B83-34DF70EB57F2}            
+RdpSa                                                               {8e7fae4d-cff0-41d3-a326-5a80470264bb}            
+Shell Computer Groups                                               {8f3080a6-af99-4f2e-a806-f3d5702a0444}            
+Virtual Factory for Recovery                                        {9200689A-F979-4eea-8830-0E1D6B74821F}            
+Authentication UI CredUI Out of Proc Helper for Non-AppC...         {924DC564-16A6-42EB-929A-9A61FA7DA06F}            
+HtmlLocalFileResolver                                               {93AAD2A0-036A-4B11-A078-DA8776B38139}            
+Wwan Service Toast Notification                                     {941C53C2-D2D7-4C74-84EA-28F8F6438D4B}            
+UiaManager                                                          {94a38670-983b-459c-87c8-bb6ad617fd74}            
+PenIMC4v2                                                           {953E4863-7AD1-4DAE-B2BD-108F1D57967B}            
+WebPlatformStorageServer                                            {973d20d7-562d-44b9-b70b-5a0f49ccdf3f}            
+                                                                    {98457147-39B0-4AA0-9735-1CB7F4F6CB0F}            
+PrintIsolationHost                                                  {98a89e0c-1fde-4c2a-a373-b04831e6aa60}            
+Telephony Incoming Call Toast                                       {990F07C7-78DC-4BD2-B145-5F791410BDDE}            
+Shell Hardware Mixed Content Handler                                {995C996E-D918-4a8c-A302-45719A6F4EA7}            
+                                                                    {9aa46009-3ce0-458a-a354-715610a075e6}            
+                                                                    {9af8cd33-7aae-4cc2-b00a-835f6721e3c2}            
+ShellWindows                                                        {9BA05972-F6A8-11CF-A442-00A0C90A8F39}            
+RuntimeBroker                                                       {9CA88EE3-ACB7-47c8-AFC4-AB702511C276}            
+                                                                    {9D73451F-6BFC-47C7-95FB-46598431BC19}            
+timedate.cpl                                                        {9df523b0-a6c0-4ea9-b5f1-f4565c3ac8b8}            
+WSearch                                                             {9E175B9C-F52A-11D8-B9A5-505054503030}            
+WMLSS                                                               {9E88EF3C-E2BB-4E5E-AFBA-565B81069D7D}            
+                                                                    {A0ADD4EC-5BD3-4f70-A47B-07797A45C635}            
+WIA Device Manager                                                  {A1F4E726-8CF1-11D1-BF92-0060081ED811}            
+TrayNotify                                                          {a2b77517-6d12-4c60-b0c6-725e971ec8fe}            
+rundll32.exe                                                        {a2d9ca22-a492-400c-b875-78ac25c0a6f3}            
+Xhr2OOP                                                             {a3a81ee7-be13-4dd8-89f7-26aba705d81d}            
+                                                                    {a463fcb9-6b1c-4e0d-a80b-a2ca7999e25d}            
+Virtual Factory for Windows Defender Firewall Cpl                   {A4B07E49-6567-4FB8-8D39-01920E3B2357}            
+Shell ChkdskEx Dialog                                               {a4c31131-ff70-4984-afd6-0609ced53ad6}            
+DsmAdminApi                                                         {A5065670-136D-4FD6-A45F-00C85B90359C}            
+                                                                    {A531FB88-26CE-4672-9F8E-B2EF88CA17E0}            
+WPDShextAutoplay                                                    {A55803CC-4D53-404c-8557-FD63DBA95D24}            
+Core Shell Service Provider                                         {A67168DB-418E-4087-B63E-852E822BB1ED}            
+WLIDSvc                                                             {A6721677-BA21-44E9-9E2A-76466D24D121}            
+ServiceModule                                                       {A6B716CB-028B-404D-B72C-50E153DD68DA}            
+Virtual Factory for MaintenanceUI                                   {A6BFEA43-501F-456F-A845-983D3AD7B8F0}            
+Microsoft Windows Defender                                          {A79DB36D-6218-48e6-9EC9-DCBA9A39BF0F}            
+SysFxUi                                                             {A7D2EC8B-B70F-434C-A0CE-0DF324805F7D}            
+Core Shell LPAC Broker Provider                                     {A7E84C44-F0C0-44F9-A4F2-68B5EA50B200}            
+                                                                    {AA0B85DA-FDDF-4272-8D1D-FF9B966D75B0}            
+Delivery Optimization Managment                                     {AA65DD7C-83AC-48C0-A6FD-9B61FEBF8800}            
+Core Shell COM Server Registrar                                     {AA8F1F23-D819-4E95-9B36-7FD68D5218F9}            
+                                                                    {AAAF9453-58F9-4872-A428-0507C383AC37}            
+F12AppFrameClient Class                                             {AABAA6AA-5398-4C08-AE60-6321A7F05E9C}            
+QuietHours App ID                                                   {AB7BDC53-0BB5-44F5-9E25-C444313D4686}            
+DEFRAGSVC service                                                   {ab7c873b-eb14-49a6-be60-a602f80e6d22}            
+Thumbnail Cache Out of Proc Server                                  {AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}            
+PaymentsSvc                                                         {AC05815A-A8D5-434B-B9A8-2FFD162F2B7D}            
+WPN Srumon Server                                                   {ada41b3c-c6fd-4a08-8cc1-d6efde67be7d}            
+TrayToastActivator                                                  {AFC732E2-BA57-4B3E-A70A-71371F99B871}            
+                                                                    {b0316d0c-da2f-40e0-9f91-f600caf042dc}            
+WorkspaceBroker Class                                               {B06FF84E-0A77-4DD2-A919-0EABD8979DC1}            
+ThirdPartyEapDispatcherAuthenticatorRuntime                         {B0E28D63-52F6-4E30-992B-78ECF97268E9}            
+TabIps                                                              {B1445657-5A98-11d9-A4E5-00301BB132BA}            
+                                                                    {B1B9CBB2-B198-47E2-8260-9FD629A2B2EC}            
+DockInterface COM server                                            {b21858c6-9711-4257-99c8-5c0084bebce1}            
+Windows Update Agent - Remote Access                                {B366DEBE-645B-43A5-B865-DDD82C345492}            
+Found New Hardware Wizard                                           {B6A32FE6-E29D-AEAE-A608-D273E40CA34C}            
+WIA Device Manager 2                                                {B6C292BC-7C88-41EE-8B54-8EC92617E599}            
+Sync Center (Private)                                               {B8558612-DF5E-4F95-BB81-8E910B327FB2}            
+Windows Media Player                                                {B8C54A54-355E-11D3-83EB-00A0C92A2F2D}            
+ApplicationActivationImpl                                           {B9305506-D05B-4C36-81C5-0E50886C1755}            
+Bluetooth AVCTP Service                                             {B98C6EB5-6AA7-471E-B5C5-D04FD677DB3B}            
+Application Frame Host                                              {B9B05098-3E30-483F-87F7-027CA78DA287}            
+                                                                    {BA126F01-2166-11D1-B1D0-00805FC1270E}            
+Event Object Change 2                                               {BB07BACD-CD56-4E63-A8FF-CBF0355FB9F4}            
+SyncHost                                                            {BBC4356A-F004-4628-A27A-E13D70412B70}            
+Virtual Factory for Power Options Control Panel                     {BBD8C065-5E6C-4e88-BFD7-BE3E6D1C063B}            
+Setting Sync Task Factory                                           {bcbb3f8c-2889-474f-8fb7-904d4a416145}            
+DfsShlEx.dll                                                        {BCEA735B-4DAC-4B71-9C47-1D560AFD2A9B}            
+EditionUpgradeManagerObj                                            {BD54C901-076B-434E-B6C7-17C531F4AB41}            
+VM IC Heartbeat Service                                             {be0fc7f0-f248-4091-a123-34ca29a6901b}            
+Shell AutoPlay Direct                                               {BF8841C9-378A-4CAD-B4FC-5091366CBC0D}            
+ShellBrowserWindow                                                  {c08afd90-f2a1-11d1-8455-00a0c91f3880}            
+LockAppHost Out of Proc Helper for Lock Apps                        {C08B030B-E91C-479D-BEFD-02DDA7FF1BCF}            
+                                                                    {C100BEBB-D33A-4a4b-BF23-BBEF4663D017}            
+DataExchangeHost                                                    {C2E9756F-8155-4EAC-9ED5-0B690169D412}            
+cttunesvr                                                           {C3A34354-660F-41EE-B072-2AEA5E3A80AF}            
+Microsoft IMAPI                                                     {C49F2185-50A7-11D3-9144-00104BA11C5E}            
+EntAppSvc                                                           {C63261E4-6052-41FF-B919-496FECF4C4E5}            
+EmailClient Class                                                   {C6E0A4C8-A933-411E-8068-406C2391665F}            
+TSWbPrxy.exe                                                        {C92A9617-0EAE-4235-BD2B-84540EF1FFA9}            
+DictationHost Class                                                 {C945AD06-534F-460C-8CB4-17C33099AF81}            
+Sync Infrastructure                                                 {C947D50F-378E-4FF6-8835-FCB50305244D}            
+netprofm                                                            {C96887DA-A652-4426-905E-4A37546F847C}            
+editionupgradebroker                                                {C97E2AEF-AB0E-4FA6-BA29-1A1A7CCBA125}            
+RCM                                                                 {C9F65BA8-1F8F-4382-AE27-C91FFB29275F}            
+User OOBE Create Elevated Object Server                             {ca8c87c1-929d-45ba-94db-ef8e6cb346ad}            
+OpenSearch Description Create Search Connector Verb Handler         {CB1DFE3A-EDFF-4d1f-867D-8ADB02926F4B}            
+PrintIsolationSessionHost                                           {CB363445-F453-4C1E-8EE4-BD123C5E394F}            
+EnhancedStorageShell                                                {CC70FEAD-94B9-4F76-88CC-004BB068ACDF}            
+sppui                                                               {CCFDD24D-CEAB-458B-A4F1-F884973395DF}            
+GraphicsPerfSvc                                                     {cd93979b-c14e-4c29-87a4-75e4f9fa5e0a}            
+Windows Media Player Burn Audio CD Handler                          {cdc32574-7521-4124-90c3-8d5605a34933}            
+Elevated-Unelevated Explorer Factory                                {CDCBCFCA-3CDC-436f-A4E2-0E02075250C2}            
+                                                                    {CE0E0BE8-CF56-4577-9577-34CC96AC087C}            
+ServiceModule                                                       {CECDDD22-2E72-4832-9606-A9B0E5E344B2}            
+PNPXAssoc.dll                                                       {cee8ccc9-4f6b-4469-a235-5a22869eef03}            
+Event Object Change                                                 {D0565000-9DF4-11D1-A281-00C04FCA0AA7}            
+Winmgmt MOF Compiler OOP                                            {D215781D-019E-4FA0-903D-0CDCDE13A4F5}            
+Color Management                                                    {D2E7041B-2927-42fb-8E9F-7CE93B6DC937}            
+                                                                    {D3DCB472-7261-43ce-924B-0704BD730D5F}            
+Bitmap Image                                                        {D3E34B21-9D75-101A-8C3D-00AA001A1652}            
+                                                                    {D4872B74-3AFC-47CD-B8A2-9E4F998539BC}            
+Sync Center User Profile Notification Handler                       {D63AA156-D534-4BAC-9BF1-55359CF5EC30}            
+                                                                    {D7FD3B01-2F53-40F5-9B8B-453B6E72998E}            
+Microsoft Software Protection Platform Admin Object (outer)         {D8D4249F-A8FB-44A7-8AA0-564E8C385BD6}            
+                                                                    {DCED8DB0-11A5-4b16-AB9D-4E28CA38C99F}            
+BrowserBrokerServer                                                 {DD9C53BC-8441-4B94-BD0E-36E6E02A6D61}            
+Srumon Server                                                       {ddcfd26b-feed-44cd-b71d-79487d2e5e5a}            
+rundll32.exe                                                        {de5d803e-5d2a-4b5f-9c63-af25a465cc44}            
+AccStore Class                                                      {DE5DBCDC-104A-4cbc-A4D5-0C2104A142C5}            
+LockScreen Call Broker                                              {DE7D3D65-5454-4EF5-9518-776739DAB39F}            
+                                                                    {DF4FCC34-067A-4E0A-8352-4A1A5095346E}            
+Profile Notification Host                                           {E10F6C3A-F1AE-4adc-AA9D-2FE65525666E}            
+                                                                    {E2B3C97F-6AE1-41AC-817A-F6F92166D7DD}            
+Windows Update Agent User Interface for Published Applic...         {e30984f1-b02b-4c27-a40f-23d11b8c1212}            
+Scan                                                                {E32549C4-C2B8-4BCC-90D7-0FC3511092BB}            
+Execute Unknown                                                     {e44e9428-bdbc-4987-a099-40dc8fd255e7}            
+Authentication UI CredUI Out of Proc Helper for Non-AppC...         {E45A56CE-399C-45F0-9E6F-BFAACD3C711F}            
+                                                                    {e4803a36-7232-4ac0-a6af-29d59ebcc303}            
+upnphost                                                            {E495081B-BBA5-4b89-BA3C-3B86A686B87A}            
+                                                                    {e53cd6ee-5c5c-4701-9ff2-c204bfed819d}            
+Visual Studio Just-In-Time Debugger                                 {E62A7A31-6025-408E-87F6-81AEB0DC9347}            
+TrayDesktopBand                                                     {E6442437-6C68-4f52-94DD-2CFED267EFB9}            
+Orchestrator Service                                                {E7299E79-75E5-47BB-A03D-6D319FB7F886}            
+UICOM                                                               {E8054D20-497D-4E16-BF41-6E69FCD381A5}            
+Remove Device elevation surrogate                                   {E95186C7-7D80-4311-843D-0702CBC8B1E4}            
+File Prop Sheet Page Helper                                         {E96767E0-7EAA-45E1-8E7D-64414AFF281A}            
+%systemroot%\System32\UserAccountControlSettings.dll                {EA2C6B24-C590-457B-BAC8-4A0F9B13B5B8}            
+                                                                    {ea7e288b-94c7-4045-bc54-0433a4c87976}            
+Convert VHD                                                         {eae61b75-98d8-4af9-94e6-84b1c6f77c8a}            
+Remote Desktop Services Message Server                              {EB521D7D-4095-4E61-88FB-BF25700F142A}            
+                                                                    {EC9846B3-2762-4A6B-A214-6ACB603462D2}            
+ComEvents.ComServiceEvents                                          {ECABB0C3-7F19-11D2-978E-0000F8757E2A}            
+ComEvents.ComSystemAppEventData                                     {ECABB0C6-7F19-11D2-978E-0000F8757E2A}            
+Play with Windows Media Player                                      {ed1d0fdf-4414-470a-a56d-cfb68623fc58}            
+Windows Media Player Launch                                         {ED6BB178-B06A-47ad-98B3-6066E0CF0147}            
+Share Manager                                                       {edb5f444-cb8d-445a-a523-ec5ab6ea33c7}            
+CloudExperienceHostAppManager                                       {EEABBBC4-12D0-48F4-A9C5-9AB471806C29}            
+CloudExperienceHost Broker AppID                                    {efe2d6d8-a81b-41e7-ae77-e5244ab80522}            
+Microsoft Audio Device Graph Server                                 {F135BE18-BF34-4CBD-B1D5-55D49F0DEDCC}            
+                                                                    {F1425A67-1545-44A2-AB59-8DF1020452D9}            
+                                                                    {F20DA720-C02F-11CE-927B-0800095AE340}            
+AvailableNetworksExperienceFlow                                     {F2506CD7-82C2-43D9-A1D3-F85F5EFE7D09}            
+Virtual Disk Service                                                {F290BFB2-1864-45B1-8804-2654194A87E7}            
+                                                                    {F2DC0F57-0B99-49E3-BE80-936DBAA54EE0}            
+FodHelper                                                           {F2F94BB3-595C-4509-B7EE-243FA2BDEA5B}            
+NDFAPI                                                              {F3D3AA8D-EF96-4470-848E-BD70B803047A}            
+ActivatableApplicationRegistrar                                     {f59bbec1-0907-4464-b04d-1da329585370}            
+Pen Workspace Discover Broker                                       {F5A6ACF4-FFE0-4934-AE1D-5F960EA0AAD9}            
+                                                                    {F72671A9-012C-4725-9D2F-2A4D32D65169}            
+                                                                    {f735e733-d681-4aef-83c1-7ec82cac5ecc}            
+WMPNSSCI                                                            {F74BCE98-9EB4-4022-8317-11C723E5CCF8}            
+Account Manager Service                                             {f7f34f79-6791-4d4e-9f15-9eaecd50bd78}            
+CloudExperienceHost Create System Object Server                     {f7fa3149-91e7-43b7-8040-b707688ced1a}            
+logagent                                                            {F808DF63-6049-11D1-BA20-006097D2898E}            
+WLIDFDP                                                             {F828BB1A-2FAE-4AC4-AE6F-CAC9B529F996}            
+                                                                    {f8842f8e-dafe-4b37-9d38-4e0714a61149}            
+WinInetBrokerServer                                                 {F9717507-6651-4EDB-BFF7-AE615179BCCF}            
+NCLUA                                                               {FA1456D3-4B97-4f9c-8511-2786161DC333}            
+                                                                    {FA3FC5CF-0304-4CAC-99F0-032AC2B15D1E}            
+VssEvent                                                            {FAF53CC4-BD73-4E36-83F1-2B23F46E513E}            
+Shell Hardware Mixed Content Handler Cancelled                      {fb479c02-9ec4-4fed-8599-debe037452cb}            
+                                                                    {FBF23B40-E3F0-101B-8488-00AA003E56F8}            
+RegisterControl                                                     {FC38B7C8-9E50-497d-A387-7DEBDAD14160}            
+appwiz.cpl                                                          {FCC74B77-EC3E-4dd8-A80B-008A702075A9}            
+Wordpad                                                             {fd6c8b29-e936-4a61-8da6-b0c12ad3ba00}            
+                                                                    {ff9e6131-a8c1-4188-aa03-82e9f10a05a8}            
+Shell Execute Hardware Event Handler                                {FFB8655F-81B9-4fce-B89C-9A6BA76D13E7}            
+EntAppSvc                                                           {FFE1E5FE-F1F0-48C8-953E-72BA272F2744}            
+
+
+

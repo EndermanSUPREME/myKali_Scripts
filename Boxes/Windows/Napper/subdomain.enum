@@ -1,0 +1,13 @@
+Target: https://napper.htb/
+Total requests: 114441
+==================================================================
+ID    Response   Lines      Word         Chars          Request    
+==================================================================
+00387:  C=401     29 L	     100 W	   1293 Ch	  "internal"
+09532:  C=400      6 L	      26 W	    334 Ch	  "#www"
+10581:  C=400      6 L	      26 W	    334 Ch	  "#mail"
+
+Total time: 0
+Processed Requests: 13800
+Filtered Requests: 13797
+Requests/sec.: 0

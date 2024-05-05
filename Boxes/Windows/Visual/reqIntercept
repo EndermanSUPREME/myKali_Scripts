@@ -1,0 +1,8 @@
+GET /info/refs?service=git-upload-pack HTTP/1.1
+Host: 10.10.14.166:4444
+User-Agent: git/2.41.0.windows.1
+Accept: */*
+Accept-Encoding: deflate, gzip, br, zstd
+Pragma: no-cache
+Git-Protocol: version=2
+

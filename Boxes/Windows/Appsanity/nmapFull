@@ -1,0 +1,22 @@
+# Nmap 7.94 scan initiated Sat Oct 28 15:24:30 2023 as: nmap -sS -sC -sV -A -oN nmapFull 10.129.153.83
+Nmap scan report for meddigi.htb (10.129.153.83)
+Host is up (0.054s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE VERSION
+80/tcp  open  http    Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Did not follow redirect to https://meddigi.htb/
+443/tcp open  https?
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+No OS matches for host
+Network Distance: 2 hops
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+TRACEROUTE (using port 443/tcp)
+HOP RTT      ADDRESS
+1   55.60 ms 10.10.14.1
+2   58.09 ms meddigi.htb (10.129.153.83)
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Oct 28 15:24:59 2023 -- 1 IP address (1 host up) scanned in 28.90 seconds

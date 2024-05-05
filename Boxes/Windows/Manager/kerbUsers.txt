@@ -1,0 +1,9 @@
+Raven@manager.htb
+Administrator@manager.htb
+Operator@manager.htb
+Zhong@manager.htb
+Ryan@manager.htb
+Cheng@manager.htb
+ChinHae@manager.htb
+JinWoo@manager.htb
+Guest@manager.htb

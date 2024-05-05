@@ -1,0 +1,28 @@
+Certificate Authorities
+  0
+    CA Name                             : manager-DC01-CA
+    DNS Name                            : dc01.manager.htb
+    Certificate Subject                 : CN=manager-DC01-CA, DC=manager, DC=htb
+    Certificate Serial Number           : 5150CE6EC048749448C7390A52F264BB
+    Certificate Validity Start          : 2023-07-27 10:21:05+00:00
+    Certificate Validity End            : 2122-07-27 10:31:04+00:00
+    Web Enrollment                      : Disabled
+    User Specified SAN                  : Disabled
+    Request Disposition                 : Issue
+    Enforce Encryption for Requests     : Enabled
+    Permissions
+      Owner                             : MANAGER.HTB\Administrators
+      Access Rights
+        Enroll                          : MANAGER.HTB\Operator
+                                          MANAGER.HTB\Authenticated Users
+                                          MANAGER.HTB\Raven
+        ManageCertificates              : MANAGER.HTB\Administrators
+                                          MANAGER.HTB\Domain Admins
+                                          MANAGER.HTB\Enterprise Admins
+        ManageCa                        : MANAGER.HTB\Administrators
+                                          MANAGER.HTB\Domain Admins
+                                          MANAGER.HTB\Enterprise Admins
+                                          MANAGER.HTB\Raven
+    [!] Vulnerabilities
+      ESC7                              : 'MANAGER.HTB\\Raven' has dangerous permissions
+Certificate Templates                   : [!] Could not find any certificate templates

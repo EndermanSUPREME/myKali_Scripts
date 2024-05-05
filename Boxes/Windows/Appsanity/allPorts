@@ -1,0 +1,10 @@
+# Nmap 7.94 scan initiated Sat Oct 28 15:25:16 2023 as: nmap -sS -p- -oN allPorts 10.129.153.83
+Nmap scan report for meddigi.htb (10.129.153.83)
+Host is up (0.048s latency).
+Not shown: 65532 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+5985/tcp open  wsman
+
+# Nmap done at Sat Oct 28 15:27:01 2023 -- 1 IP address (1 host up) scanned in 105.65 seconds
