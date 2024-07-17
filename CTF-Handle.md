@@ -27,8 +27,10 @@ For help in automation Python is going to be your best-a-friend!<br>
 ### Side Portions:
 - You may need to perform phishing attacks, `swaks` is a useful phishing command
 - Binary exploiting can occur sometimes, bin-exploiting can sometimes be painful
-- Incase youre dealing with domains where maybe you have password-resets being sent or various other sensitive data, it does not hurt to look into the DNS services being used incase you can perform a takeover to Man-in-the-Middle capture sensitive data
-- MITM Attacks are useful when you know for certain data is being sent from point A -> B and you're able to get in between the connection and feed the data through yourself : `A -> YOU -> B`
+- Incase youre dealing with domains where maybe you have password-resets being sent or various other sensitive data,<br>
+it does not hurt to look into the DNS services being used incase you can perform a takeover to Man-in-the-Middle capture sensitive data
+- MITM Attacks are useful when you know for certain data is being sent from point A -> B and you're able to get in between<br>
+the connection and feed the data through yourself : `A -> YOU -> B`
 - Try many types of payloads concerning LFI, Bypasses, etc. Sometimes Blacklists can be also bypassed
 
 ### You have Credentials?:
@@ -126,17 +128,21 @@ Windows has a lot of direction it can go, Active Directory, LDAP, SMB, Web, etc.
 - GET YOURSELF A METERPRETER SHELL (trust me, it makes life easier)
 - Ensure the shell youre running is using PowerShell!
 - Download tools!
-    * [winpeasany.exe](https://github.com/peass-ng/PEASS-ng)
-    * [SharpHound.exe](https://github.com/BloodHoundAD/SharpHound) Windows LUVZ Active Directory, this will help enumerate this for passing to BloodHound locally : `SharpHounds computers.json breaks bloodhound so don't import it!`
+    * [winpeasany.exe](https://github.com/peass-ng/PEASS-ng) this helps enumerate Windows System information!
+    * [SharpHound.exe](https://github.com/BloodHoundAD/SharpHound) Windows LUVZ Active Directory, this will help<br>
+    enumerate this for passing to BloodHound locally : `SharpHounds computers.json breaks bloodhound so don't import it!`
     * [runascs.exe](https://github.com/antonioCoco/RunasCs) with credentials you can easily get reverse shells from your current reverse shell!
     * [powerview.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1) this opens up many helpful cmdlets
-    * [MIMIKATZ](https://github.com/ParrotSec/mimikatz) keep this under youre belt, with high enough privillieges you can dump helpful things like NTLM hashes for evil-winrm, credentials for runascs.exe, etc
+    * [MIMIKATZ](https://github.com/ParrotSec/mimikatz) keep this under youre belt, with high enough privillieges you can<br>
+    dump helpful things like NTLM hashes for evil-winrm, credentials for runascs.exe, etc
     * Maybe using [Full Powers](https://github.com/itm4n/FullPowers) will let you use cool privillieges
     * Try the [Potatoes](https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer) they can have magical pwning power!
 - Attack Active Directory
-    * Some Accounts you have access to from pwning may have dangerous privs, bloodhound can help explain what the vuln is and how to abuse it, but do try to research what you're doing so you understand what it is you're doing it helps a lot!
+    * Some Accounts you have access to from pwning may have dangerous privs, bloodhound can help explain what the vuln is and<br>
+    how to abuse it, but do try to research what you're doing so you understand what it is you're doing it helps a lot!
     * Lots of times from AD this is how you horizontally move to higher priv users when on the route to pwning Administrator or NT System
-    * `Import-Module .\powerview.ps1; Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "USER"}` this command can sometimes do BloodHounds heavy lifting for you to better exposes vulns, but use all the tools at your disposal!
+    * `Import-Module .\powerview.ps1; Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "USER"}`<br>
+    this command can sometimes do BloodHounds heavy lifting for you to better exposes vulns, but use all the tools at your disposal!
 - Try to enter other users home directories, some users you shell in as may be able to view places you don't expect
 - Downloads and Inspect as much as you can concerning strange files
 - View around the File System, mark down any strange directories found. May come in handy later!
