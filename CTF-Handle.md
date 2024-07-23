@@ -8,6 +8,7 @@ For help in automation Python is going to be your best-a-friend!<br>
 - Interact with every form, button, url, anything interactable
 - Track emails for safe-keeping
 - Run subdomain scans to kind hidden subdomains
+   * Even if a subdomain name seems unlikely, add it and try accessing it!
 - Gobuster to enumerate the website pages for panels: dashboard, admin, etc
 - Gobuster to enumerate a websites possible API
 - Use burpsuite to view headers to determine the technology behind the site
@@ -114,6 +115,8 @@ Windows has a lot of direction it can go, Active Directory, LDAP, SMB, Web, etc.
         * when using that module ensure you set these params: { LHOST, LPORT, PAYLOAD : (must match the options set in msfvenom) }
 - Kali is super cool with the `Impacket-Scripts` there are a bunch of these designed to help exploit Windows Protocols
 - With credentials you can possibly shell inside the system, try running `evil-winrm`
+- Sometimes in CTFs you don't encounter it much, watch for `LDAP Injections` they can help get into logins or dump creds
+- Add any probable subdomain you find, all info you can gather is a big help!
 
 ### SMB looks interesting?:
 - Use `crackmapexec` to help interact using credentials
