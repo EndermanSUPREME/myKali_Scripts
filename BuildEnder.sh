@@ -63,4 +63,6 @@ apt update; apt full-upgrade -y
 # Final Notes
 clear
 echo '[*] python3 buildSpawnTerminal.py : will need to be Manually ran!'
+echo 'To allow Impacket to work properly, ensure you add this line to ~/.bashrc:'
+echo '----> export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages'
 echo '[+] VM Established!'
