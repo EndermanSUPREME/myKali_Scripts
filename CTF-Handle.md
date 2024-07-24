@@ -150,6 +150,7 @@ Windows has a lot of direction it can go, Active Directory, LDAP, SMB, Web, etc.
 - Downloads and Inspect as much as you can concerning strange files
 - View around the File System, mark down any strange directories found. May come in handy later!
 - HackTricks has lots of goodies on how to abuse things!
+- Check the `whoami /priv` if you see `SetImpersonate` this is a dangerous priv! Try using potato priv-escs or even PowerUp!
 
 ### I am stuck with my Shell:
 - You may be using Kali to attack Windows, but this doesn't mean you can use Windows against itself!
