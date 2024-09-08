@@ -24,6 +24,9 @@ pip install bloodhound impacket ldap3 dnspython
 # Make sure msf console & vemon are updated and ready
 apt install -y metasploit-framework ghidra gdb jq
 
+# Install needed items to reconfigure my vim
+# settings in my ~/.vimrc
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 /usr/bin/vim +PlugInstall +qall
 
 # Install Obsidian
