@@ -2,7 +2,8 @@
 
 # Check for root usage
 if [ "$(id -u)" -ne 0 ]; then
-        echo "Please run as root." >&2; exit 1;
+        echo "Please run as root using sudo."
+        exit
 fi
 
 # Fresh Install Update
@@ -16,6 +17,7 @@ apt-get install -y util-linux
 apt install -y util-linux-extra
 
 apt install -y seclists
+rm -rf /usr/share/wordlists/seclists # attempt to delete syslink
 mv /usr/share/seclists/ /usr/share/wordlists/Seclists
 
 apt install -y neo4j bloodhound ncurses-hexedit
@@ -24,21 +26,28 @@ pip install bloodhound impacket ldap3 dnspython
 # Make sure msf console & vemon are updated and ready
 apt install -y metasploit-framework ghidra gdb jq
 
-# Install needed items to reconfigure my vim
-# settings in my ~/.vimrc
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-/usr/bin/vim +PlugInstall +qall
+read -p "Enter a value: " userInput
+
+# prompt about installing specific features
+# such as VIM items and my clocksync binary
+if [ "$userInput" == "y" ]; then
+        # Install needed items to reconfigure my vim
+        # settings in my ~/.vimrc
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        /usr/bin/vim +PlugInstall +qall
+        
+        # Install my local bins
+        curl -O https://raw.githubusercontent.com/EndermanSUPREME/myKali_Scripts/main/clocksync.sh
+        chmod +x clocksync.sh
+        mv ./clocksync.sh /usr/local/bin/clocksync
+fi
 
 # Install Obsidian
-wget 'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage' -O Obsidian;
-chmod +x Obsidian;
+wget 'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage' -O Obsidian
+chmod +x Obsidian
 mv ./Obsidian -t /usr/local/bin
 
-# Install my local bins
-wget https://raw.githubusercontent.com/EndermanSUPREME/myKali_Scripts/main/clocksync.sh; chmod +x clocksync.sh; mv ./clocksync.sh /usr/local/bin/clocksync
-
-# Final Updates / Upgrades
-apt update
+# Perform an Upgrade
 apt full-upgrade -y
 
 echo '[+] VM Established!'
