@@ -26,7 +26,10 @@ pip install bloodhound impacket ldap3 dnspython
 # Make sure msf console & vemon are updated and ready
 apt install -y metasploit-framework ghidra gdb jq
 
-read -p "Enter a value: " userInput
+echo "Do you want to install extra configuration modules?"
+echo "* VIM plugin"
+echo "* clocksync.sh"
+read -p "[y/n]: " userInput
 
 # prompt about installing specific features
 # such as VIM items and my clocksync binary
